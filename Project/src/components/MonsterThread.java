@@ -143,7 +143,7 @@ public class MonsterThread extends Thread{
 						e.printStackTrace();
 					} catch(InterruptedException e) {
 						e.printStackTrace();
-					}
+					} 
 			
     }
 

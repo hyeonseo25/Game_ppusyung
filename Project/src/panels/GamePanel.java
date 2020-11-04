@@ -40,8 +40,9 @@ public class GamePanel extends JPanel{
 	
 	Clip backgroundMusic;
 	
-	ImageIcon backImg = new ImageIcon("images/bg.png");
+	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
 	Image back = backImg.getImage();
+	
 	public static final int field = 900;
 	
 	private int backX=0;
@@ -250,8 +251,8 @@ public class GamePanel extends JPanel{
 		}
 		//패널 전용 스레드
 	public void movebg() {
-		backX -=30;
-		backX2 -=30;
+		backX -=10; //원래는 30
+		backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).m_move(30);	
 		}
