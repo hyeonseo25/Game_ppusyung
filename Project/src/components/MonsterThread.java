@@ -109,7 +109,6 @@ public class MonsterThread extends Thread{
     public void m_remove() {
 				try {
 
-					//System.out.println("m_remove " + Thread.currentThread().getName() + " " + monsterListIdx);
 					for(int i = 0; i < Player.shots.size(); i++) {
 						Shot shot = Player.shots.get(i);
 
@@ -117,20 +116,22 @@ public class MonsterThread extends Thread{
 					
 						int foot = getY() + getImage().getHeight(null);
 	
-						//System.out.println(monsterListIdx + " "+ head + " " + foot);
 						int shotD = shot.getShot_direction();
+						
+						//총알이 오른쪽으로 날아갈때 
 						if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
 								Player.shots.remove(i); //맞은 총알 삭제
 
-								setHp(-50); //몬스터의 체력이 50깎임, 두번 맞으면 hp는 0
+								setHp(-50); 
 						}
 
-						else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() >= shot.getX() && getX() <= player.getX()) {
-								Player.shots.remove(i); //맞은 총알 삭
-								setHp(-50); //몬스터의 체력이 50깎임, 두번 맞으면 hp는 0
+						//총알이 왼쪽으로 날아갈 때 
+						else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
+								Player.shots.remove(i);
+								setHp(-50); 
 								
 							}
-						if(getHp() <= 0 || getX() <= 0) { //hp가 0이 되거나 화면 왼쪽 밖으로 나가면
+						if(getHp() <= 0 || getX() <= 0) { 
 							setImage(null);
 							break;
 							

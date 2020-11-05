@@ -2,6 +2,7 @@ package panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -57,7 +58,10 @@ public class GamePanel extends JPanel{
 	CardLayout cl;
 	Main main;
 	
-
+	public String getTime() {
+		return time.getSeconds() + "초";
+	}
+	
 	public void setBackX(int backX) {
 		this.backX = backX;
 	}
@@ -248,13 +252,16 @@ public class GamePanel extends JPanel{
 				g.drawImage(list.get(i).getImage(), list.get(i).getX(), list.get(i).getY(), this);
 			}
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
+			g.drawString(getTime(), 900, 50); // 타이머 그리기
+
 		}
 		//패널 전용 스레드
 	public void movebg() {
-		backX -=10; //원래는 30
+		backX -=10; 
 		backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
-			monster.getMonsterList().get(i).m_move(30);	
+			monster.getMonsterList().get(i).m_move(20);	
 		}
 		// 이미지가 화면 밖으로 나가면 x축 좌표를 사진 가로 길이로 변환
 		if (backX < -(back.getWidth(null))) {
