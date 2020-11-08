@@ -2,9 +2,11 @@ package panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
@@ -43,6 +45,8 @@ public class GamePanel extends JPanel{
 	
 	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
 	Image back = backImg.getImage();
+	
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static final int field = 900;
 	
@@ -189,9 +193,10 @@ public class GamePanel extends JPanel{
 		if(keyLeft==true) {
 			player.p_moveLeft();
 			
-		}
-		if(keyRight==true) {
-			if(player.getX()>900) { //플레이어가 중간을 넘으면
+		}else if(keyRight==true) {
+			if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
+				player.p_moveRight();
+			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
 				player.p_moveRight(1);//매개변수는 오버로딩된 메서드를 실행 시키기 위함. 그 외 의미 없음
 				movebg();
 			}else {
@@ -259,16 +264,16 @@ public class GamePanel extends JPanel{
 		//패널 전용 스레드
 	public void movebg() {
 		backX -=10; 
-		backX2 -=10;
+		// backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).m_move(20);	
 		}
 		// 이미지가 화면 밖으로 나가면 x축 좌표를 사진 가로 길이로 변환
-		if (backX < -(back.getWidth(null))) {
-			backX = back.getWidth(null)+5;
-		}
-		if(backX2 < -(back.getWidth(null))) {
-			backX2 = back.getWidth(null)+5;
-		}
+//		if (backX < -(back.getWidth(null))) {
+//			backX = back.getWidth(null)+5;
+//		}
+//		if(backX2 < -(back.getWidth(null))) {
+//			backX2 = back.getWidth(null)+5;
+//		}
 	}
 }

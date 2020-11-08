@@ -1,6 +1,8 @@
 package components;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Player {
 	private JPanel mainPanel;
 	private int x;
 	private int y;
+	private int distance = 200;
 	private int hp;
 	private int status; // 캐릭터가 바라보는 방향 : 1=오른쪽, 2=왼쪽
 	private Image image;
@@ -22,6 +25,11 @@ public class Player {
 	private boolean fall = false;
 	private boolean jump = false;
 	Monster monster;
+	
+	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
+	Image back = backImg.getImage();
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+
 	
 	int a[] = new int[5];
 	private Image images[] = {new ImageIcon("images/Player/Player1.png").getImage()
@@ -80,6 +88,12 @@ public class Player {
 	public void setY(int y) {
 		this.y = y;
 	}
+	public int getDistance() {
+		return distance;
+	}
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
 	public int getHp() {
 		return hp;
 	}
@@ -107,6 +121,7 @@ public class Player {
 		cnt++;
 		if(x>0) {
 			x-=15;
+			distance-=15;
 		}else {
 			x=0;
 		}
@@ -118,7 +133,13 @@ public class Player {
 		}
 		setImage(images[cnt]);
 		cnt++;
-		x+=15;
+		if(distance<back.getWidth(null)-130) {
+			x+=15;
+			distance+=15;
+		}else {
+			
+		}
+		
 	}
 	public void p_moveRight(int num) {
 		setStatus(1);
@@ -127,6 +148,7 @@ public class Player {
 		}
 		setImage(images[cnt]);
 		cnt++;
+		distance+=10;
 	}
 	public void stop() {
 		cnt=0;
