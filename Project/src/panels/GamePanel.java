@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -40,7 +41,6 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
-	
 	Clip backgroundMusic;
 	
 	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
@@ -52,6 +52,8 @@ public class GamePanel extends JPanel{
 	
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
+	
+	private int end = back.getWidth(null)-(view.width-1600);
 	
 	Player player;
 	Monster monster;
@@ -189,12 +191,19 @@ public class GamePanel extends JPanel{
 			}
 		});
 	}
-	public void keyCheck() {
+	public void keyCheck() throws InterruptedException {
 		if(keyLeft==true) {
 			player.p_moveLeft();
 			
 		}else if(keyRight==true) {
-			if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
+			if(player.getDistance()>end) {
+				closeMusic();
+				keySpace = false;
+				Sound("music/clearMusic.wav", false);
+				TimeUnit.SECONDS.sleep(3);
+				cl.show(frame.getContentPane(), "clear");
+				frame.requestFocus();
+			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
 				player.p_moveRight();
 			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
 				player.p_moveRight(1);//매개변수는 오버로딩된 메서드를 실행 시키기 위함. 그 외 의미 없음
@@ -211,8 +220,9 @@ public class GamePanel extends JPanel{
 			}
 		}
 		if(keySpace==true) {
-			if (player.isJump() == false) {
+			if (player.isJump() == false && player.isFall() == false && player.getY() + player.getImage().getHeight(null)==field) {
 				player.jump();
+				Sound("music/jumpMusic.wav", false);
 			}
 		}
 	}

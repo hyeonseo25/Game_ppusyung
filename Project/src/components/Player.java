@@ -226,7 +226,7 @@ public class Player {
 				
 				int foot = getY() + image.getHeight(null); // 캐릭터 발 위치 재스캔
 				
-				if(fall == false && jump == false) {
+				if(fall == false && jump == false && foot==field) {
 					setJump(true); // 점프중으로 변경
 					long t1 = Util.getTime(); // 현재시간을 가져온다
 					long t2;
@@ -247,8 +247,8 @@ public class Player {
 							e.printStackTrace();
 						}
 					}
-					jump = false;
 				}
+				jump = false;
 
 			}
 		}).start();
