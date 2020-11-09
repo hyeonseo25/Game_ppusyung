@@ -41,7 +41,7 @@ public class StartPanel extends JPanel{
 		startbt.setBorderPainted(false);
 		startbt.setFocusPainted(false);
 		startbt.setContentAreaFilled(false);
-		startbt.setBounds((view.width/2 - startButton.getWidth(null)/2), 700, startButton.getWidth(null), startButton.getHeight(null));		
+		startbt.setBounds((view.width/2 - startButton.getWidth(null)/2), 800, startButton.getWidth(null), startButton.getHeight(null));		
 		startbt.addMouseListener((MouseListener) o);
 		add(startbt);
 		
@@ -50,7 +50,7 @@ public class StartPanel extends JPanel{
 		rankbt.setBorderPainted(false);
 		rankbt.setFocusPainted(false);
 		rankbt.setContentAreaFilled(false);
-		rankbt.setBounds(1750, 50, rankButton.getWidth(null), rankButton.getHeight(null));
+		rankbt.setBounds(1750, 30, rankButton.getWidth(null), rankButton.getHeight(null));
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
 		
