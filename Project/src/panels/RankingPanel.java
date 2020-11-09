@@ -1,10 +1,15 @@
 package panels;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.ScrollPane;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,47 +21,15 @@ import util.DBConnection;
 
 public class RankingPanel extends JPanel{
 	private JButton replaybt;
+	
+	private ImageIcon backImg = new ImageIcon("images/랭킹패널배경.png");
+	private Image back = backImg.getImage();
+
 
 	public RankingPanel(Object o) {
-		JLabel j1 = new JLabel("랭킹화면");
-		j1.setBounds(0, 0, 200, 100);
-		add(j1);
-		
 
-		//랭킹 테이블 
-		String clname[] = {"점수 ", "이름"};
-		
-		DefaultTableModel model = new DefaultTableModel(clname, 0) { //모델 생성
-			public boolean isCellEditable(int i, int c) { //셀 선택 안되게
-				return false;
-			}
-		};
-		
-		model.addRow(clname); //첫 열 이름 
-		
-		JTable RankingTable = new JTable(model); //테이블 생성하고 model 구조 사용
-		RankingTable.setBounds(800, 200, 200, 200); 
-		RankingTable.setFocusable(false); //포커스 안잡히게
-		RankingTable.setRowSelectionAllowed(false); //열 선택 안되게 
-		
-		JScrollPane scroll = new JScrollPane(RankingTable); //길어지면 스크롤 되게
-		
 
-		DBConnection db = new DBConnection(); //디비 연결
-		String sql = "select * from user order by score DESC"; //score 내림차순으로 정렬
-		
-		try {
-			db.rs = db.stmt.executeQuery(sql);
-			while(db.rs.next()) {
-				Vector<String> record = new Vector();
-				record.add(db.rs.getString("score"));
-				record.add(db.rs.getString("name"));
-				model.addRow(record); //model에 행 추가
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		add(RankingTable);
+
 		
 		replaybt = new JButton();
 		replaybt.setName("ReplayButton");
@@ -66,5 +39,33 @@ public class RankingPanel extends JPanel{
 		add(replaybt);
 		
 		//setBackground(Color.GRAY);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		g.drawImage(back, 0, 0, this);
+		
+		g.setFont(new Font("나눔바른고딕", Font.BOLD, 40));
+		
+		
+		DBConnection db = new DBConnection(); //디비 연결
+		String sql = "select * from user order by score DESC"; //score 내림차순으로 정렬
+		
+		try {
+			db.rs = db.stmt.executeQuery(sql);
+
+			int i = 0;
+			while(db.rs.next() && i < 10) {
+				g.drawString(db.rs.getString("name"), 700, 240 + i * 72);
+				g.drawString(db.rs.getString("score"), 1100, 240 + i * 72);				
+				i++;
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 }
