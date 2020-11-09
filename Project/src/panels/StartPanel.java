@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -17,22 +18,22 @@ public class StartPanel extends JPanel{
 	private JButton exitbt;
 	private JButton rankbt;
 	
+	private ImageIcon backImg = new ImageIcon("images/게임시작화면.png");
+	private Image back = backImg.getImage();
+	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	public StartPanel(Object o) {
 		Image startButton = new ImageIcon("images/button/StartButton.png").getImage();
 		Image rankButton = new ImageIcon("images/button/RankButton.png").getImage();
 		Image exitButton = new ImageIcon("images/button/ExitButton.png").getImage();
+		
 		exitbt = new JButton(new ImageIcon("images/button/ExitButton.png"));
+		exitbt.setName("ExitButton");
 		exitbt.setBorderPainted(false);
 		exitbt.setFocusPainted(false);
 		exitbt.setContentAreaFilled(false);
 		exitbt.setBounds(20, 20, exitButton.getWidth(null), exitButton.getHeight(null));		
 		exitbt.addMouseListener((MouseListener) o);
-		exitbt.addActionListener( new ActionListener(){
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);          
-            }
-        });
 		add(exitbt);
 		
 		startbt = new JButton(new ImageIcon("images/button/StartButton.png"));
@@ -53,6 +54,11 @@ public class StartPanel extends JPanel{
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
 		
-		setBackground(Color.CYAN);
+		
+	}
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(back, 0, 0, this);
 	}
 }
