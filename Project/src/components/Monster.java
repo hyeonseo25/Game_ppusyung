@@ -16,6 +16,7 @@ public class Monster {
 
 	private ArrayList<MonsterThread> monsterList = new ArrayList<>(); //Monster °´Ã¼¸¦ ´ã´Â ArrayList
 	private ArrayList<Shot> shotList;
+	
 	Monster(){ 
 		
 	}
