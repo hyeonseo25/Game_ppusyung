@@ -43,7 +43,7 @@ public class GamePanel extends JPanel{
 	
 	Clip backgroundMusic;
 	
-	private ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
+	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
 	private Image back = backImg.getImage();
 	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();

@@ -26,7 +26,7 @@ public class Player {
 	private boolean jump = false;
 	Monster monster;
 	
-	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
+	ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
 	Image back = backImg.getImage();
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 
