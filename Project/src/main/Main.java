@@ -36,6 +36,7 @@ public class Main extends ListenerAdapter{
 	private void init() {
 		frame = new JFrame();
 		frame.setTitle("뿌슝뿌슝"); // 프로그램 이름 지정
+		frame.setUndecorated(true);
 		frame.setVisible(true); // 창 보이게하기
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // 전체화면
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 엑스버튼을 누르면 종료
