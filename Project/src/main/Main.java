@@ -90,14 +90,15 @@ public class Main extends ListenerAdapter{
 			gameOverPanel.requestFocus(); // 리스너를 gameOver패널에 강제로 줌
 			gamePanel.closeMusic(); // 음악 재생 중지
 			
-		} else if (e.getComponent().getName().equals("ClearButton")) { // ClearButton이라는 이름을 가진 버튼을 눌렀다면
-			cl.show(frame.getContentPane(), "clear"); // clear패널을 카드레이아웃 최상단으로 변경
-			clearPanel.requestFocus(); // 리스너를 clear패널에 강제로 줌	
-			gamePanel.closeMusic(); // 음악 재생 중지
+//		} else if (e.getComponent().getName().equals("ClearButton")) { // ClearButton이라는 이름을 가진 버튼을 눌렀다면
+//			cl.show(frame.getContentPane(), "clear"); // clear패널을 카드레이아웃 최상단으로 변경
+//			clearPanel.requestFocus(); // 리스너를 clear패널에 강제로 줌	
+//			gamePanel.closeMusic(); // 음악 재생 중지
 			
 		} else if (e.getComponent().getName().equals("ReplayButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
 		}
 	}
+	
 }

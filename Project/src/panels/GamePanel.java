@@ -2,9 +2,11 @@ package panels;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
@@ -13,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -38,16 +41,19 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
-	
 	Clip backgroundMusic;
 	
 	ImageIcon backImg = new ImageIcon("images/학교배경반복.png");
 	Image back = backImg.getImage();
 	
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public static final int field = 900;
 	
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
+	
+	private int end = back.getWidth(null)-(view.width-1600);
 	
 	Player player;
 	Monster monster;
@@ -185,13 +191,21 @@ public class GamePanel extends JPanel{
 			}
 		});
 	}
-	public void keyCheck() {
+	public void keyCheck() throws InterruptedException {
 		if(keyLeft==true) {
 			player.p_moveLeft();
 			
-		}
-		if(keyRight==true) {
-			if(player.getX()>900) { //플레이어가 중간을 넘으면
+		}else if(keyRight==true) {
+			if(player.getDistance()>end) {
+				closeMusic();
+				keySpace = false;
+				Sound("music/clearMusic.wav", false);
+				TimeUnit.SECONDS.sleep(3);
+				cl.show(frame.getContentPane(), "clear");
+				frame.requestFocus();
+			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
+				player.p_moveRight();
+			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
 				player.p_moveRight(1);//매개변수는 오버로딩된 메서드를 실행 시키기 위함. 그 외 의미 없음
 				movebg();
 			}else {
@@ -206,8 +220,9 @@ public class GamePanel extends JPanel{
 			}
 		}
 		if(keySpace==true) {
-			if (player.isJump() == false) {
+			if (player.isJump() == false && player.isFall() == false && player.getY() + player.getImage().getHeight(null)==field) {
 				player.jump();
+				Sound("music/jumpMusic.wav", false);
 			}
 		}
 	}
@@ -259,16 +274,16 @@ public class GamePanel extends JPanel{
 		//패널 전용 스레드
 	public void movebg() {
 		backX -=10; 
-		backX2 -=10;
+		// backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).m_move(20);	
 		}
 		// 이미지가 화면 밖으로 나가면 x축 좌표를 사진 가로 길이로 변환
-		if (backX < -(back.getWidth(null))) {
-			backX = back.getWidth(null)+5;
-		}
-		if(backX2 < -(back.getWidth(null))) {
-			backX2 = back.getWidth(null)+5;
-		}
+//		if (backX < -(back.getWidth(null))) {
+//			backX = back.getWidth(null)+5;
+//		}
+//		if(backX2 < -(back.getWidth(null))) {
+//			backX2 = back.getWidth(null)+5;
+//		}
 	}
 }
