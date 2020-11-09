@@ -1,31 +1,58 @@
 package panels;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 public class StartPanel extends JPanel{
 	private JButton startbt;
+	private JButton exitbt;
 	private JButton rankbt;
+	
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	public StartPanel(Object o) {
-		JLabel j1 = new JLabel("게임화면");
-		j1.setBounds(0, 0, 200, 100);
-		add(j1);
-		startbt = new JButton();
+		Image startButton = new ImageIcon("images/button/StartButton.png").getImage();
+		Image rankButton = new ImageIcon("images/button/RankButton.png").getImage();
+		Image exitButton = new ImageIcon("images/button/ExitButton.png").getImage();
+		exitbt = new JButton(new ImageIcon("images/button/ExitButton.png"));
+		exitbt.setBorderPainted(false);
+		exitbt.setFocusPainted(false);
+		exitbt.setContentAreaFilled(false);
+		exitbt.setBounds(20, 20, exitButton.getWidth(null), exitButton.getHeight(null));		
+		exitbt.addMouseListener((MouseListener) o);
+		exitbt.addActionListener( new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);          
+            }
+        });
+		add(exitbt);
+		
+		startbt = new JButton(new ImageIcon("images/button/StartButton.png"));
 		startbt.setName("StartButton");
-		startbt.setText("게임시작");
-		startbt.setBounds(10, 800, 200, 100);
+		startbt.setBorderPainted(false);
+		startbt.setFocusPainted(false);
+		startbt.setContentAreaFilled(false);
+		startbt.setBounds((view.width/2 - startButton.getWidth(null)/2), 700, startButton.getWidth(null), startButton.getHeight(null));		
 		startbt.addMouseListener((MouseListener) o);
 		add(startbt);
 		
-		rankbt = new JButton();
+		rankbt = new JButton(new ImageIcon("images/button/RankButton.png"));
 		rankbt.setName("RankingButton");
-		rankbt.setText("랭킹");
-		rankbt.setBounds(1000, 800, 200, 100);
+		rankbt.setBorderPainted(false);
+		rankbt.setFocusPainted(false);
+		rankbt.setContentAreaFilled(false);
+		rankbt.setBounds(1750, 50, rankButton.getWidth(null), rankButton.getHeight(null));
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
+		
 		setBackground(Color.CYAN);
 	}
 }
