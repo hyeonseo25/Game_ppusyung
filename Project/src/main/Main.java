@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import panels.ClearPanel;
 import panels.GameOverPanel;
@@ -31,6 +32,12 @@ public class Main extends ListenerAdapter{
 	
 	public Main() {
 		init();
+	}
+	public JPanel getGameOverPanel() {
+		return gameOverPanel;
+	}
+	public CardLayout getCl() {
+		return cl;
 	}
 	
 	private void init() {

@@ -66,6 +66,9 @@ public class GamePanel extends JPanel{
 	Main main;
 	
 	public String getTime() {
+		if (Integer.valueOf(time.getSeconds()) <0 ) {
+			main.getCl().show(frame.getContentPane(), "gameover");
+		}
 		return time.getSeconds() + "ÃÊ";
 	}
 	
