@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import components.GunMonster;
 import components.Monster;
 import components.Player;
 import components.Shot;
@@ -259,12 +260,17 @@ public class GamePanel extends JPanel{
 			g.drawImage(back, backX, 0, this);
 			g.drawImage(back, backX2, 0, this);
 			ArrayList<Shot> list = player.getShots();
+			ArrayList<Shot> GunMonster_shotlist = GunMonster.shotList;
 			//monsterList에 있는 monster 객체들을 그림
 			for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				g.drawImage(monster.getMonsterList().get(i).getImage(), monster.getMonsterList().get(i).getX(), monster.getMonsterList().get(i).getY(), this);
 			}
 			for(int i=0; i<list.size();i++) {
 				g.drawImage(list.get(i).getImage(), list.get(i).getX(), list.get(i).getY(), this);
+			}
+			
+			for(int i=0; i<GunMonster_shotlist.size();i++) {
+				g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
 			}
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체

@@ -3,6 +3,7 @@ package components;
 import java.awt.Image;
 import java.nio.channels.InterruptedByTimeoutException;
 import java.util.ArrayList;
+import components.GunMonster;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -32,9 +33,8 @@ public class Monster {
 	}
 	
     public void createMonsters() { //메소드 호출 시 Monster 객체가 배열에 추가
-    	System.out.println("Monster()");
 		monsterList.add(new MonsterThread(1200, 0, 100, "images/monsters/지렁이괴물.gif", player));
-	    monsterList.add(new MonsterThread(2600, 600, 130, "images/monsters/물걸레괴물7x.gif", player));
+	    monsterList.add(new GunMonster(2600, 600, 130, "images/monsters/물걸레괴물7x.gif", player));
 	    monsterList.add(new MonsterThread(3200, 0, 100, "images/monsters/슬라임괴물7x.gif", player));
 	    monsterList.add(new MonsterThread(4100, 600, 100, "images/monsters/책괴물7x.gif", player));	
 	    monsterList.add(new MonsterThread(4500, 600, 100, "images/monsters/날개괴물7x.gif", player));		
