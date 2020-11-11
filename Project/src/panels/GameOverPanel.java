@@ -1,8 +1,12 @@
 package panels;
 
-import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,25 +14,36 @@ import javax.swing.JPanel;
 public class GameOverPanel extends JPanel{
 	private JButton replaybt;
 	private JButton rankbt;
+	
+	private ImageIcon backImg = new ImageIcon("images/게임오버패널배경.png");
+	private Image back = backImg.getImage();
+	
+	Image replaybtn = new ImageIcon("images/button/restartBtn.png").getImage();
+	
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+
 	public GameOverPanel(Object o) {
 		JLabel j1 = new JLabel("게임오버화면");
 		j1.setBounds(0, 0, 200, 100);
 		add(j1);
 		
-		replaybt = new JButton();
+		replaybt = new JButton(new ImageIcon("images/button/restartBtn.png"));
 		replaybt.setName("ReplayButton");
-		replaybt.setText("다시하기");
-		replaybt.setBounds(10, 800, 200, 100);
+		replaybt.setBorderPainted(false);
+		replaybt.setFocusPainted(false);
+		replaybt.setContentAreaFilled(false);
+		replaybt.setBounds((view.width/2 - replaybtn.getWidth(null)/2), 700, replaybtn.getWidth(null), replaybtn.getHeight(null));	
 		replaybt.addMouseListener((MouseListener) o);
 		add(replaybt);
 		
-		rankbt = new JButton();
-		rankbt.setName("RankingButton");
-		rankbt.setText("랭킹");
-		rankbt.setBounds(1000, 800, 200, 100);
-		rankbt.addMouseListener((MouseListener) o);
-		add(rankbt);
 		
-		setBackground(Color.GREEN);
 	}
+
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		g.drawImage(back, 0, 0, this);
+	}
+	
+	
 }

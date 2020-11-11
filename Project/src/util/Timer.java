@@ -19,6 +19,7 @@ public class Timer extends Thread{
 	}
 	
 	public Timer() {
+		
 		setSeconds(120);
 	}
 	

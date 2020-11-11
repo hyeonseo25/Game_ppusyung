@@ -56,6 +56,8 @@ public class GamePanel extends JPanel{
 	
 	private int end = back.getWidth(null)-(view.width-1600);
 	
+	private String endTime; //게임 클리어 시간
+	
 	Player player;
 	Monster monster;
 	util.Timer time;
@@ -68,8 +70,17 @@ public class GamePanel extends JPanel{
 	public String getTime() {
 		if (Integer.valueOf(time.getSeconds()) <0 ) {
 			main.getCl().show(frame.getContentPane(), "gameover");
+			setEndTime("0");
 		}
 		return time.getSeconds() + "초";
+	}
+	
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	
+	public String getEndTime() {
+		return this.endTime;
 	}
 	
 	public void setBackX(int backX) {
@@ -207,6 +218,7 @@ public class GamePanel extends JPanel{
 				TimeUnit.SECONDS.sleep(3);
 				cl.show(frame.getContentPane(), "clear");
 				frame.requestFocus();
+				setEndTime(getTime()); //게임 클리어 시간
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
 				player.p_moveRight();
 			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
