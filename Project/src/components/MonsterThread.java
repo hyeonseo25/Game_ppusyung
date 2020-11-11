@@ -95,7 +95,20 @@ public class MonsterThread extends Thread{
 	
 
     public void m_hit() {
-    	player.damaged(200);
+    	try {
+    		if((player.getY() < getY() + getImage().getHeight(null) && getY() < player.getY() + player.getImage().getHeight(null)) 
+					&& (player.getX() < getX() + getImage().getWidth(null) && getX() < player.getX() + player.getImage().getWidth(null))) {
+    			if(player.getInvincibility()==255) {
+        			player.damaged(200);
+        		}else {
+        			
+        		}
+    		}
+    		
+    	}catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
     }
     
     
@@ -104,6 +117,7 @@ public class MonsterThread extends Thread{
 					if(flag==false) {
 						m_remove();
 						m_move();
+						m_hit();
 					}
 					try {
 						Thread.sleep(30);

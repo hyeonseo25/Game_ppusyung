@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -19,6 +20,7 @@ public class Player {
 	private int distance = 200;
 	private int hp=1000;
 	private int status; // 캐릭터가 바라보는 방향 : 1=오른쪽, 2=왼쪽
+	private int invincibility = 255;
 	private int score=0;
 	private Image image;
 	public static ArrayList<Shot> shots = new ArrayList<Shot>();
@@ -88,6 +90,13 @@ public class Player {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public int getInvincibility() {
+		return invincibility;
+	}
+	public void setInvincibility(int invincibility) {
+		this.invincibility = invincibility;
 	}
 	public int getDistance() {
 		return distance;
@@ -170,8 +179,28 @@ public class Player {
 		shots.add(new Shot(mainPanel, x+50, y+15, status));
 
 	}
-	public void damaged(int damage) {
-		this.hp -= damage;
+	public void damaged(int damage) throws InterruptedException {
+		if(invincibility==80) {
+			
+		}else {
+			invincibility=80;
+			this.hp -= damage;
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(3000);
+						invincibility=255;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}).start();
+			
+		}
+		
 		
 	}
 	public void fall() {
@@ -269,6 +298,7 @@ public class Player {
 		setX(200);
 		setY(600);
 		setScore(0);
+		setInvincibility(255);
 		setStatus(1);
 		setImage(new ImageIcon("images/Player/Player1.png").getImage());
 	}
