@@ -268,6 +268,7 @@ public class Player {
 		this.mainPanel = main;
 		setX(200);
 		setY(600);
+		setScore(0);
 		setStatus(1);
 		setImage(new ImageIcon("images/Player/Player1.png").getImage());
 	}

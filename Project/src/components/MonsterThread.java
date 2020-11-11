@@ -16,6 +16,7 @@ public class MonsterThread extends Thread{
 	private double speed = 4;
 	private int hp;
 	private Image images;
+	private boolean status = false; // 생존여부
 	private boolean fall = false;
 	private boolean jump = false;
 	private boolean flag = false;
@@ -28,6 +29,7 @@ public class MonsterThread extends Thread{
 		setX(x);
 		setY(y);
 		setHp(hp);
+		setStatus(true);
 		setImage(Image);
 		fall();
 		this.player = player;
@@ -65,6 +67,12 @@ public class MonsterThread extends Thread{
 	}
 	public void setFall(boolean fall) {
 		this.fall = fall;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	public boolean isJump() {
 		return jump;
@@ -132,10 +140,10 @@ public class MonsterThread extends Thread{
 								
 							}
 						if(getHp() <= 0 || getX() <= 0) { 
-							//if(this.images!=null) {
-							//	player.setScore(player.getScore()+200);
-							//}
-							//System.out.println(this.images);
+							if(isStatus()==true) {
+								player.setScore(player.getScore()+200);
+							}
+							setStatus(false);
 							setImage(null);
 							break;
 							

@@ -73,7 +73,9 @@ public class GamePanel extends JPanel{
 		}
 		return time.getSeconds() + "초";
 	}
-	
+	public String getScore() {
+		return Integer.toString(player.getScore()) + "점";
+	}
 	public void setBackX(int backX) {
 		this.backX = backX;
 	}
@@ -244,7 +246,6 @@ public class GamePanel extends JPanel{
 					repaint();
 					
 					try {
-						//score.setText(Integer.toString(player.getScore())+"");
 						keyCheck();
 						if(cnt<5) {
 							cnt++; // 총알에 딜레이
@@ -282,6 +283,7 @@ public class GamePanel extends JPanel{
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
+			g.drawString(getScore(), 1500, 50); // 타이머 그리기
 
 		}
 		//패널 전용 스레드
