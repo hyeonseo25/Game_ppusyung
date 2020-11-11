@@ -210,7 +210,6 @@ public class MonsterThread extends Thread{
 			}
 		}).start();
 	}
-	
 
 }
 

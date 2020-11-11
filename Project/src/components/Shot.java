@@ -21,6 +21,15 @@ public class Shot {
 		setImage(new ImageIcon("images/총알.png").getImage());
 		s_move();
 	}
+	
+	//몬스터 shot
+	public Shot(int x, int y, int status) { //status 1:오른쪽으로, 2:왼쪽으로 총알 이동
+		this.x = x+20;
+		this.y = y+70;
+		setShot_direction(status);
+		setImage(new ImageIcon("images/총알.png").getImage());
+		s_move();
+	}
 	public int getX() {
 		return x;
 	}
