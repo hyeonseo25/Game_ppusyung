@@ -87,7 +87,7 @@ public class MonsterThread extends Thread{
 	
 
     public void m_hit() {
-    	
+    	player.damaged(200);
     }
     
     
@@ -132,6 +132,10 @@ public class MonsterThread extends Thread{
 								
 							}
 						if(getHp() <= 0 || getX() <= 0) { 
+							//if(this.images!=null) {
+							//	player.setScore(player.getScore()+200);
+							//}
+							//System.out.println(this.images);
 							setImage(null);
 							break;
 							

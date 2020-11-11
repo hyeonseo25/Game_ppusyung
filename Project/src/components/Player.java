@@ -17,8 +17,9 @@ public class Player {
 	private int x;
 	private int y;
 	private int distance = 200;
-	private int hp;
+	private int hp=1000;
 	private int status; // 캐릭터가 바라보는 방향 : 1=오른쪽, 2=왼쪽
+	private int score=0;
 	private Image image;
 	public static ArrayList<Shot> shots = new ArrayList<Shot>();
 	private int cnt = 0;
@@ -100,6 +101,12 @@ public class Player {
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	public int getStatus() {
 		return status;
 	}
@@ -162,6 +169,10 @@ public class Player {
 	public void p_hit() {
 		shots.add(new Shot(mainPanel, x+50, y+15, status));
 
+	}
+	public void damaged(int damage) {
+		this.hp -= damage;
+		
 	}
 	public void fall() {
 		

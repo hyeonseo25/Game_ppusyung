@@ -41,6 +41,8 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
+	JLabel score = new JLabel("");
+	
 	Clip backgroundMusic;
 	
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
@@ -88,6 +90,8 @@ public class GamePanel extends JPanel{
 		this.frame = frame;
 		this.cl = cl;
 		this.main = (Main)o;
+		score.setBounds(0, 0, 200, 100);
+		add(score);
 		test(); // 고치면 삭제
 		playGame();
 	}
@@ -110,9 +114,6 @@ public class GamePanel extends JPanel{
 	private void test() {
 		JButton gameoverbt;
 		JButton clearbt;
-		JLabel j1 = new JLabel("게임화면");
-		j1.setBounds(0, 0, 200, 100);
-		add(j1);
 		
 		gameoverbt = new JButton();
 		gameoverbt.setName("GameoverButton");
@@ -235,8 +236,11 @@ public class GamePanel extends JPanel{
 				// TODO Auto-generated method stub
 				while(true) {
 					
+					
 					repaint();
+					
 					try {
+						//score.setText(Integer.toString(player.getScore())+"");
 						keyCheck();
 						if(cnt<5) {
 							cnt++; // 총알에 딜레이
