@@ -42,8 +42,6 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
-	JLabel score = new JLabel("");
-	
 	Clip backgroundMusic;
 	
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
@@ -96,8 +94,6 @@ public class GamePanel extends JPanel{
 		this.frame = frame;
 		this.cl = cl;
 		this.main = (Main)o;
-		score.setBounds(0, 0, 200, 100);
-		add(score);
 		test(); // 고치면 삭제
 		playGame();
 	}
