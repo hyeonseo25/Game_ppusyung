@@ -32,6 +32,7 @@ import components.Monster;
 import components.Player;
 import components.Shot;
 import main.Main;
+import util.DBConnection;
 
 public class GamePanel extends JPanel{
 	
@@ -53,6 +54,8 @@ public class GamePanel extends JPanel{
 	
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
+	private String endTime; //게임 클리어 시간
+
 	
 	private int end = back.getWidth(null)-(view.width-1600);
 	
@@ -64,6 +67,7 @@ public class GamePanel extends JPanel{
 	JFrame frame;
 	CardLayout cl;
 	Main main;
+	ClearPanel clearPanel;
 	
 	public String getTime() {
 		if (Integer.valueOf(time.getSeconds()) <0 ) {
@@ -73,6 +77,18 @@ public class GamePanel extends JPanel{
 	}
 	public String getScore() {
 		return Integer.toString(player.getScore()) + "점";
+	}
+	
+	public String getScore1() {
+		return Integer.toString(player.getScore());
+	}
+	
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getEndTime() {
+		return this.endTime;
 	}
 	public void setBackX(int backX) {
 		this.backX = backX;
@@ -206,6 +222,7 @@ public class GamePanel extends JPanel{
 				TimeUnit.SECONDS.sleep(3);
 				cl.show(frame.getContentPane(), "clear");
 				frame.requestFocus();
+				setEndTime(getTime()); //게임 클리어 시간
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
 				player.p_moveRight();
 			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면

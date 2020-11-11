@@ -25,30 +25,22 @@ public class DBConnection {
 			conn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
 			stmt = conn.createStatement();
 			
-//			String sql;
-//			sql = "SELECT * FROM user";
-//			rs = stmt.executeQuery(sql);
-			
-			//rs.close();
-			//stmt.close();
-			//conn.close();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
-//			try {
-//				if(stmt != null) {
-//					stmt.close();
-//				}
-//			} catch(SQLException e) {
-//				e.printStackTrace();
-//			}
-//			try {
-//				if(conn != null) {
-//					conn.close();
-//				}
-//			} catch(SQLException e) {
-//				e.printStackTrace();
-//			}
+
+		}
+	}
+	
+	public void insertDB(String name, String score) {
+		String SQL = "insert into user (name, score) values ('"+ name + "', '" + score + "');"; 
+			
+		try {
+			stmt.executeUpdate(SQL);
+		
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
