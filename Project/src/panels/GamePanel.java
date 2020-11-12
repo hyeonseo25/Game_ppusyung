@@ -1,10 +1,11 @@
 package panels;
 
+import java.awt.AlphaComposite;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -14,13 +15,11 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,7 +58,7 @@ public class GamePanel extends JPanel{
 	
 	private int end = back.getWidth(null)-(view.width-1600);
 	
-	Player player;
+	Player player = new Player(this);
 	Monster monster;
 	util.Timer time;
 	
@@ -71,24 +70,16 @@ public class GamePanel extends JPanel{
 	
 	public String getTime() {
 		if (Integer.valueOf(time.getSeconds()) <0 ) {
-			main.getCl().show(frame.getContentPane(), "gameover");
+			gameOver();
 		}
 		return time.getSeconds() + "초";
 	}
 	public String getScore() {
 		return Integer.toString(player.getScore()) + "점";
 	}
-	
-	public String getScore1() {
-		return Integer.toString(player.getScore());
-	}
-	
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
 
-	public String getEndTime() {
-		return this.endTime;
+	public int getHp() {
+		return player.getHp();
 	}
 	public void setBackX(int backX) {
 		this.backX = backX;
@@ -263,6 +254,10 @@ public class GamePanel extends JPanel{
 						if(cnt<5) {
 							cnt++; // 총알에 딜레이
 						}
+						if(player.getHp()<=0) {
+							gameOver();	
+							break;
+						}
 						Thread.sleep(40);
 					} catch(Exception e) {
 						e.printStackTrace();
@@ -274,12 +269,10 @@ public class GamePanel extends JPanel{
 		}).start();
 	}
 	//패널에 그리기
-		@Override
 		public void paintComponent(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paintComponent(g);
 			g.drawImage(back, backX, 0, this);
-			g.drawImage(back, backX2, 0, this);
 			ArrayList<Shot> list = player.getShots();
 			ArrayList<Shot> GunMonster_shotlist = GunMonster.shotList;
 			//monsterList에 있는 monster 객체들을 그림
@@ -290,14 +283,19 @@ public class GamePanel extends JPanel{
 				g.drawImage(list.get(i).getImage(), list.get(i).getX(), list.get(i).getY(), this);
 			}
 			
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) player.getInvincibility()/255));
+			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
 			for(int i=0; i<GunMonster_shotlist.size();i++) {
 				g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
 			}
-			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
-			g.drawString(getScore(), 1500, 50); // 타이머 그리기
-
+			g.drawString(Integer.toString(getHp()), 1300, 50); // 타이머 그리기
+			g.drawString(getScore(), 1500, 50); // 점수 그리기
+			
 		}
 		//패널 전용 스레드
 	public void movebg() {
@@ -313,5 +311,12 @@ public class GamePanel extends JPanel{
 //		if(backX2 < -(back.getWidth(null))) {
 //			backX2 = back.getWidth(null)+5;
 //		}
+	}
+	public void gameOver() {
+		closeMusic();
+		keySpace = false;
+		Sound("music/clearMusic.wav", false);
+		cl.show(frame.getContentPane(), "gameover");
+		frame.requestFocus();
 	}
 }
