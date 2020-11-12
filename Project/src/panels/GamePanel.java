@@ -74,6 +74,18 @@ public class GamePanel extends JPanel{
 		}
 		return time.getSeconds() + "√ ";
 	}
+	
+	public String getScore1() {
+		return Integer.toString(player.getScore());
+	}
+	
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getEndTime() {
+		return this.endTime;
+	}
 	public String getScore() {
 		return Integer.toString(player.getScore()) + "¡°";
 	}

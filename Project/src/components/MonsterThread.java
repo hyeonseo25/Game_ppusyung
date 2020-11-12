@@ -153,7 +153,7 @@ public class MonsterThread extends Thread{
 								setHp(-50); 
 								
 							}
-						if(getHp() <= 0 || getX() <= 0) { 
+						if(getHp() <= 0) { 
 							if(isStatus()==true) {
 								player.setScore(player.getScore()+200);
 							}
