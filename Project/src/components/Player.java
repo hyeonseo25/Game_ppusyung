@@ -190,7 +190,15 @@ public class Player {
 				@Override
 				public void run() {
 					try {
-						Thread.sleep(3000);
+						Thread.sleep(500);
+						invincibility=254;
+						Thread.sleep(500);
+						invincibility=80;
+						Thread.sleep(500);
+						invincibility=254;
+						Thread.sleep(500);
+						invincibility=80;
+						Thread.sleep(500);
 						invincibility=255;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
