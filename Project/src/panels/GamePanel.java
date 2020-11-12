@@ -305,7 +305,7 @@ public class GamePanel extends JPanel{
 			
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
-			g.drawString(Integer.toString(getHp()), 1300, 50); // 타이머 그리기
+			g.drawString("HP:" +Integer.toString(getHp()), 1300, 50); // 타이머 그리기
 			g.drawString(getScore(), 1500, 50); // 점수 그리기
 			
 		}
