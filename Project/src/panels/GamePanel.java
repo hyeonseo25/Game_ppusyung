@@ -327,7 +327,7 @@ public class GamePanel extends JPanel{
 	public void gameOver() {
 		closeMusic();
 		keySpace = false;
-		Sound("music/clearMusic.wav", false);
+		Sound("music/die.wav", false);
 		cl.show(frame.getContentPane(), "gameover");
 		frame.requestFocus();
 	}
