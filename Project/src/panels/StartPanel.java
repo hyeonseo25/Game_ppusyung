@@ -18,7 +18,7 @@ public class StartPanel extends JPanel{
 	private JButton exitbt;
 	private JButton rankbt;
 	
-	private ImageIcon backImg = new ImageIcon("images/게임시작화면.png");
+	private ImageIcon backImg = new ImageIcon("images/시작패널배경.png");
 	private Image back = backImg.getImage();
 	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();

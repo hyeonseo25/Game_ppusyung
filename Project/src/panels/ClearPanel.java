@@ -32,10 +32,6 @@ public class ClearPanel extends JPanel{
 	}
 
 	public ClearPanel(Object o){
-		JLabel j1 = new JLabel("클리어화면");
-		j1.setBounds(0, 0, 200, 100);
-		add(j1);
-		
 		replaybt = new JButton();
 		replaybt.setName("ReplayButton");
 		replaybt.setText("다시하기");

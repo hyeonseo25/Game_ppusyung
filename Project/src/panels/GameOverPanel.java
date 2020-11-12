@@ -23,9 +23,6 @@ public class GameOverPanel extends JPanel{
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public GameOverPanel(Object o) {
-		JLabel j1 = new JLabel("게임오버화면");
-		j1.setBounds(0, 0, 200, 100);
-		add(j1);
 		
 		replaybt = new JButton(new ImageIcon("images/button/restartBtn.png"));
 		replaybt.setName("ReplayButton");
