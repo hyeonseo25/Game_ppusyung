@@ -24,6 +24,10 @@ public class MonsterThread extends Thread{
 	Player player;
 	Monster monster;
 	
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+	
 
 	public MonsterThread(int x, int y, int hp, String Image, Player player) {
 		setX(x);
@@ -115,10 +119,10 @@ public class MonsterThread extends Thread{
     public void run() {
 				while(true) {
 					if(flag==false) {
-						m_remove();
 						m_move();
-						m_hit();
 					}
+					m_remove();
+					m_hit();
 					try {
 						Thread.sleep(30);
 					} catch(Exception e) {
