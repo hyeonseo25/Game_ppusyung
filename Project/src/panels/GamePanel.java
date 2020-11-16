@@ -42,7 +42,7 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
-	Clip backgroundMusic;
+	private Clip backgroundMusic;
 	
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
 	private Image back = backImg.getImage();
@@ -330,8 +330,15 @@ public class GamePanel extends JPanel{
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).setPlayer(null);
 		}
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
 		cl.show(frame.getContentPane(), "gameover");
+		main.getGameOverPanel().playMusic();
 		frame.requestFocus();
 	}
 }
