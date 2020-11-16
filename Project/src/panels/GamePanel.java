@@ -56,7 +56,7 @@ public class GamePanel extends JPanel{
 	private String endTime; //게임 클리어 시간
 
 	
-	private int end = 200;//back.getWidth(null)-(view.width-1600);
+	private int end = back.getWidth(null)-(view.width-1600);
 	
 	Player player = new Player(this);
 	Monster monster;
@@ -286,7 +286,7 @@ public class GamePanel extends JPanel{
 			super.paintComponent(g);
 			g.drawImage(back, backX, 0, this);
 			ArrayList<Shot> list = player.getShots();
-			//ArrayList<Shot> GunMonster_shotlist = GunMonster.shotList;
+			ArrayList<Shot> GunMonster_shotlist = GunMonster.shotList;
 			//monsterList에 있는 monster 객체들을 그림
 			for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				g.drawImage(monster.getMonsterList().get(i).getImage(), monster.getMonsterList().get(i).getX(), monster.getMonsterList().get(i).getY(), this);
@@ -299,9 +299,9 @@ public class GamePanel extends JPanel{
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) player.getInvincibility()/255));
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
-			//for(int i=0; i<GunMonster_shotlist.size();i++) {
-			//	g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
-			//}
+			for(int i=0; i<GunMonster_shotlist.size();i++) {
+				g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
+			}
 			
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기

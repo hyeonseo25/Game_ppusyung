@@ -117,12 +117,17 @@ public class MonsterThread extends Thread{
     
     
     public void run() {
+    	
 				while(true) {
 					if(flag==false) {
 						m_move();
 					}
 					m_remove();
-					m_hit();
+					if(isStatus()==true) {
+						m_hit();
+					}
+					if(isStatus()==false)
+						break;
 					try {
 						Thread.sleep(30);
 					} catch(Exception e) {
