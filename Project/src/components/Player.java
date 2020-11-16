@@ -185,9 +185,7 @@ public class Player {
 
 	}
 	public void damaged(int damage) throws InterruptedException {
-		if(invincibility==80) {
-			
-		}else {
+		if(invincibility==255) {
 			Sound("music/ouch.wav", false);
 			invincibility=80;
 			this.hp -= damage;
@@ -212,7 +210,9 @@ public class Player {
 					}
 				}
 			}).start();
-			
+
+		}else {
+						
 		}
 		
 		

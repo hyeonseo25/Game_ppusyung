@@ -151,7 +151,6 @@ public class GamePanel extends JPanel{
 		add(clearbt);
 	}
 	private void playGame() {
-		
 		setFocusable(true);
 		repaintThread();
 		initListener();
@@ -223,6 +222,7 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
+				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간
@@ -316,18 +316,15 @@ public class GamePanel extends JPanel{
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).m_move(20);	
 		}
-		// 이미지가 화면 밖으로 나가면 x축 좌표를 사진 가로 길이로 변환
-//		if (backX < -(back.getWidth(null))) {
-//			backX = back.getWidth(null)+5;
-//		}
-//		if(backX2 < -(back.getWidth(null))) {
-//			backX2 = back.getWidth(null)+5;
-//		}
 	}
 	public void gameOver() {
 		closeMusic();
 		keySpace = false;
 		Sound("music/die.wav", false);
+		for (int i = 0; i < monster.getMonsterList().size(); i++) {
+			monster.getMonsterList().get(i).setPlayer(null);
+		}
+		frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
 		cl.show(frame.getContentPane(), "gameover");
 		frame.requestFocus();
 	}
