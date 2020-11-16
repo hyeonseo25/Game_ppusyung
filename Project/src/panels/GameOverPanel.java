@@ -5,7 +5,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,6 +23,8 @@ public class GameOverPanel extends JPanel{
 	private Image back = backImg.getImage();
 	
 	Image replaybtn = new ImageIcon("images/button/restartBtn.png").getImage();
+	
+	private Clip backgroundMusic;
 	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -41,6 +47,20 @@ public class GameOverPanel extends JPanel{
 		super.paintComponent(g);
 		g.drawImage(back, 0, 0, this);
 	}
-	
+	public void playMusic() {
+		 try {
+			 File file = new File("music/GameOverMusic.wav");
+			 AudioInputStream stream = AudioSystem.getAudioInputStream(file);
+			 backgroundMusic = AudioSystem.getClip();
+			 backgroundMusic.open(stream);
+			 backgroundMusic.start();
+			 backgroundMusic.loop(-1);
+	     } catch(Exception e) {
+	    	 e.printStackTrace();
+	     }	
+	}
+	public void closeMusic() {
+		backgroundMusic.close();
+	}
 	
 }

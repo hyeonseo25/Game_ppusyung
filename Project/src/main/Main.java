@@ -36,6 +36,9 @@ public class Main extends ListenerAdapter{
 	public ClearPanel getClearPanel() {
 		return clearPanel;
 	}
+	public GameOverPanel getGameOverPanel() {
+		return gameOverPanel;
+	}
 	public CardLayout getCl() {
 		return cl;
 	}
@@ -81,6 +84,7 @@ public class Main extends ListenerAdapter{
 	public void mousePressed(MouseEvent e) { // mouseClicked로 변경가능
 			
 		if (e.getComponent().getName().equals("StartButton")) { // StartButton이라는 이름을 가진 버튼을 눌렀다면
+			startPanel.closeMusic();
 			frame.getContentPane().remove(gamePanel); // 방금 했던 게임 패널을 프레임에서 삭제
 			gamePanel = new GamePanel(this, frame, cl); // 새 게임 패널 생성
 			gamePanel.setLayout(null);
@@ -88,8 +92,8 @@ public class Main extends ListenerAdapter{
 			frame.getContentPane().add(gamePanel, "game");
 			cl.show(frame.getContentPane(), "game"); // game패널을 카드레이아웃 최상단으로 변경
 			gamePanel.requestFocus(); // 리스너를 game패널에 강제로 줌
-			
 		} else if (e.getComponent().getName().equals("RankingButton")) { // RankingButton이라는 이름을 가진 버튼을 눌렀다면
+			startPanel.closeMusic();
 			cl.show(frame.getContentPane(), "ranking"); // ranking패널을 카드레이아웃 최상단으로 변경
 			rankingPanel.requestFocus(); // 리스너를 ranking패널에 강제로 줌
 			
@@ -104,7 +108,11 @@ public class Main extends ListenerAdapter{
 			gamePanel.closeMusic(); // 음악 재생 중지
 			
 		} else if (e.getComponent().getName().equals("ReplayButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
+			//if(e.getComponent().toString().contains("gameover")) {
+				gameOverPanel.closeMusic();
+			//}
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
+			startPanel.playMusic();
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
 		} else if (e.getComponent().getName().equals("ExitButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			System.exit(0); 
