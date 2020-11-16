@@ -198,7 +198,12 @@ public class GamePanel extends JPanel{
 				case KeyEvent.VK_A: keyLeft = true; break;
 				case KeyEvent.VK_D: keyRight = true; break;
 				case KeyEvent.VK_ENTER: keyEnter = true; break;
-				case KeyEvent.VK_SPACE: keySpace = true;break;
+				case KeyEvent.VK_SPACE: 
+					if(player.getCountJump() < 2) {
+						player.jump();
+						Sound("music/jumpMusic.wav", false);
+					}
+					keySpace = true; break;
 				}
 			}
 			@Override
@@ -243,10 +248,7 @@ public class GamePanel extends JPanel{
 			}
 		}
 		if(keySpace==true) {
-			if (player.isJump() == false && player.isFall() == false && player.getY() + player.getImage().getHeight(null)==field) {
-				player.jump();
-				Sound("music/jumpMusic.wav", false);
-			}
+			
 		}
 	}
 	//몬스터가 움직임

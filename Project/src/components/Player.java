@@ -32,6 +32,7 @@ public class Player {
 	private int cnt = 0;
 	private boolean fall = false;
 	private boolean jump = false;
+	private int countJump = 0;
 	Monster monster;
 	
 	ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
@@ -76,6 +77,12 @@ public class Player {
 	}
 	public void setJump(boolean jump) {
 		this.jump = jump;
+	}
+	public int getCountJump() {
+		return countJump;
+	}
+	public void setCountJump(int countJump) {
+		this.countJump = countJump;
 	}
 	public ArrayList<Shot> getShots() {
 		
@@ -234,7 +241,6 @@ public class Player {
 
 						setFall(true); // 떨어지는 중으로 전환
 
-
 						long t1 = Util.getTime(); // 현재시간을 가져온다
 						long t2;
 						int set = 1; // 처음 낙하량 (0~10) 까지 테스트해보자
@@ -253,6 +259,10 @@ public class Player {
 
 							setY(getY() + fallY); // Y좌표에 낙하량을 더한다
 
+							if (isJump()) { // 떨어지다가 점프를 하면 낙하중지
+								break;
+							}
+
 							try {
 								Thread.sleep(10);
 							} catch (InterruptedException e) {
@@ -262,6 +272,9 @@ public class Player {
 						}
 						setFall(false);
 
+						if (!isJump()) { // 발이 땅에 닿고 점프 중이 아닐 때 더블점프 카운트를 0으로 변경
+							setCountJump(0);
+						}
 					}
 					try {
 						Thread.sleep(10);
@@ -277,32 +290,40 @@ public class Player {
 
 			@Override
 			public void run() {
-				
-				int foot = getY() + image.getHeight(null); // 캐릭터 발 위치 재스캔
-				
-				if(fall == false && jump == false && foot==field) {
-					setJump(true); // 점프중으로 변경
-					long t1 = Util.getTime(); // 현재시간을 가져온다
-					long t2;
-					int set = 12; // 점프 계수 설정(0~20) 등으로 바꿔보자
-					int jumpY = 1; // 1이상으로만 설정하면 된다.(while문 조건 때문)
 
-					while (jumpY >= 0) { // 상승 높이가 0일때까지 반복
+				setCountJump(getCountJump() + 1); // 점프 횟수 증가
 
-						t2 = Util.getTime() - t1; // 지금 시간에서 t1을 뺀다
+				int nowJump = getCountJump(); // 이번점프가 점프인지 더블점프인지 저장
 
-						jumpY = set - (int) ((t2) / 40); // jumpY 를 세팅한다.
+				setJump(true); // 점프중으로 변경
 
-						setY(getY() - jumpY); // Y값을 변경한다.
+				long t1 = Util.getTime(); // 현재시간을 가져온다
+				long t2;
+				int set = 10; // 점프 계수 설정(0~20) 등으로 바꿔보자
+				int jumpY = 1; // 1이상으로만 설정하면 된다.(while문 조건 때문)
 
-						try {
-							Thread.sleep(10);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+				while (jumpY >= 0) { // 상승 높이가 0일때까지 반복
+
+					t2 = Util.getTime() - t1; // 지금 시간에서 t1을 뺀다
+
+					jumpY = set - (int) ((t2) / 40); // jumpY 를 세팅한다.
+
+					setY(getY() - jumpY); // Y값을 변경한다.
+
+					if (nowJump != getCountJump()) { // 점프가 한번 더되면 첫번째 점프는 멈춘다.
+						break;
+					}
+
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
 					}
 				}
-				jump = false;
+
+				if (nowJump == getCountJump()) { // 점프가 진짜 끝났을 때를 확인
+					setJump(false); // 점프상태를 false로 변경
+				}
 
 			}
 		}).start();
