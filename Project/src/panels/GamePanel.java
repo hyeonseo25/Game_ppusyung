@@ -229,6 +229,9 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
+				for (int i = 0; i < monster.getMonsterList().size(); i++) {
+					monster.getMonsterList().get(i).setPlayer(null);
+				}
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
 				frame.requestFocus();
