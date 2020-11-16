@@ -47,6 +47,9 @@ public class GamePanel extends JPanel{
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
 	private Image back = backImg.getImage();
 	
+	private ImageIcon hpImg = new ImageIcon("images/HP.png");
+	private Image hp = hpImg.getImage();
+	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	public static final int field = 900;
@@ -304,10 +307,11 @@ public class GamePanel extends JPanel{
 			for(int i=0; i<GunMonster_shotlist.size();i++) {
 				g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
 			}
-			
+			for(int i=0; i<player.getHp()/200; i++) {
+				g.drawImage(hp, 10+i*70, 10, this);
+			}
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
-			g.drawString("HP:" +Integer.toString(getHp()), 1300, 50); // 타이머 그리기
 			g.drawString(getScore(), 1500, 50); // 점수 그리기
 			
 		}
