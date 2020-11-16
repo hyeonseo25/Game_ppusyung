@@ -33,8 +33,8 @@ public class Main extends ListenerAdapter{
 	public Main() {
 		init();
 	}
-	public JPanel getGameOverPanel() {
-		return gameOverPanel;
+	public ClearPanel getClearPanel() {
+		return clearPanel;
 	}
 	public CardLayout getCl() {
 		return cl;

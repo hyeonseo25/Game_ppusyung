@@ -56,7 +56,7 @@ public class GamePanel extends JPanel{
 	private String endTime; //게임 클리어 시간
 
 	
-	private int end = back.getWidth(null)-(view.width-1600);
+	private int end = 200;//back.getWidth(null)-(view.width-1600);
 	
 	Player player = new Player(this);
 	Monster monster;
@@ -222,6 +222,7 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
+				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간

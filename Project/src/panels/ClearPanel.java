@@ -20,7 +20,7 @@ public class ClearPanel extends JPanel{
 	private JButton applybt;
 	private JLabel scoreLabel;
 	private String scoreText;
-	
+	private int score; // 플레이어 점수
 	
 	
 	public String getScoreText() {
@@ -29,6 +29,10 @@ public class ClearPanel extends JPanel{
 
 	public void setScoreText(String scoreText) {
 		this.scoreText = scoreText;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public ClearPanel(Object o){
