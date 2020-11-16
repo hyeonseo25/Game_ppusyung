@@ -57,7 +57,6 @@ public class GamePanel extends JPanel{
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
 	private String endTime; //게임 클리어 시간
-
 	
 	private int end = back.getWidth(null)-(view.width-1600);
 	

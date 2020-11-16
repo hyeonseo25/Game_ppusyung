@@ -37,7 +37,7 @@ public class ClearPanel extends JPanel{
 
 	public ClearPanel(Object o){
 		replaybt = new JButton();
-		replaybt.setName("ReplayButton");
+		replaybt.setName("ReplayButton2");
 		replaybt.setText("다시하기");
 		replaybt.setBounds(10, 800, 200, 100);
 		replaybt.addMouseListener((MouseListener) o);
