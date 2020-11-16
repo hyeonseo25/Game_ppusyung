@@ -86,7 +86,7 @@ public class MonsterThread extends Thread{
 	}
 	
 	void m_move() {
-		x-=8;
+			x-=8;	
 	}
 	public void m_move(int x) {
 		flag=true;
