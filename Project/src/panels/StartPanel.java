@@ -56,7 +56,7 @@ public class StartPanel extends JPanel{
 		rankbt.setBorderPainted(false);
 		rankbt.setFocusPainted(false);
 		rankbt.setContentAreaFilled(false);
-		rankbt.setBounds(1750, 30, rankButton.getWidth(null), rankButton.getHeight(null));
+		rankbt.setBounds(1750, 20, rankButton.getWidth(null), rankButton.getHeight(null));
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
 		
