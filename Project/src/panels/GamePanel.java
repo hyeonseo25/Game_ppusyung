@@ -296,7 +296,7 @@ public class GamePanel extends JPanel{
 			super.paintComponent(g);
 			g.drawImage(back, backX, 0, this);
 			ArrayList<Shot> list = player.getShots();
-			ArrayList<Shot> GunMonster_shotlist = GunMonster.shotList;
+			ArrayList<Shot> GunMonster_shotlist = GunMonster.GunShotList;
 			//monsterList에 있는 monster 객체들을 그림
 			for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				g.drawImage(monster.getMonsterList().get(i).getImage(), monster.getMonsterList().get(i).getX(), monster.getMonsterList().get(i).getY(), this);

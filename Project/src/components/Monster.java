@@ -38,7 +38,7 @@ public class Monster {
 	    monsterList.add(new GunMonster(2600, 600, 130, "images/monsters/¹°°É·¹±«¹°7x.gif", player));
 	    monsterList.add(new MonsterThread(3200, 0, 100, "images/monsters/½½¶óÀÓ±«¹°1.gif", player));
 	    monsterList.add(new MonsterThread(4100, 600, 100, "images/monsters/Ã¥±«¹°7x.gif", player));	
-	    monsterList.add(new GunMonster(4500, 600, 100, "images/monsters/³¯°³±«¹°7x.gif", player));		
+	    monsterList.add(new MonsterThread(4500, 600, 100, "images/monsters/³¯°³±«¹°7x.gif", player));		
 	    monsterList.add(new MonsterThread(5600, 600, 100, "images/monsters/½½¶óÀÓ±«¹°1x4.gif", player));		
 	    monsterList.add(new MonsterThread(7500, 600, 100, "images/monsters/Ã¥±«¹°.gif", player));		
 	    monsterList.add(new MonsterThread(9600, 600, 100, "images/monsters/³ë¶õ»ö½½¶óÀÓ±«¹°1x4.gif", player));		

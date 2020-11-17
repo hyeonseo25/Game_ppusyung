@@ -10,7 +10,7 @@ import panels.GamePanel;
 
 // 총 쏘는 몬스터
 public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
-	public static ArrayList<Shot> shotList = new ArrayList<Shot>();
+	public static ArrayList<Shot> GunShotList = new ArrayList<Shot>();
 	private GamePanel mainPanel;
 	private String Image;
 
@@ -22,11 +22,11 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 	}
 
 	public ArrayList<Shot> getShotList() {
-		return shotList;
+		return GunShotList;
 	}
 
-	public void setShotList(ArrayList<Shot> shotList) {
-		this.shotList = shotList;
+	public void setShotList(ArrayList<Shot> GunShotList) {
+		this.GunShotList = GunShotList;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 			@Override
 			public void run() {
 				while(isStatus() == true) {
-					shotList.add(new Shot(getX()+50, getY()+15, 2));
+					GunShotList.add(new Shot(getX()+50, getY()+15, 2));
 					try {
 						
 						Thread.sleep(2000); //2초에 한번 쏘도록 설정

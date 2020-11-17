@@ -374,6 +374,7 @@ public class Player {
 		setInvincibility(255);
 		setStatus(1);
 		shots.clear();
+		GunMonster.GunShotList.clear();
 		setImage(new ImageIcon("images/Player/Player1.png").getImage());
 	}
 }
