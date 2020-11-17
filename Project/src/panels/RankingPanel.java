@@ -21,7 +21,7 @@ public class RankingPanel extends JPanel{
 
 	public RankingPanel(Object o) {
 		replaybt = new JButton();
-		replaybt.setName("ReplayButton2");
+		replaybt.setName("ReplayButton");
 		replaybt.setText("처음으로");
 		replaybt.setBounds(10, 800, 200, 100);
 		replaybt.addMouseListener((MouseListener) o);

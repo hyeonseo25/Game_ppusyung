@@ -85,7 +85,6 @@ public class Player {
 		this.countJump = countJump;
 	}
 	public ArrayList<Shot> getShots() {
-		
 		return shots;
 	}
 	public void setShots(ArrayList<Shot> shots) {
@@ -352,6 +351,7 @@ public class Player {
 		setScore(0);
 		setInvincibility(255);
 		setStatus(1);
+		shots.clear();
 		setImage(new ImageIcon("images/Player/Player1.png").getImage());
 	}
 }

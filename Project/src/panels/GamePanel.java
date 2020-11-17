@@ -229,11 +229,12 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
-				for (int i = 0; i < monster.getMonsterList().size(); i++) {
-					monster.getMonsterList().get(i).setPlayer(null);
-				}
+				//for (int i = 0; i < monster.getMonsterList().size(); i++) {
+				//	monster.getMonsterList().get(i).setPlayer(null);
+				//}
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
+				//frame.getContentPane().remove(this);
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
@@ -338,7 +339,7 @@ public class GamePanel extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
+		//frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
 		cl.show(frame.getContentPane(), "gameover");
 		main.getGameOverPanel().playMusic();
 		frame.requestFocus();

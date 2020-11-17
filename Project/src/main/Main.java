@@ -112,7 +112,7 @@ public class Main extends ListenerAdapter{
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic();
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("ReplayButton2")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
+		}else if (e.getComponent().getName().equals("ReplayButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic();
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
