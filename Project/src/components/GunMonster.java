@@ -12,9 +12,11 @@ import panels.GamePanel;
 public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 	public static ArrayList<Shot> shotList = new ArrayList<Shot>();
 	private GamePanel mainPanel;
+	private String Image;
 
 	public GunMonster(int x, int y, int hp, String Image, Player player) {
 		super(x, y, hp, Image, player);
+		this.Image = Image;
 		shot();
 		
 	}
@@ -38,7 +40,7 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 
 			@Override
 			public void run() {
-				while(getImage() != null) {
+				while(isStatus() == true) {
 					shotList.add(new Shot(getX()+50, getY()+15, 2));
 					try {
 						
