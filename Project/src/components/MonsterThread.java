@@ -122,7 +122,11 @@ public class MonsterThread extends Thread{
 					if(flag==false) {
 						m_move();
 					}
-					m_remove();
+					try {
+						m_remove();
+					}catch (NullPointerException e) {
+						// TODO: handle exception
+					}
 					if(isStatus()==true) {
 						m_hit();
 					}

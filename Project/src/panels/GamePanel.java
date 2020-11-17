@@ -237,9 +237,9 @@ public class GamePanel extends JPanel{
 				//frame.getContentPane().remove(this);
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간
-			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
+			}else if(player.getDistance()>back.getWidth(null)-(view.width-700)) {
 				player.p_moveRight();
-			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
+			}else if(player.getX()>700) {  //플레이어가 중간을 넘으면
 				player.p_moveRight(1);//매개변수는 오버로딩된 메서드를 실행 시키기 위함. 그 외 의미 없음
 				movebg();
 			}else {

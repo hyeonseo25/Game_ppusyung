@@ -231,7 +231,7 @@ public class Player {
 				
 				while(true) {
 					for(int i = 0; i < Player.shots.size(); i++) {
-						if(shots.get(i).getX()>view.getWidth()-100) {
+						if(shots.get(i).getX()>view.getWidth()-100 || shots.get(i).getX()<0) {
 							Player.shots.remove(i); //맞은 총알 삭제
 						}
 					}
