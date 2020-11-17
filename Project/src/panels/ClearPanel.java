@@ -126,9 +126,13 @@ public class ClearPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
+		
+		
 		g.drawImage(back, 0, 0, this);
 		
 		g.drawImage(ClearMessage, 800, 120, this);
+		g.setFont(new Font("µ¸À½", Font.BOLD, 60)); 
+		g.drawString(Integer.toString(score), 1100, 520);
 	}
 	
 	
