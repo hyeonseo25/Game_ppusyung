@@ -1,7 +1,9 @@
 package components;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -13,6 +15,9 @@ public class Shot {
 	private int shot_direction;
 	private int speed=50;
 	private Image image;
+	
+	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public Shot(JPanel main, int x, int y, int status) { //status 1:오른쪽으로, 2:왼쪽으로 총알 이동
 		this.mainPanel = main;
 		this.x = x+20;
@@ -75,7 +80,11 @@ public class Shot {
 					try {
 						x += Math.cos(Math.toRadians(shot_direction)) * speed;
 						y += Math.sin(Math.toRadians(shot_direction)) * speed;
-						
+						//if(x>view.getWidth()-400) {
+							//for(int i = 0; i < Player.shots.size(); i++) {
+							//	Shot shot = Player.shots.get(i);
+							//Player.shots.remove(this);
+						//}
 						Thread.sleep(50);
 					} catch(Exception e) {
 						e.printStackTrace();

@@ -223,6 +223,28 @@ public class Player {
 		
 		
 	}
+	public void deleteShot() { // 화면 밖으로 나간 총알을 없애는 메서드
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				while(true) {
+					for(int i = 0; i < Player.shots.size(); i++) {
+						if(shots.get(i).getX()>view.getWidth()-100) {
+							Player.shots.remove(i); //맞은 총알 삭제
+						}
+					}
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+		
+	}
 	public void fall() {
 		
 		new Thread(new Runnable() {

@@ -126,8 +126,8 @@ public class GamePanel extends JPanel{
 		time.start();
 		player = new Player(this);
 
-		player.fall();
-		
+		player.fall(); // field 위에 플레이어가 있으면 떨어지게
+		player.deleteShot(); // 화면 밖으로 나간 총알을 없애는 메서드
 		monster = new Monster(this, player);
 		//monster.createMonsters(monster.getMonsterList());//프레임 생성시 Monster 객체들을 배열에 추가
 		monster.createMonsters();//프레임 생성시 Monster 객체들을 배열에 추가
