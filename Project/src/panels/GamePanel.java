@@ -226,12 +226,14 @@ public class GamePanel extends JPanel{
 		}else if(keyRight==true) {
 			if(player.getDistance()>end) {
 				closeMusic();
+				time.interrupt();
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
 				//for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				//	monster.getMonsterList().get(i).setPlayer(null);
 				//}
+				player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10);
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
 				//frame.getContentPane().remove(this);
