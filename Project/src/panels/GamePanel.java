@@ -72,7 +72,7 @@ public class GamePanel extends JPanel{
 	
 	public String getTime() {
 		if (Integer.valueOf(time.getSeconds()) <0 ) {
-			gameOver();
+			//gameOver();
 		}
 		return time.getSeconds() + "ÃÊ";
 	}
@@ -330,6 +330,7 @@ public class GamePanel extends JPanel{
 	}
 	public void gameOver() {
 		closeMusic();
+		time.interrupt();
 		keySpace = false;
 		Sound("music/die.wav", false);
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {

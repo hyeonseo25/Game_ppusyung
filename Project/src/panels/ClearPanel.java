@@ -56,12 +56,6 @@ public class ClearPanel extends JPanel{
 	}
 
 	public ClearPanel(Object o){
-		replaybt = new JButton();
-		replaybt.setName("ReplayButton");
-		replaybt.setText("다시하기");
-		replaybt.setBounds(10, 800, 200, 100);
-		replaybt.addMouseListener((MouseListener) o);
-		add(replaybt);
 		
 		scoreLabel = new JLabel(Integer.toString(score));
 		scoreLabel.setLocation(500, 50);
@@ -94,7 +88,7 @@ public class ClearPanel extends JPanel{
 		
 		
 		applybt = new JButton(new ImageIcon("images/button/clearPanelBtn.png"));
-		applybt.setName("applyButton");
+		applybt.setName("ReplayButton");
 		applybt.setBorderPainted(false);
 		applybt.setFocusPainted(false);
 		applybt.setContentAreaFilled(false);
@@ -130,7 +124,7 @@ public class ClearPanel extends JPanel{
 		
 		g.drawImage(back, 0, 0, this);
 		
-		g.drawImage(ClearMessage, 800, 120, this);
+		g.drawImage(ClearMessage, 800, 180, this);
 		g.setFont(new Font("돋음", Font.BOLD, 60)); 
 		g.drawString(Integer.toString(score), 1100, 520);
 	}
