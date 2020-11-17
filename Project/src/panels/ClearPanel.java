@@ -79,7 +79,7 @@ public class ClearPanel extends JPanel{
 			
 			@Override
 			public void focusLost(FocusEvent e) {
-			     name.setText("이름을 입력해주세요");			
+			     	
 			}
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -107,7 +107,7 @@ public class ClearPanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				DBConnection db = new DBConnection();
-				db.insertDB(name.getText() , "23");
+				db.insertDB(name.getText() , Integer.toString(score));
 				
 			}
 		});
