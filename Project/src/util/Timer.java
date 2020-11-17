@@ -7,13 +7,13 @@ public class Timer extends Thread{
 	
 	@Override
 	public void run() {
-		while(true) {
-			passTime();
-			try {
-				sleep(1000);
-			} catch(Exception e) {
-				e.printStackTrace();
+		try {
+			while(true) {
+				passTime();
+					sleep(1000);
 			}
+		}catch (InterruptedException e) {
+			// TODO: handle exception
 		}
 		
 	}
