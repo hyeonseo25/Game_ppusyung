@@ -57,7 +57,6 @@ public class GamePanel extends JPanel{
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
 	private String endTime; //게임 클리어 시간
-
 	
 	private int end = back.getWidth(null)-(view.width-1600);
 	
@@ -127,8 +126,8 @@ public class GamePanel extends JPanel{
 		time.start();
 		player = new Player(this);
 
-		player.fall();
-		
+		player.fall(); // field 위에 플레이어가 있으면 떨어지게
+		player.deleteShot(); // 화면 밖으로 나간 총알을 없애는 메서드
 		monster = new Monster(this, player);
 		//monster.createMonsters(monster.getMonsterList());//프레임 생성시 Monster 객체들을 배열에 추가
 		monster.createMonsters();//프레임 생성시 Monster 객체들을 배열에 추가
@@ -230,13 +229,17 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
+				//for (int i = 0; i < monster.getMonsterList().size(); i++) {
+				//	monster.getMonsterList().get(i).setPlayer(null);
+				//}
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
+				//frame.getContentPane().remove(this);
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간
-			}else if(player.getDistance()>back.getWidth(null)-(view.width-900)) {
+			}else if(player.getDistance()>back.getWidth(null)-(view.width-700)) {
 				player.p_moveRight();
-			}else if(player.getX()>900) {  //플레이어가 중간을 넘으면
+			}else if(player.getX()>700) {  //플레이어가 중간을 넘으면
 				player.p_moveRight(1);//매개변수는 오버로딩된 메서드를 실행 시키기 위함. 그 외 의미 없음
 				movebg();
 			}else {
@@ -336,7 +339,7 @@ public class GamePanel extends JPanel{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
+		//frame.getContentPane().remove(this); // 방금 했던 게임 패널을 프레임에서 삭
 		cl.show(frame.getContentPane(), "gameover");
 		main.getGameOverPanel().playMusic();
 		frame.requestFocus();

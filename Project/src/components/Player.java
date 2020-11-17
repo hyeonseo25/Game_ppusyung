@@ -85,7 +85,6 @@ public class Player {
 		this.countJump = countJump;
 	}
 	public ArrayList<Shot> getShots() {
-		
 		return shots;
 	}
 	public void setShots(ArrayList<Shot> shots) {
@@ -224,6 +223,28 @@ public class Player {
 		
 		
 	}
+	public void deleteShot() { // 화면 밖으로 나간 총알을 없애는 메서드
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				
+				while(true) {
+					for(int i = 0; i < Player.shots.size(); i++) {
+						if(shots.get(i).getX()>view.getWidth()-100 || shots.get(i).getX()<0) {
+							Player.shots.remove(i); //맞은 총알 삭제
+						}
+					}
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+		
+	}
 	public void fall() {
 		
 		new Thread(new Runnable() {
@@ -352,6 +373,7 @@ public class Player {
 		setScore(0);
 		setInvincibility(255);
 		setStatus(1);
+		shots.clear();
 		setImage(new ImageIcon("images/Player/Player1.png").getImage());
 	}
 }

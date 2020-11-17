@@ -20,10 +20,14 @@ public class RankingPanel extends JPanel{
 
 
 	public RankingPanel(Object o) {
-		replaybt = new JButton();
+		Image exitButton = new ImageIcon("images/button/arrowButton.png").getImage();
+		
+		replaybt = new JButton(new ImageIcon(exitButton));
 		replaybt.setName("ReplayButton");
-		replaybt.setText("처음으로");
-		replaybt.setBounds(10, 800, 200, 100);
+		replaybt.setBorderPainted(false);
+		replaybt.setFocusPainted(false);
+		replaybt.setContentAreaFilled(false);
+		replaybt.setBounds(20, 20, exitButton.getWidth(null), exitButton.getHeight(null));
 		replaybt.addMouseListener((MouseListener) o);
 		add(replaybt);
 		
