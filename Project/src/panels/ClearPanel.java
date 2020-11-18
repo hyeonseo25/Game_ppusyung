@@ -89,22 +89,50 @@ public class ClearPanel extends JPanel{
 		
 		applybt = new JButton(new ImageIcon("images/button/clearPanelBtn.png"));
 		applybt.setName("ReplayButton");
+	
+
 		applybt.setBorderPainted(false);
 		applybt.setFocusPainted(false);
 		applybt.setContentAreaFilled(false);
 		applybt.setBounds(1450, 710, 200, 200);
-		applybt.addMouseListener((MouseListener) o);
+		
+		//TODO 디비가 먼저 들어가게 수정 / 그 뒤에 화면 전환
+		//TODO GunMoster 총알 수정 
 		
 		
-		applybt.addActionListener(new ActionListener() {
-			
+//		applybt.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				DBConnection db = new DBConnection();
+//				db.insertDB(name.getText() , Integer.toString(score));
+//				System.out.println("DB");
+//				
+//				
+//			}
+//		});
+		
+		applybt.addMouseListener(new MouseListener() {
+
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
 				DBConnection db = new DBConnection();
 				db.insertDB(name.getText() , Integer.toString(score));
-				
 			}
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			@Override
+			public void mouseExited(MouseEvent e) {}
+			@Override
+			public void mouseReleased(MouseEvent e) {}
 		});
+		
+		applybt.addMouseListener((MouseListener) o);
+
+
 		add(applybt);
 		
 		rankbt = new JButton();
