@@ -8,7 +8,6 @@ import components.GunMonster;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import static panels.GamePanel.field;
 import util.Util;
 
 public class Monster {

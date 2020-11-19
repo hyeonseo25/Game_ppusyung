@@ -1,7 +1,5 @@
 package components;
 
-import static panels.GamePanel.field;
-
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -20,6 +18,7 @@ public class MonsterThread extends Thread{
 	private boolean fall = false;
 	private boolean jump = false;
 	private boolean flag = false;
+	private int field = 900;
 	
 	Player player;
 	Monster monster;
@@ -59,6 +58,16 @@ public class MonsterThread extends Thread{
 	public int getY() {
 		return y;
 	}
+	public int getField() {
+		return field;
+	}
+
+
+	public void setField(int field) {
+		this.field = field;
+	}
+
+
 	public void setHp(int hp) {
 		this.hp += hp;
 	}
@@ -106,30 +115,40 @@ public class MonsterThread extends Thread{
         			player.damaged(200);
         		}
     		}
-
-			for(int i = 0; i < GunMonster.GunShotList.size(); i++) {
+    		
+//    		for (int i = 0; i < GunMonster.GunShotList.size(); i++) {
+//    			
+//    			Shot shot = GunMonster.GunShotList.get(i);
+//    			
+//    			if((player.getY() < shot.getY() + shot.getImage().getHeight(null) && shot.getY() < player.getY() + player.getImage().getHeight(null)) 
+//    					&& (player.getX() < shot.getX() + shot.getImage().getWidth(null) && shot.getX() < player.getX() + player.getImage().getWidth(null))) {
+//        			if(player.getInvincibility()==255) {
+//            			player.damaged(200);
+//            			System.out.println("damaged");
+//            		}
+//        			
+//        			else {
+//        				
+//            		}
+//        		}
+//    			
+//    			
+//    		}
+    		
+    		//총알이 하나일때 계속 실행되어서 
+    		
+    		for(int i = 0; i < GunMonster.GunShotList.size(); i++) {
 				Shot shot = GunMonster.GunShotList.get(i);
-				//System.out.println(i);
-	
-	//			int head = player.getY() - player.getImage().getHeight(null);
-	//		
-	//			int foot = player.getY() + player.getImage().getHeight(null);
-	
+
+				int head = player.getY() - player.getImage().getHeight(null);
+			
+				int foot = player.getY() + player.getImage().getHeight(null);
+
 				int shotD = shot.getShot_direction();
 				
-	//			//총알이 왼쪽으로 날아갈 때 
-	//			if(player.getY >= shot.getY() && head <= shot.getY() && shotD ==180 && player.getX() >= shot.getX()) {
-	//				if(player.getInvincibility()==255) {
-	//					GunMonster.GunShotList.remove(i);
-	//        			player.damaged(200);
-	//        			System.out.println("player.damaged " + Integer.toString(i));
-	//        		}
-	//					
-	//			}
-				
-				if(player.getX() + player.getImage().getWidth(null) > shot.getX() && player.getX() - player.getImage().getWidth(null) < shot.getX()
-						&& player.getY() + player.getImage().getHeight(null) > shot.getY() && player.getY() - player.getImage().getHeight(null) < shot.getY()) {
-	    			try {
+				//총알이 왼쪽으로 날아갈 때 
+				if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && player.getX() >= shot.getX()) {
+					if(player.getInvincibility()==255) {
 						GunMonster.GunShotList.remove(i);
 						player.damaged(200);
 		      			System.out.println("player.damaged " + shot.toString());
