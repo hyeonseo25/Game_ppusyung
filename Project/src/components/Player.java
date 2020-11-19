@@ -15,7 +15,8 @@ import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import static panels.GamePanel.field;
+import panels.GamePanel;
+
 import util.Util;
 
 public class Player {
@@ -33,6 +34,8 @@ public class Player {
 	private boolean fall = false;
 	private boolean jump = false;
 	private int countJump = 0;
+	private int field = 900;
+
 	Monster monster;
 	
 	ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
@@ -71,6 +74,13 @@ public class Player {
 	}
 	public void setFall(boolean fall) {
 		this.fall = fall;
+	}
+	
+	public int getField() {
+		return field;
+	}
+	public void setField(int field) {
+		this.field = field;
 	}
 	public boolean isJump() {
 		return jump;
@@ -320,7 +330,7 @@ public class Player {
 
 				long t1 = Util.getTime(); // 현재시간을 가져온다
 				long t2;
-				int set = 10; // 점프 계수 설정(0~20) 등으로 바꿔보자
+				int set = 15; // 점프 계수 설정(0~20) 등으로 바꿔보자
 				int jumpY = 1; // 1이상으로만 설정하면 된다.(while문 조건 때문)
 
 				while (jumpY >= 0) { // 상승 높이가 0일때까지 반복

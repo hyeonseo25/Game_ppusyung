@@ -1,7 +1,5 @@
 package components;
 
-import static panels.GamePanel.field;
-
 import java.awt.Image;
 import java.util.ArrayList;
 
@@ -20,6 +18,7 @@ public class MonsterThread extends Thread{
 	private boolean fall = false;
 	private boolean jump = false;
 	private boolean flag = false;
+	private int field = 900;
 	
 	Player player;
 	Monster monster;
@@ -59,6 +58,16 @@ public class MonsterThread extends Thread{
 	public int getY() {
 		return y;
 	}
+	public int getField() {
+		return field;
+	}
+
+
+	public void setField(int field) {
+		this.field = field;
+	}
+
+
 	public void setHp(int hp) {
 		this.hp += hp;
 	}
@@ -141,7 +150,7 @@ public class MonsterThread extends Thread{
 				if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && player.getX() >= shot.getX()) {
 					if(player.getInvincibility()==255) {
 						GunMonster.GunShotList.remove(i);
-	        			player.damaged(200);
+	        			//player.damaged(200);
 	        			System.out.println("player.damaged " + Integer.toString(i));
 	        		}
 						

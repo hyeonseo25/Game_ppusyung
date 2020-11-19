@@ -15,6 +15,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioInputStream;
@@ -30,8 +31,11 @@ import components.GunMonster;
 import components.Monster;
 import components.Player;
 import components.Shot;
+import components.Field;
+import components.Tacle;
 import main.Main;
 import util.DBConnection;
+import util.Util;
 
 public class GamePanel extends JPanel{
 	
@@ -50,14 +54,31 @@ public class GamePanel extends JPanel{
 	private ImageIcon hpImg = new ImageIcon("images/HP.png");
 	private Image hp = hpImg.getImage();
 	
+	// 발판 이미지 아이콘들
+	private ImageIcon field1Ic = new ImageIcon("images/map/fieldIc1.png"); // 발판
+	private ImageIcon field2Ic = new ImageIcon("images/map/fieldIc2.png"); // 공중발판
+
+	// 장애물 이미지 아이콘들
+	private ImageIcon tacle10Ic = new ImageIcon("images/map/tacle2.png"); // 1칸 장애물
+		
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static final int field = 900;
+	private int field = 900;
 	
 	private int backX=0;
 	private int backX2 = back.getWidth(null);
 	private String endTime; //게임 클리어 시간
 	
+	// 리스트 생성
+	//private List<Jelly> jellyList; // 젤리 리스트
+
+	private List<Field> fieldList; // 발판 리스트
+	private List<Tacle> tacleList; // 장애물 리스트
+	
+	// 이미지 파일로 된 맵을 가져온다.
+	private int[] sizeArr; // 이미지의 넓이와 높이를 가져오는 1차원 배열
+	private int[][] colorArr; // 이미지의 x y 좌표의 픽셀 색값을 저장하는 2차원배열
+		
 	private int end = back.getWidth(null)-(view.width-1600);
 	
 	Player player = new Player(this);
@@ -83,6 +104,14 @@ public class GamePanel extends JPanel{
 	
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	
+	public int getField() {
+		return field;
+	}
+
+	public void setField(int field) {
+		this.field = field;
 	}
 
 	public String getEndTime() {
@@ -131,6 +160,7 @@ public class GamePanel extends JPanel{
 		monster = new Monster(this, player);
 		//monster.createMonsters(monster.getMonsterList());//프레임 생성시 Monster 객체들을 배열에 추가
 		monster.createMonsters();//프레임 생성시 Monster 객체들을 배열에 추가
+		setCpField();
 		playMusic();
 	}
 	// 고치면 삭제
@@ -156,8 +186,91 @@ public class GamePanel extends JPanel{
 		setFocusable(true);
 		repaintThread();
 		initListener();
+		initObject();
+		initMap(1);
 	}
-	
+	private void initObject() {
+		//jellyList = new ArrayList<>(); // 젤리 리스트
+
+		fieldList = new ArrayList<>(); // 발판 리스트
+
+		tacleList = new ArrayList<>(); // 장애물 리스트
+	}
+	// 맵의 구조를 그림판 이미지를 받아서 세팅
+		private void initMap(int num) {
+
+			String tempMap = null;
+
+			if (num == 1) {
+				tempMap = "images/map/map1.png";
+			} //else if (num == 2) {
+//				tempMap = "img/map/map2.png";
+//			}
+
+			// 맵 정보 불러오기
+			try {
+				sizeArr = Util.getSize(tempMap); // 맵 사이즈를 배열에 저장
+				colorArr = Util.getPic(tempMap); // 맵 픽셀값을 배열에 저장
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
+			int maxX = sizeArr[0]; // 맵의 넓이
+			int maxY = sizeArr[1]; // 맵의 높이
+
+//			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지하기 때문에 1,1사이즈로 반복문을 돌린다.
+//				for (int j = 0; j < maxY; j += 1) {
+//					if (colorArr[i][j] == 16776960) { // 색값이 16776960일 경우 기본젤리 생성
+//						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+//						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40 + mapLength * 40, j * 40, 30, 30, 255, 1234));
+//
+//					} else if (colorArr[i][j] == 13158400) { // 색값이 13158400일 경우 노란젤리 생성
+//						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+//						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40 + mapLength * 40, j * 40, 30, 30, 255, 2345));
+//
+//					} else if (colorArr[i][j] == 9868800) { // 색값이 9868800일 경우 노란젤리 생성
+//						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+//						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40 + mapLength * 40, j * 40, 30, 30, 255, 3456));
+//
+//					} else if (colorArr[i][j] == 16737280) { // 색값이 16737280일 경우 피 물약 생성
+//						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+//						jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40 + mapLength * 40, j * 40, 30, 30, 255, 4567));
+//					}
+//				}
+//			}
+			colorArr[10][10] = 0;
+			for (int i = 0; i < maxX; i += 2) { // 발판은 4칸을 차지하는 공간이기 때문에 2,2사이즈로 반복문을 돌린다.
+				for (int j = 0; j < maxY; j += 2) {
+					if (colorArr[i][j] == 0) { // 색값이 0 일경우 (검은색)
+						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+						fieldList.add(new Field(field1Ic.getImage(), i * 40 , j * 40, 80, 80));
+
+					} else if (colorArr[i][j] == 6579300) { // 색값이 6579300 일경우 (회색)
+						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+						fieldList.add(new Field(field2Ic.getImage(), i * 40 , j * 40, 80, 80));
+					}
+				}
+			}
+
+			for (int i = 0; i < maxX; i += 2) { // 장애물은 4칸 이상을 차지한다. 추후 수정
+				for (int j = 0; j < maxY; j += 2) {
+					if (colorArr[i][j] == 16711680) { // 색값이 16711680일 경우 (빨간색) 1칸
+						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+						tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
+
+					} 
+						//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
+//						// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
+//						tacleList.add(new Tacle(tacle20Ic.getImage(), i * 40 , j * 40, 80, 160, 0));
+//
+//					} else if (colorArr[i][j] == 16711935) { // 색값이 16711830일 경우 (핫핑크) 3칸
+//						// 좌표에 40을 곱하고, 넓이와 높이는 240으로 한다.
+//						tacleList.add(new Tacle(tacle30Ic.getImage(), i * 40 , j * 40, 80, 240, 0));
+//					}
+				}
+			}
+		}
+		
 	private void playMusic() {
 		 try {
 			 File file = new File("music/backgroundMusic.wav");
@@ -276,6 +389,9 @@ public class GamePanel extends JPanel{
 						if(cnt<5) {
 							cnt++; // 총알에 딜레이
 						}
+						if(player.getY() - player.getImage().getHeight(null)>1100) {
+							player.setHp(0);
+						}
 						if(player.getHp()<=0) {
 							gameOver();	
 							break;
@@ -315,6 +431,29 @@ public class GamePanel extends JPanel{
 			for(int i=0; i<player.getHp()/200; i++) {
 				g.drawImage(hp, 10+i*70, 10, this);
 			}
+			for (int i = 0; i < fieldList.size(); i++) {
+
+				Field tempFoot = fieldList.get(i);
+
+				// 사양을 덜 잡아먹게 하기위한 조치
+				if (tempFoot.getX() > -90 && tempFoot.getX() < view.getWidth()) { // x값이 -90~810인 객체들만 그린다.
+
+					g.drawImage(tempFoot.getImage(), tempFoot.getX(), tempFoot.getY(), tempFoot.getWidth(),
+							tempFoot.getHeight(), null);
+				}
+
+			}
+			// 장애물을 그린다
+			for (int i = 0; i < tacleList.size(); i++) {
+
+				Tacle tempTacle = tacleList.get(i);
+
+				if (tempTacle.getX() > -90 && tempTacle.getX() < view.getWidth()) {
+
+					g.drawImage(tempTacle.getImage(), tempTacle.getX(), tempTacle.getY(), tempTacle.getWidth(),
+							tempTacle.getHeight(), null);
+				}
+			}
 			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
 			g.drawString(getScore(), 1500, 50); // 점수 그리기
@@ -327,6 +466,105 @@ public class GamePanel extends JPanel{
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).m_move(20);	
 		}
+		// 발판위치를 -3 씩 해준다. (왼쪽으로 흐르는 효과)
+		for (int i = 0; i < fieldList.size(); i++) {
+
+			Field tempField = fieldList.get(i); // 임시 변수에 리스트 안에 있는 개별 발판을 불러오자
+
+			if (tempField.getX() < -90) { // 발판의 x좌표가 -90 미만이면 해당 발판을 제거한다.(최적화)
+
+				fieldList.remove(tempField);
+
+			} else {
+
+				tempField.setX(tempField.getX() - 10); // 위 조건에 해당이 안되면 x좌표를 줄이자
+
+			}
+		}
+		int face = player.getX() + player.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
+		int foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+		// 장애물위치를 - 4 씩 해준다.
+		for (int i = 0; i < tacleList.size(); i++) {
+
+			Tacle tempTacle = tacleList.get(i); // 임시 변수에 리스트 안에 있는 개별 장애물을 불러오자
+
+			if (tempTacle.getX() < -90) {
+
+				fieldList.remove(tempTacle); // 장애물의 x 좌표가 -90 미만이면 해당 젤리를 제거한다.(최적화)
+
+			} else {
+
+				tempTacle.setX(tempTacle.getX() - 10); // 위 조건에 해당이 안되면 x좌표를 줄이자
+
+				face = player.getX() + player.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
+				foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+
+//				if ( // 무적상태가 아니고 슬라이드 중이 아니며 캐릭터의 범위 안에 장애물이 있으면 부딛힌다
+//				!c1.isInvincible() && c1.getImage() != slideIc.getImage()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 >= c1.getX()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
+//						&& tempTacle.getY() + tempTacle.getHeight() / 2 >= c1.getY()
+//						&& tempTacle.getY() + tempTacle.getHeight() / 2 <= foot) {
+//
+//					hit(); // 피격 + 무적 쓰레드 메서드
+//
+//				} else if ( // 슬라이딩 아닐시 공중장애물
+//				!c1.isInvincible() && c1.getImage() != slideIc.getImage()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 >= c1.getX()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
+//						&& tempTacle.getY() <= c1.getY()
+//						&& tempTacle.getY() + tempTacle.getHeight() * 95 / 100 > c1.getY()) {
+//
+//					hit(); // 피격 + 무적 쓰레드 메서드
+//
+//				} else if ( // 무적상태가 아니고 슬라이드 중이며 캐릭터의 범위 안에 장애물이 있으면 부딛힌다
+//				!c1.isInvincible() && c1.getImage() == slideIc.getImage()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 >= c1.getX()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
+//						&& tempTacle.getY() + tempTacle.getHeight() / 2 >= c1.getY()
+//								+ c1.getHeight() * 2 / 3
+//						&& tempTacle.getY() + tempTacle.getHeight() / 2 <= foot) {
+//
+//					hit(); // 피격 + 무적 쓰레드 메서드
+//
+//				} else if ( // 슬라이딩시 공중장애물
+//				!c1.isInvincible() && c1.getImage() == slideIc.getImage()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 >= c1.getX()
+//						&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
+//						&& tempTacle.getY() < c1.getY() && tempTacle.getY()
+//								+ tempTacle.getHeight() * 95 / 100 > c1.getY() + c1.getHeight() * 2 / 3) {
+//
+//					hit(); // 피격 + 무적 쓰레드 메서드
+//				}
+			}
+		}
+
+		// 쿠키가 밟을 발판을 계산하는 코드
+		int tempField; // 발판위치를 계속 스캔하는 지역변수
+		int tempNowField=2000; // 캐릭터와 발판의 높이에 따라 저장되는 지역변수, 결과를 nowField에 저장한다
+
+		for (int i = 0; i < fieldList.size(); i++) { // 발판의 개수만큼 반복
+
+			int tempX = fieldList.get(i).getX(); // 발판의 x값
+
+			if (tempX > player.getX() - 60 && tempX <= face) { // 발판이 캐릭 범위 안이라면
+
+				tempField = fieldList.get(i).getY(); // 발판의 y값을 tempField에 저장한다
+
+				foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+
+				// 발판위치가 tempNowField보다 높고, 발바닥 보다 아래 있다면
+				// 즉, 캐릭터 발 아래에 제일 높이 있는 발판이라면 tempNowField에 저장한다.
+				if (tempField < tempNowField && tempField >= foot) {
+
+					tempNowField = tempField;
+
+				}
+			}
+		}
+
+		field = tempNowField; // 결과를 nowField에 업데이트 한다.
+		setCpField();
 	}
 	public void gameOver() {
 		closeMusic();
@@ -346,5 +584,11 @@ public class GamePanel extends JPanel{
 		cl.show(frame.getContentPane(), "gameover");
 		main.getGameOverPanel().playMusic();
 		frame.requestFocus();
+	}
+	public void setCpField() {
+		player.setField(this.field);
+		for (int i = 0; i < monster.getMonsterList().size(); i++) {
+			monster.getMonsterList().get(i).setField(this.field);
+		}
 	}
 }
