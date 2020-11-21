@@ -153,17 +153,14 @@ public class MonsterThread extends Thread{
 						player.damaged(200);
 		      			System.out.println("player.damaged " + shot.toString());
 
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					} 
 				}
 				
 			}
 			
 
     	}catch (Exception e) {
-			// TODO: handle exception
+    		
 		}
     	
     }
@@ -180,7 +177,7 @@ public class MonsterThread extends Thread{
 					try {
 						m_remove();
 					}catch (NullPointerException e) {
-						// TODO: handle exception
+						
 					}
 					if(isStatus()==true) {
 						m_hit();
@@ -302,4 +299,3 @@ public class MonsterThread extends Thread{
 	}
 
 }
-
