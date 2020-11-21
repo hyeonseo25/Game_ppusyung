@@ -150,18 +150,25 @@ public class MonsterThread extends Thread{
 				if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && player.getX() >= shot.getX()) {
 					if(player.getInvincibility()==255) {
 						GunMonster.GunShotList.remove(i);
-	        			//player.damaged(200);
-	        			System.out.println("player.damaged " + Integer.toString(i));
-	        		}
-						
+						player.damaged(200);
+		      			System.out.println("player.damaged " + shot.toString());
+
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-    		
-    		}
+				
+			}
+			
+
     	}catch (Exception e) {
 			// TODO: handle exception
 		}
     	
     }
+    
+    
     
     
     public void run() {
