@@ -152,15 +152,9 @@ public class MonsterThread extends Thread{
 						GunMonster.GunShotList.remove(i);
 						player.damaged(200);
 		      			System.out.println("player.damaged " + shot.toString());
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
 				}
-				
-			}
-			
+    		}
+    		}
 
     	}catch (Exception e) {
 			// TODO: handle exception

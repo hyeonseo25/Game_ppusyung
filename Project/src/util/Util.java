@@ -32,7 +32,6 @@ public class Util {
 		int[] pixels=new int[width*height];
 		PixelGrabber grab = new PixelGrabber(img, 0, 0, width, height, pixels, 0,width);
 		grab.grabPixels();
-		
 		int[][] picture=new int[width][height];
 		for(int i=0;i<pixels.length;i++)
 		      picture[i%width][i/width]=pixels[i] + 16777216;
