@@ -68,6 +68,9 @@ public class GamePanel extends JPanel{
 	private ImageIcon jelly2Ic = new ImageIcon("images/map/jelly2.png");;
 	private ImageIcon jelly3Ic = new ImageIcon("images/map/jelly3.png");;
 		
+	private int[] monsterSpawnpoint = {2250,2500,4000}; //몬스터 스폰 위치
+	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
+	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	private int field = 800;
@@ -227,11 +230,11 @@ public class GamePanel extends JPanel{
 
 			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지하기 때문에 1,1사이즈로 반복문을 돌린다.
 				for (int j = 0; j < maxY; j += 1) {
-					if (colorArr[i][j] == 16776960) { // 색값이 16776960일 경우 기본젤리 생성
+					if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 30, 30, 255, 1234));
 
-					} else if (colorArr[i][j] == 13158400) { // 색값이 13158400일 경우 노란젤리 생성
+					} else if (colorArr[i][j] == 16776444) { // 색값이 13158400일 경우 노란젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 30, 30, 255, 2345));
 
@@ -261,12 +264,12 @@ public class GamePanel extends JPanel{
 
 			for (int i = 0; i < maxX; i += 2) { // 장애물은 4칸 이상을 차지한다. 추후 수정
 				for (int j = 0; j < maxY; j += 2) {
-					if (colorArr[i][j] == /*16711680*/16776958||colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
+					if (colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
 						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
 						tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
-					} //else if(colorArr[i][j]!=12829635&&colorArr[i][j]!=16777215){
-//						System.out.println(colorArr[i][j]);
-//					}
+					} else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0){
+						System.out.println(colorArr[i][j]);
+					}
 						//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
 //						// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
 //						tacleList.add(new Tacle(tacle20Ic.getImage(), i * 40 , j * 40, 80, 160, 0));
@@ -343,8 +346,16 @@ public class GamePanel extends JPanel{
 	}
 	public void keyCheck() throws InterruptedException {
 		if(keyLeft==true) {
+			if(player.getDistance()+1200==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
+				monsterSpawn();
+			}				
 			player.p_moveLeft();
+			System.out.println(player.getDistance());
 		}else if(keyRight==true) {
+			if(player.getDistance()+1200==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
+				monsterSpawn();
+			}
+			System.out.println(player.getDistance() );
 			if(player.getDistance()>end) {
 				closeMusic();
 				time.interrupt();
@@ -673,5 +684,9 @@ public class GamePanel extends JPanel{
 			}
 		}
 		
+	}
+	public void monsterSpawn() {
+		monster.addMonster(player.getDistance()+1200);
+		nowMonster++;
 	}
 }
