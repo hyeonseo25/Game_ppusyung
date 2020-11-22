@@ -18,7 +18,7 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 		super(x, y, hp, Image, player);
 		this.Image = Image;
 		shot();
-		//gm_hit();
+		gm_hit();
 		
 	}
 
