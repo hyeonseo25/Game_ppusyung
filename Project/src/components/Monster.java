@@ -80,7 +80,6 @@ public class Monster {
     		new MonsterThread(11430, 400, 100, "images/monsters/날개괴물.gif", player)
     		};
     public void addMonster() {
-    	System.out.println("실행");
     	monster[monstercnt].setPlayer(player);
     	monster[monstercnt].setX((int) view.getWidth()+50);
     	monsterList.add(monster[monstercnt]);
