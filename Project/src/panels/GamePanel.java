@@ -68,7 +68,7 @@ public class GamePanel extends JPanel{
 	private ImageIcon jelly2Ic = new ImageIcon("images/map/찐만두.png");
 	private ImageIcon jelly3Ic = new ImageIcon("images/map/찐만두.png");
 		
-	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4620,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
+	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4520,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
 	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
@@ -88,9 +88,9 @@ public class GamePanel extends JPanel{
 	private int[] sizeArr; // 이미지의 넓이와 높이를 가져오는 1차원 배열
 	private int[][] colorArr; // 이미지의 x y 좌표의 픽셀 색값을 저장하는 2차원배열
 		
-	private int end = back.getWidth(null)-(view.width-1600);
+	private int end = back.getWidth(null)-(view.width-1660);
 	
-	Player player = new Player(this);
+	Player player;
 	Monster monster;
 	util.Timer time;
 	
@@ -541,10 +541,17 @@ public class GamePanel extends JPanel{
 //								c1.setHealth(c1.getHealth() + 100);
 //							}
 //						}
+					if(tempJelly.getImage()!=null) {
+						if(tempJelly.getImage()==jelly1Ic.getImage()) {
+							player.setScore(player.getScore()+30); // 총점수에 젤리 점수를 더한다
+						}else if(tempJelly.getImage()==jelly2Ic.getImage()) {
+							player.setScore(player.getScore()+100); // 총점수에 젤리 점수를 더한다
+						}
 						tempJelly.setImage(null); // 젤리의 이미지를 이펙트로 바꾼다
-						player.setScore(player.getScore()+10); // 총점수에 젤리 점수를 더한다
-
+					}else {
+						
 					}
+				}
 			}
 			setCpField(1); // 플레이어 필드 설정
 			setCpField(2); // 몬스터 필드 설정
@@ -555,7 +562,7 @@ public class GamePanel extends JPanel{
 		backX -=10; 
 		// backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
-			monster.getMonsterList().get(i).m_move(10);	
+			monster.getMonsterList().get(i).m_move(15);	
 		}
 		// 젤리위치를 -4 씩 해준다.
 		for (int i = 0; i < jellyList.size(); i++) {

@@ -330,7 +330,7 @@ public class Player {
 
 				long t1 = Util.getTime(); // 현재시간을 가져온다
 				long t2;
-				int set = 15; // 점프 계수 설정(0~20) 등으로 바꿔보자
+				int set = 12; // 점프 계수 설정(0~20) 등으로 바꿔보자
 				int jumpY = 1; // 1이상으로만 설정하면 된다.(while문 조건 때문)
 
 				while (jumpY >= 0) { // 상승 높이가 0일때까지 반복
