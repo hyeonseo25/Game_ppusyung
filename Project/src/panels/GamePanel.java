@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 
 import components.GunMonster;
 import components.Monster;
+import components.MonsterThread;
 import components.Player;
 import components.Shot;
 import components.Field;
@@ -490,7 +491,6 @@ public class GamePanel extends JPanel{
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 >= player.getY()
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 <= foot) {
-	
 						try {
 							player.damaged(200);
 						} catch (InterruptedException e) {
@@ -504,7 +504,6 @@ public class GamePanel extends JPanel{
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
 							&& tempTacle.getY() <= player.getY()
 							&& tempTacle.getY() + tempTacle.getHeight() * 95 / 100 > player.getY()) {
-	
 						try {
 							player.damaged(200);
 						} catch (InterruptedException e) {
@@ -536,35 +535,9 @@ public class GamePanel extends JPanel{
 
 					}
 			}
-					
-
-
-			// 쿠키가 밟을 발판을 계산하는 코드
-			int tempField; // 발판위치를 계속 스캔하는 지역변수
-			int tempNowField=2000; // 캐릭터와 발판의 높이에 따라 저장되는 지역변수, 결과를 nowField에 저장한다
-
-			for (int i = 0; i < fieldList.size(); i++) { // 발판의 개수만큼 반복
-
-				int tempX = fieldList.get(i).getX(); // 발판의 x값
-
-				if (tempX > player.getX() - 60 && tempX <= face) { // 발판이 캐릭 범위 안이라면
-
-					tempField = fieldList.get(i).getY(); // 발판의 y값을 tempField에 저장한다
-
-					foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
-
-					// 발판위치가 tempNowField보다 높고, 발바닥 보다 아래 있다면
-					// 즉, 캐릭터 발 아래에 제일 높이 있는 발판이라면 tempNowField에 저장한다.
-					if (tempField < tempNowField && tempField >= foot) {
-
-						tempNowField = tempField;
-
-					}
-				}
-			}
-
-			field = tempNowField; // 결과를 nowField에 업데이트 한다.
-			setCpField();
+			setCpField(1); // 플레이어 필드 설정
+			setCpField(2); // 몬스터 필드 설정
+			
 		}
 		//패널 전용 스레드
 	public void movebg() {
@@ -637,5 +610,68 @@ public class GamePanel extends JPanel{
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).setField(this.field);
 		}
+	}
+	public void setCpField(int cp) {
+		if(cp==1) {
+			int face = player.getX() + player.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
+			int foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+			// 쿠키가 밟을 발판을 계산하는 코드
+			int tempField; // 발판위치를 계속 스캔하는 지역변수
+			int tempNowField=2000; // 캐릭터와 발판의 높이에 따라 저장되는 지역변수, 결과를 nowField에 저장한다
+
+			for (int i = 0; i < fieldList.size(); i++) { // 발판의 개수만큼 반복
+
+				int tempX = fieldList.get(i).getX(); // 발판의 x값
+
+				if (tempX > player.getX() - 60 && tempX <= face) { // 발판이 캐릭 범위 안이라면
+
+					tempField = fieldList.get(i).getY(); // 발판의 y값을 tempField에 저장한다
+
+					foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+
+					// 발판위치가 tempNowField보다 높고, 발바닥 보다 아래 있다면
+					// 즉, 캐릭터 발 아래에 제일 높이 있는 발판이라면 tempNowField에 저장한다.
+					if (tempField < tempNowField && tempField >= foot) {
+
+						tempNowField = tempField;
+
+					}
+				}
+			}
+
+			field = tempNowField; // 결과를 nowField에 업데이트 한다.
+			player.setField(this.field);
+		}else if(cp==2) {
+			for (int j = 0; j < monster.getMonsterList().size(); j++) {
+				MonsterThread m = monster.getMonsterList().get(j);
+				int face = m.getX() + m.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
+				int foot = m.getY() + m.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+				// 쿠키가 밟을 발판을 계산하는 코드
+				int tempField; // 발판위치를 계속 스캔하는 지역변수
+				int tempNowField=2000; // 캐릭터와 발판의 높이에 따라 저장되는 지역변수, 결과를 nowField에 저장한다
+
+				for (int i = 0; i < fieldList.size(); i++) { // 발판의 개수만큼 반복
+
+					int tempX = fieldList.get(i).getX(); // 발판의 x값
+
+					if (tempX > m.getX() - 60 && tempX <= face) { // 발판이 캐릭 범위 안이라면
+
+						tempField = fieldList.get(i).getY(); // 발판의 y값을 tempField에 저장한다
+
+						foot = m.getY() + m.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
+
+						// 발판위치가 tempNowField보다 높고, 발바닥 보다 아래 있다면
+						// 즉, 캐릭터 발 아래에 제일 높이 있는 발판이라면 tempNowField에 저장한다.
+						if (tempField < tempNowField && tempField >= foot) {
+
+							tempNowField = tempField;
+
+						}
+					}
+				}
+				m.setField(tempNowField);
+			}
+		}
+		
 	}
 }
