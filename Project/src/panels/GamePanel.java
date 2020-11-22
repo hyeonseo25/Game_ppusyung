@@ -57,16 +57,16 @@ public class GamePanel extends JPanel{
 	private Image hp = hpImg.getImage();
 	
 	// 발판 이미지 아이콘들
-	private ImageIcon field1Ic = new ImageIcon("images/map/fieldIc1.png"); // 발판
+	private ImageIcon field1Ic = new ImageIcon("images/map/발판.png"); // 발판
 	private ImageIcon field2Ic = new ImageIcon("images/map/fieldIc2.png"); // 공중발판
 
 	// 장애물 이미지 아이콘들
 	private ImageIcon tacle10Ic = new ImageIcon("images/map/tacle2.png"); // 1칸 장애물
 	
 	// 젤리 이미지 아이콘들
-	private ImageIcon jelly1Ic = new ImageIcon("images/map/jelly1.png");
-	private ImageIcon jelly2Ic = new ImageIcon("images/map/jelly2.png");
-	private ImageIcon jelly3Ic = new ImageIcon("images/map/jelly3.png");
+	private ImageIcon jelly1Ic = new ImageIcon("images/map/머스캣드링크.png");
+	private ImageIcon jelly2Ic = new ImageIcon("images/map/찐만두.png");
+	private ImageIcon jelly3Ic = new ImageIcon("images/map/찐만두.png");
 		
 	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4620,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
@@ -232,15 +232,15 @@ public class GamePanel extends JPanel{
 				for (int j = 0; j < maxY; j += 1) {
 					if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 30, 30, 255, 1234));
+						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
 
 					} else if (colorArr[i][j] == 16776444) { // 색값이 13158400일 경우 노란젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 30, 30, 255, 2345));
+						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
 
 					} else if (colorArr[i][j] == 9868800) { // 색값이 9868800일 경우 노란젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 30, 30, 255, 3456));
+						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
 
 					}
 //						else if (colorArr[i][j] == 16737280) { // 색값이 16737280일 경우 피 물약 생성
@@ -353,7 +353,6 @@ public class GamePanel extends JPanel{
 			System.out.println(player.getDistance());
 		}else if(keyRight==true) {
 			if(player.getDistance()+1100==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
-				System.out.println("몬스터 생성");
 				monsterSpawn();
 			}
 			System.out.println(player.getDistance() );
