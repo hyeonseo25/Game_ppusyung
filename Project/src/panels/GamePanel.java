@@ -64,11 +64,11 @@ public class GamePanel extends JPanel{
 	private ImageIcon tacle10Ic = new ImageIcon("images/map/tacle2.png"); // 1칸 장애물
 	
 	// 젤리 이미지 아이콘들
-	private ImageIcon jelly1Ic = new ImageIcon("images/map/jelly1.png");;
-	private ImageIcon jelly2Ic = new ImageIcon("images/map/jelly2.png");;
-	private ImageIcon jelly3Ic = new ImageIcon("images/map/jelly3.png");;
+	private ImageIcon jelly1Ic = new ImageIcon("images/map/jelly1.png");
+	private ImageIcon jelly2Ic = new ImageIcon("images/map/jelly2.png");
+	private ImageIcon jelly3Ic = new ImageIcon("images/map/jelly3.png");
 		
-	private int[] monsterSpawnpoint = {2250,2500,4000}; //몬스터 스폰 위치
+	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4620,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
 	
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
@@ -346,13 +346,14 @@ public class GamePanel extends JPanel{
 	}
 	public void keyCheck() throws InterruptedException {
 		if(keyLeft==true) {
-			if(player.getDistance()+1200==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
+			if(player.getDistance()+1100==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
 				monsterSpawn();
 			}				
 			player.p_moveLeft();
 			System.out.println(player.getDistance());
 		}else if(keyRight==true) {
-			if(player.getDistance()+1200==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
+			if(player.getDistance()+1100==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
+				System.out.println("몬스터 생성");
 				monsterSpawn();
 			}
 			System.out.println(player.getDistance() );
@@ -555,7 +556,7 @@ public class GamePanel extends JPanel{
 		backX -=10; 
 		// backX2 -=10;
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
-			monster.getMonsterList().get(i).m_move(20);	
+			monster.getMonsterList().get(i).m_move(10);	
 		}
 		// 젤리위치를 -4 씩 해준다.
 		for (int i = 0; i < jellyList.size(); i++) {
@@ -686,7 +687,7 @@ public class GamePanel extends JPanel{
 		
 	}
 	public void monsterSpawn() {
-		monster.addMonster(player.getDistance()+1200);
+		monster.addMonster();
 		nowMonster++;
 	}
 }

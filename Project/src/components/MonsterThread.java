@@ -18,7 +18,7 @@ public class MonsterThread extends Thread{
 	private boolean fall = false;
 	private boolean jump = false;
 	private boolean flag = false;
-	private int field = 900;
+	private int field = 400;
 	
 	Player player;
 	Monster monster;
@@ -34,7 +34,9 @@ public class MonsterThread extends Thread{
 		setHp(hp);
 		setStatus(true);
 		setImage(Image);
-		fall();
+		if(!Image.equals("images/monsters/³¯°³±«¹°.gif")) {
+			fall();
+		}
 		this.player = player;
 
 	}
@@ -46,8 +48,8 @@ public class MonsterThread extends Thread{
 	public Image getImage() {
 		return images;
 	}
-	public void setX(double x) {
-		this.x += x;
+	public void setX(int x) {
+		this.x = x;
 	}
 	public int getX() {
 		return x;
