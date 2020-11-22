@@ -66,7 +66,8 @@ public class GamePanel extends JPanel{
 	// 젤리 이미지 아이콘들
 	private ImageIcon jelly1Ic = new ImageIcon("images/map/머스캣드링크.png");
 	private ImageIcon jelly2Ic = new ImageIcon("images/map/찐만두.png");
-	private ImageIcon jelly3Ic = new ImageIcon("images/map/찐만두.png");
+	private ImageIcon jelly3Ic = new ImageIcon("images/map/포켓치킨.png");
+	private ImageIcon jellyHPIc = new ImageIcon("images/HP.png");
 		
 	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4520,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
@@ -242,11 +243,10 @@ public class GamePanel extends JPanel{
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
 
+					}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
+						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+						jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
 					}
-//						else if (colorArr[i][j] == 16737280) { // 색값이 16737280일 경우 피 물약 생성
-//						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-//						jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 30, 30, 255, 4567));
-//					}
 				}
 			}
 			for (int i = 0; i < maxX; i += 2) { // 발판은 4칸을 차지하는 공간이기 때문에 2,2사이즈로 반복문을 돌린다.
@@ -345,10 +345,7 @@ public class GamePanel extends JPanel{
 		});
 	}
 	public void keyCheck() throws InterruptedException {
-		if(keyLeft==true) {
-			if(player.getDistance()+1100==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
-				monsterSpawn();
-			}				
+		if(keyLeft==true) {				
 			player.p_moveLeft();
 			System.out.println(player.getDistance());
 		}else if(keyRight==true) {
@@ -362,13 +359,9 @@ public class GamePanel extends JPanel{
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
 				TimeUnit.SECONDS.sleep(3);
-				//for (int i = 0; i < monster.getMonsterList().size(); i++) {
-				//	monster.getMonsterList().get(i).setPlayer(null);
-				//}
 				player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10+player.getHp()/200*100);
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
-				//frame.getContentPane().remove(this);
 				frame.requestFocus();
 				setEndTime(getTime()); //게임 클리어 시간
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-700)) {
@@ -534,18 +527,18 @@ public class GamePanel extends JPanel{
 							&& tempJelly.getY() + tempJelly.getWidth() * 80 / 100 <= foot
 							) {
 
-//						if (tempJelly.getImage() == jellyHPIc.getImage()) {
-//							if ((c1.getHealth() + 100) > 1000) {
-//								c1.setHealth(1000);
-//							} else {
-//								c1.setHealth(c1.getHealth() + 100);
-//							}
-//						}
+						
 					if(tempJelly.getImage()!=null) {
 						if(tempJelly.getImage()==jelly1Ic.getImage()) {
 							player.setScore(player.getScore()+30); // 총점수에 젤리 점수를 더한다
 						}else if(tempJelly.getImage()==jelly2Ic.getImage()) {
 							player.setScore(player.getScore()+100); // 총점수에 젤리 점수를 더한다
+						}else if (tempJelly.getImage() == jellyHPIc.getImage()) {
+							if ((player.getHp() + 200) > 1000) {
+								player.setScore(player.getScore()+100);
+							} else {
+								player.setHp(player.getHp() + 200);
+							}
 						}
 						tempJelly.setImage(null); // 젤리의 이미지를 이펙트로 바꾼다
 					}else {
