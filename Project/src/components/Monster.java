@@ -17,6 +17,11 @@ public class Monster {
 	private ArrayList<MonsterThread> monsterList = new ArrayList<>(); //Monster °´Ã¼¸¦ ´ã´Â ArrayList
 	private ArrayList<Shot> shotList;
 	
+	private int monstercnt=0;
+	
+	public int getMonsterCnt() {
+		return monstercnt;
+	}
 	Monster(){ 
 		
 	}
@@ -35,20 +40,36 @@ public class Monster {
     	monsterList.clear();
 		monsterList.add(new MonsterThread(1200, 450, 100, "images/monsters/Áö··ÀÌ±«¹°.gif", player));
 	    //monsterList.add(new GunMonster(1600, 400, 130, "images/monsters/¹°°É·¹±«¹°7x.gif", player));
-	    monsterList.add(new MonsterThread(1200, 450, 100, "images/monsters/½½¶óÀÓ±«¹°1.gif", player));
-	    monsterList.add(new MonsterThread(1300, 400, 100, "images/monsters/Ã¥±«¹°7x.gif", player));	
-	    monsterList.add(new MonsterThread(4500, 400, 100, "images/monsters/³¯°³±«¹°7x.gif", player));		
-	    monsterList.add(new MonsterThread(5600, 400, 100, "images/monsters/½½¶óÀÓ±«¹°1x4.gif", player));		
+	    monsterList.add(new MonsterThread(1200, 450, 100, "images/monsters/½½¶óÀÓ±«¹°.gif", player));
+	    /*monsterList.add(new MonsterThread(1300, 400, 100, "images/monsters/Ã¥±«¹°.gif", player));	
+	    monsterList.add(new MonsterThread(4500, 400, 100, "images/monsters/³¯°³±«¹°.gif", player));		
+	    monsterList.add(new MonsterThread(5600, 400, 100, "images/monsters/½½¶óÀÓ±«¹°.gif", player));		
 	    monsterList.add(new MonsterThread(7500, 400, 100, "images/monsters/Ã¥±«¹°.gif", player));		
-	    monsterList.add(new MonsterThread(9600, 400, 100, "images/monsters/³ë¶õ»ö½½¶óÀÓ±«¹°1x4.gif", player));		
-	    monsterList.add(new MonsterThread(10000, 400, 100, "images/monsters/¹°°É·¹±«¹°7x.gif", player));		
+	    monsterList.add(new MonsterThread(9600, 400, 100, "images/monsters/³ë¶õ»ö½½¶óÀÓ±«¹°.gif", player));		
+	    monsterList.add(new MonsterThread(10000, 400, 100, "images/monsters/¹°°É·¹±«¹°.gif", player));		
 	    monsterList.add(new MonsterThread(8000, 400, 100, "images/monsters/Áö··ÀÌ±«¹°.gif", player));		
 	    monsterList.add(new MonsterThread(10600, 400, 100, "images/monsters/³ë¶õ»ö½½¶óÀÓ±«¹°.gif", player));		
-	    monsterList.add(new MonsterThread(12000, 400, 100, "images/monsters/¹°°É·¹±«¹°7x.gif", player));		
-	    monsterList.add(new MonsterThread(13000, 400, 100, "images/monsters/Áö··ÀÌ±«¹°.gif", player));
+	    monsterList.add(new MonsterThread(12000, 400, 100, "images/monsters/¹°°É·¹±«¹°.gif", player));		
+	    monsterList.add(new MonsterThread(13000, 400, 100, "images/monsters/Áö··ÀÌ±«¹°.gif", player));*/
         for (int i = 0; i < monsterList.size(); i++) {
         	monsterList.get(i).start();
         }
-
+    }
+    MonsterThread[] monster = {
+    		new MonsterThread(2250, 400, 100, "images/monsters/³¯°³±«¹°.gif", player),
+    		new MonsterThread(2500, 400, 100, "images/monsters/½½¶óÀÓ±«¹°.gif", player),
+    		new MonsterThread(4000, 400, 100, "images/monsters/½½¶óÀÓ±«¹°.gif", player)
+    		};
+    public void addMonster(int x) {
+    	System.out.println("½ÇÇà");
+    	System.out.println(x);
+    	monster[monstercnt].setX(x);
+    	monsterList.add(monster[monstercnt]);
+    	System.out.println(monsterList.size());
+    	System.out.println(monsterList.get(monsterList.size()-1).getX()+""+monsterList.get(monsterList.size()-1).getImage());
+    	monsterList.get(monsterList.size()-1).start();
+    	if(monstercnt< monster.length-1) {
+    		monstercnt++;
+    	}
     }
 }
