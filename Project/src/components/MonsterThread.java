@@ -153,11 +153,9 @@ public class MonsterThread extends Thread{
 						player.damaged(200);
 		      			System.out.println("player.damaged " + shot.toString());
 
-					} 
 				}
-				
-			}
-			
+    		}
+    		}
 
     	}catch (Exception e) {
     		
