@@ -57,7 +57,7 @@ public class GamePanel extends JPanel{
 	private Image hp = hpImg.getImage();
 	
 	// 발판 이미지 아이콘들
-	private ImageIcon field1Ic = new ImageIcon("images/map/fieldIc1.png"); // 발판
+	private ImageIcon field1Ic = new ImageIcon("images/map/발판.png"); // 발판
 	private ImageIcon field2Ic = new ImageIcon("images/map/fieldIc2.png"); // 공중발판
 
 	// 장애물 이미지 아이콘들
