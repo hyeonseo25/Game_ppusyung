@@ -365,7 +365,7 @@ public class GamePanel extends JPanel{
 				//for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				//	monster.getMonsterList().get(i).setPlayer(null);
 				//}
-				player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10);
+				player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10+player.getHp()/200*100);
 				main.getClearPanel().setScore(player.getScore());
 				cl.show(frame.getContentPane(), "clear");
 				//frame.getContentPane().remove(this);
