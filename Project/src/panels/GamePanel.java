@@ -61,7 +61,7 @@ public class GamePanel extends JPanel{
 	private ImageIcon field2Ic = new ImageIcon("images/map/공중발판.png"); // 공중발판
 
 	// 장애물 이미지 아이콘들
-	private ImageIcon tacle10Ic = new ImageIcon("images/map/tacle2.png"); // 1칸 장애물
+	private ImageIcon tacle10Ic = new ImageIcon("images/map/무당벌레장애물.gif"); // 1칸 장애물
 	
 	// 젤리 이미지 아이콘들
 	private ImageIcon jelly1Ic = new ImageIcon("images/map/머스캣드링크.png");

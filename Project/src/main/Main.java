@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import panels.ClearPanel;
 import panels.GameOverPanel;
 import panels.GamePanel;
+import panels.InfoPanel;
 import panels.RankingPanel;
 import panels.StartPanel;
 
@@ -22,6 +23,7 @@ public class Main extends ListenerAdapter{
 	private GameOverPanel gameOverPanel; 	// 게임오버패널
 	private ClearPanel clearPanel; 			// 클리어패널
 	private RankingPanel rankingPanel; 		// 랭킹 패널
+	private InfoPanel infoPanel;			// 설명 패널
 	
 	private CardLayout cl; // 카드 레이아웃 - 패널 여러개를 돌려가며 보여줄수 있게 해줌
 	
@@ -60,6 +62,7 @@ public class Main extends ListenerAdapter{
 		gameOverPanel = new GameOverPanel(this);
 		clearPanel = new ClearPanel(this);
 		rankingPanel = new RankingPanel(this);
+		infoPanel = new InfoPanel(this);
 		
 		// 모든 패널의 레이아웃을 null로 변환
 		startPanel.setLayout(null);
@@ -67,6 +70,7 @@ public class Main extends ListenerAdapter{
 		gameOverPanel.setLayout(null);
 		clearPanel.setLayout(null);
 		rankingPanel.setLayout(null);
+		infoPanel.setLayout(null);
 		
 		// 프레임에 패널들을 추가한다.(카드 레이아웃을 위한 패널들)
 		frame.getContentPane().add(startPanel, "start");
@@ -74,6 +78,7 @@ public class Main extends ListenerAdapter{
 		frame.getContentPane().add(gameOverPanel, "gameover");
 		frame.getContentPane().add(clearPanel, "clear");
 		frame.getContentPane().add(rankingPanel, "ranking");
+		frame.getContentPane().add(infoPanel, "info");
 		
 		cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 		startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
@@ -116,6 +121,9 @@ public class Main extends ListenerAdapter{
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic();
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
+			
+		}else if(e.getComponent().getName().equals("InfoButton")) {
+			cl.show(frame.getContentPane(), "info"); // start패널을 카드레이아웃 최상단으로 변경
 		}else if (e.getComponent().getName().equals("ExitButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			System.exit(0); 
 		}
