@@ -22,7 +22,7 @@ public class MonsterThread extends Thread{
 	private boolean status = false; // 생존여부
 	private boolean fall = false;
 	private boolean jump = false;
-	private boolean flag = false;
+	protected boolean flag = false;
 	private int field = 400;
 	
 	Player player;
@@ -76,7 +76,7 @@ public class MonsterThread extends Thread{
 
 
 	public void setHp(int hp) {
-		this.hp += hp;
+		this.hp = hp;
 	}
 	public int getHp() {
 		return hp;
@@ -143,27 +143,6 @@ public class MonsterThread extends Thread{
 //    		}
     		
     		//총알이 하나일때 계속 실행되어서 
-    		
-    		for(int i = 0; i < GunMonster.GunShotList.size(); i++) {
-				Shot shot = GunMonster.GunShotList.get(i);
-
-				int head = player.getY() - player.getImage().getHeight(null);
-			
-				int foot = player.getY() + player.getImage().getHeight(null);
-
-				int shotD = shot.getShot_direction();
-				
-				//총알이 왼쪽으로 날아갈 때 
-				if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && player.getX() >= shot.getX()) {
-					if(player.getInvincibility()==255) {
-						GunMonster.GunShotList.remove(i);
-						player.damaged(200);
-		      			System.out.println("player.damaged " + shot.toString());
-
-				}
-    		}
-    		}
-
     	}catch (Exception e) {
     		
 		}
@@ -174,7 +153,6 @@ public class MonsterThread extends Thread{
     
     
     public void run() {
-    	
 				while(true) {
 					if(flag==false) {
 						m_move();
@@ -230,8 +208,7 @@ public class MonsterThread extends Thread{
 							}
 							setStatus(false);
 							setImage(null);
-							break;
-							
+							break;	
 						}
 						Thread.sleep(30);
 

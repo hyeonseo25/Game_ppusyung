@@ -264,12 +264,12 @@ public class GamePanel extends JPanel{
 		
 	private void playMusic() {
 		 try {
-			 File file = new File("music/backgroundMusic.wav");
+			 File file = new File("music/eatItem.wav");
 			 AudioInputStream stream = AudioSystem.getAudioInputStream(file);
 			 backgroundMusic = AudioSystem.getClip();
 			 backgroundMusic.open(stream);
 			 backgroundMusic.start();
-			 backgroundMusic.loop(-1);
+			 backgroundMusic.loop(0);
 	     } catch(Exception e) {
 	    	 e.printStackTrace();
 	     }	
@@ -326,12 +326,11 @@ public class GamePanel extends JPanel{
 	public void keyCheck() {
 		if(keyLeft==true) {				
 			player.p_moveLeft();
-			System.out.println(player.getDistance());
 		}else if(keyRight==true) {
 			if(player.getDistance()+1100==monsterSpawnpoint[monster.getMonsterCnt()]&&nowMonster==monster.getMonsterCnt()) {
 				monsterSpawn();
 			}
-			System.out.println(player.getDistance() );
+			//System.out.println(player.getDistance() );
 			if(player.getDistance()>end) {
 				clear();
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-700)) {
@@ -396,9 +395,25 @@ public class GamePanel extends JPanel{
 			super.paintComponent(g);
 			g.drawImage(back, backX, 0, this);
 			ArrayList<Shot> list = player.getShots();
-			ArrayList<Shot> GunMonster_shotlist = GunMonster.GunShotList;
+//			for (int i = 0; i < monster.getMonsterList().size(); i++) {
+//				if(monster.getMonsterList().get(i) instanceof GunMonster){
+//					GunMonster_shotlist = ((GunMonster) monster.getMonsterList().get(i)).getShotList();
+//			}
+//		}
+//			for (int i = 0; i < monster.getMonsterList().size(); i++) {
+//				monster.getMonsterList().get(i).getClass().equals("class components.GunMonster"){
+//					
+//				}
+//			}
+			//ArrayList<Shot> GunMonster_shotlist = monster.getMonsterList().get;
 			//monsterList에 있는 monster 객체들을 그림
 			for (int i = 0; i < monster.getMonsterList().size(); i++) {
+				if(monster.getMonsterList().get(i) instanceof GunMonster){
+					ArrayList<Shot> GunMonster_shotlist = ((GunMonster) monster.getMonsterList().get(i)).getShotList();
+					for(int j=0; j<GunMonster_shotlist.size();j++) {
+						g.drawImage(GunMonster_shotlist.get(j).getImage(), GunMonster_shotlist.get(j).getX(), GunMonster_shotlist.get(j).getY(), this);
+					}
+				}
 				g.drawImage(monster.getMonsterList().get(i).getImage(), monster.getMonsterList().get(i).getX(), monster.getMonsterList().get(i).getY(), this);
 			}
 			for(int i=0; i<list.size();i++) {
@@ -409,9 +424,7 @@ public class GamePanel extends JPanel{
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) player.getInvincibility()/255));
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
-			for(int i=0; i<GunMonster_shotlist.size();i++) {
-				g.drawImage(GunMonster_shotlist.get(i).getImage(), GunMonster_shotlist.get(i).getX(), GunMonster_shotlist.get(i).getY(), this);
-			}
+			
 			for(int i=0; i<player.getHp()/200; i++) {
 				g.drawImage(hp, 10+i*70, 10, this);
 			}

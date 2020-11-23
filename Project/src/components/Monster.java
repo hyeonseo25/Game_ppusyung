@@ -61,7 +61,7 @@ public class Monster {
         }
     }
     MonsterThread[] monster = {
-    		new MonsterThread(2250, 450, 100, "images/monsters/노란색슬라임괴물.gif", player),
+    		new GunMonster(2250, 500, 100, "images/monsters/노란색슬라임괴물.gif", player),
     		new MonsterThread(2500, 450, 100, "images/monsters/슬라임괴물.gif", player),
     		new MonsterThread(3350, 400, 100, "images/monsters/날개괴물.gif", player),
     		new MonsterThread(4000, 450, 100, "images/monsters/물걸레괴물.gif", player),
@@ -83,8 +83,6 @@ public class Monster {
     	monster[monstercnt].setPlayer(player);
     	monster[monstercnt].setX((int) view.getWidth()+50);
     	monsterList.add(monster[monstercnt]);
-    	System.out.println(monsterList.size());
-    	System.out.println(monsterList.get(monsterList.size()-1).getX());
     	monsterList.get(monsterList.size()-1).start();
     	if(monstercnt< monster.length-1) {
     		monstercnt++;
