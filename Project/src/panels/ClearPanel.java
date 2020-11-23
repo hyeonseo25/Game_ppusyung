@@ -35,6 +35,9 @@ public class ClearPanel extends JPanel{
 	public String getName() {
 		return name.getText();
 	}
+	public void setName(String n) {
+		this.name.setText(n);
+	}
 
 	private ImageIcon backImg = new ImageIcon("images/클리어패널배경.png");
 	private Image back = backImg.getImage();	
@@ -42,7 +45,7 @@ public class ClearPanel extends JPanel{
 	public String getScoreText() {
 		return scoreText;
 	}
-
+	
 	public void setScoreText(String scoreText) {
 		this.scoreText = scoreText;
 	}
@@ -56,8 +59,6 @@ public class ClearPanel extends JPanel{
 		scoreLabel = new JLabel(Integer.toString(score));
 		scoreLabel.setLocation(500, 50);
 		add(scoreLabel);
-		
-		
 		
 		Font font=new Font("돋음", Font.BOLD, 35);
 		name = new JTextField("이름을 입력해주세요");

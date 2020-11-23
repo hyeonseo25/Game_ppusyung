@@ -36,7 +36,6 @@ import components.Field;
 import components.Tacle;
 import components.Jelly;
 import main.Main;
-import util.DBConnection;
 import util.Util;
 
 public class GamePanel extends JPanel{
@@ -190,10 +189,8 @@ public class GamePanel extends JPanel{
 	}
 	// 맵의 구조를 그림판 이미지를 받아서 세팅
 		private void initMap(int num) {
-
 			String tempMap = null;
-			int tempMapLength = 0;
-
+			
 			if (num == 1) {
 				tempMap = "images/map/map1.png";
 			} else if (num == 2) {
@@ -217,17 +214,19 @@ public class GamePanel extends JPanel{
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
 
-					} else if (colorArr[i][j] == 16776444) { // 색값이 13158400일 경우 노란젤리 생성
+					} else if (colorArr[i][j] == 11731002) { // 색값이 13158400일 경우 노란젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
 
-					} else if (colorArr[i][j] == 9868800) { // 색값이 9868800일 경우 노란젤리 생성
+					} else if (colorArr[i][j] == 10882462) { // 색값이 9868800일 경우 노란젤리 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
 
 					}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
 						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
 						jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
+					}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
+						System.out.println("1 "+colorArr[i][j]);
 					}
 				}
 			}
@@ -249,8 +248,6 @@ public class GamePanel extends JPanel{
 					if (colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
 						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
 						tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
-					} else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0){
-						System.out.println(colorArr[i][j]);
 					}
 						//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
 //						// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
@@ -326,7 +323,7 @@ public class GamePanel extends JPanel{
 			}
 		});
 	}
-	public void keyCheck() throws InterruptedException {
+	public void keyCheck() {
 		if(keyLeft==true) {				
 			player.p_moveLeft();
 			System.out.println(player.getDistance());
@@ -336,17 +333,7 @@ public class GamePanel extends JPanel{
 			}
 			System.out.println(player.getDistance() );
 			if(player.getDistance()>end) {
-				closeMusic();
-				player.setDistance(0);
-				time.interrupt();
-				keySpace = false;
-				Sound("music/clearMusic.wav", false);
-				TimeUnit.SECONDS.sleep(3);
-				player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10+player.getHp()/200*100);
-				main.getClearPanel().setScore(player.getScore());
-				cl.show(frame.getContentPane(), "clear");
-				frame.requestFocus();
-				setEndTime(getTime()); //게임 클리어 시간
+				clear();
 			}else if(player.getDistance()>back.getWidth(null)-(view.width-700)) {
 				player.p_moveRight();
 			}else if(player.getX()>700) {  //플레이어가 중간을 넘으면
@@ -603,6 +590,24 @@ public class GamePanel extends JPanel{
 		cl.show(frame.getContentPane(), "gameover");
 		main.getGameOverPanel().playMusic();
 		frame.requestFocus();
+	}
+	public void clear() {
+		closeMusic();
+		player.setDistance(0);
+		time.interrupt();
+		keySpace = false;
+		Sound("music/clearMusic.wav", false);
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		main.getClearPanel().setName("이름을 입력해주세요");
+		player.setScore(player.getScore()+Integer.valueOf(time.getSeconds())*10+player.getHp()/200*100);
+		main.getClearPanel().setScore(player.getScore());
+		cl.show(frame.getContentPane(), "clear");
+		frame.requestFocus();
+		setEndTime(getTime()); //게임 클리어 시간
 	}
 	public void setCpField() {
 		player.setField(this.field);
