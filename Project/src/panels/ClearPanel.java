@@ -32,16 +32,12 @@ public class ClearPanel extends JPanel{
 	private ImageIcon ClearMessageImg = new ImageIcon("images/게임클리어.gif");
 	private Image ClearMessage = ClearMessageImg.getImage();
 	
+	public String getName() {
+		return name.getText();
+	}
 
-	
 	private ImageIcon backImg = new ImageIcon("images/클리어패널배경.png");
-	private Image back = backImg.getImage();
-	
-
-
-
-	
-	
+	private Image back = backImg.getImage();	
 	
 	public String getScoreText() {
 		return scoreText;
@@ -88,8 +84,7 @@ public class ClearPanel extends JPanel{
 		
 		
 		applybt = new JButton(new ImageIcon("images/button/clearPanelBtn.png"));
-		applybt.setName("ReplayButton");
-	
+		applybt.setName("ReplayButton3");
 
 		applybt.setBorderPainted(false);
 		applybt.setFocusPainted(false);
@@ -117,8 +112,10 @@ public class ClearPanel extends JPanel{
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				DBConnection db = new DBConnection();
-				db.insertDB(name.getText() , Integer.toString(score));
+				if(!(getName().equals("")||getName().equals("이름을 입력해주세요"))) {
+					DBConnection db = new DBConnection();
+					db.insertDB(name.getText() , Integer.toString(score));	
+				}
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {}
@@ -134,19 +131,11 @@ public class ClearPanel extends JPanel{
 
 
 		add(applybt);
-		
-		rankbt = new JButton();
-		rankbt.setName("RankingButton");
-		rankbt.setText("랭킹");
-		rankbt.setBounds(100, 100, 200, 100);
-		rankbt.addMouseListener((MouseListener) o);
-		add(rankbt);
-		
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub	
 		super.paintComponent(g);
 		
 		

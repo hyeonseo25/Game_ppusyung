@@ -63,6 +63,8 @@ public class GamePanel extends JPanel{
 	// 장애물 이미지 아이콘들
 	private ImageIcon tacle10Ic = new ImageIcon("images/map/무당벌레장애물.gif"); // 1칸 장애물
 	
+	private ImageIcon redBg = new ImageIcon("images/map/redBg.png"); // 피격시 붉은 화면
+	
 	// 젤리 이미지 아이콘들
 	private ImageIcon jelly1Ic = new ImageIcon("images/map/머스캣드링크.png");
 	private ImageIcon jelly2Ic = new ImageIcon("images/map/찐만두.png");
@@ -154,7 +156,6 @@ public class GamePanel extends JPanel{
 		this.frame = frame;
 		this.cl = cl;
 		this.main = (Main)o;
-		test(); // 고치면 삭제
 		playGame();
 	}
 	public GamePanel() {
@@ -173,25 +174,6 @@ public class GamePanel extends JPanel{
 		setCpField();
 		repaintThread();
 		playMusic();
-	}
-	// 고치면 삭제
-	private void test() {
-		JButton gameoverbt;
-		JButton clearbt;
-		
-		gameoverbt = new JButton();
-		gameoverbt.setName("GameoverButton");
-		gameoverbt.setText("게임오버");
-		gameoverbt.setBounds(1690, 10, 100, 50);
-		gameoverbt.addMouseListener((MouseListener) main);
-		add(gameoverbt);
-		
-		clearbt = new JButton();
-		clearbt.setName("ClearButton");
-		clearbt.setText("클리어");
-		clearbt.setBounds(1800, 10, 100, 50);
-		clearbt.addMouseListener((MouseListener) main);
-		add(clearbt);
 	}
 	private void playGame() {
 		setFocusable(true);
@@ -355,6 +337,7 @@ public class GamePanel extends JPanel{
 			System.out.println(player.getDistance() );
 			if(player.getDistance()>end) {
 				closeMusic();
+				player.setDistance(0);
 				time.interrupt();
 				keySpace = false;
 				Sound("music/clearMusic.wav", false);
@@ -444,6 +427,11 @@ public class GamePanel extends JPanel{
 			}
 			for(int i=0; i<player.getHp()/200; i++) {
 				g.drawImage(hp, 10+i*70, 10, this);
+			}
+			if (player.getInvincibility()==80) {
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 125 / 255));
+				g.drawImage(redBg.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
 			}
 			for (int i = 0; i < fieldList.size(); i++) {
 
