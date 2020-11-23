@@ -1,8 +1,13 @@
 package components;
 
 import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 
 import util.Util;
@@ -221,6 +226,7 @@ public class MonsterThread extends Thread{
 						if(getHp() <= 0) { 
 							if(isStatus()==true) {
 								player.setScore(player.getScore()+200);
+								Sound("music/monsterDie.wav", false);
 							}
 							setStatus(false);
 							setImage(null);
@@ -297,5 +303,21 @@ public class MonsterThread extends Thread{
 			}
 		}).start();
 	}
-
+	public void Sound(String file, boolean Loop){
+		//사운드재생용메소드
+		//메인 클래스에 추가로 메소드를 하나 더 만들었습니다.
+		//사운드파일을받아들여해당사운드를재생시킨다.
+		Clip clip;
+		try {
+			AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+			clip = AudioSystem.getClip();
+			clip.open(ais);
+			clip.start();
+			if (Loop) clip.loop(-1);
+			//Loop 값이true면 사운드재생을무한반복시킵니다.
+			//false면 한번만재생시킵니다.
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

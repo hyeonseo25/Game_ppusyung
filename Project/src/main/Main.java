@@ -114,6 +114,7 @@ public class Main extends ListenerAdapter{
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
 			
 		}else if(e.getComponent().getName().equals("InfoButton")) {
+			startPanel.closeMusic();
 			cl.show(frame.getContentPane(), "info"); // start패널을 카드레이아웃 최상단으로 변경
 		}else if (e.getComponent().getName().equals("ReplayButton3")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			if (clearPanel.getName().equals("")||clearPanel.getName().equals("이름을 입력해주세요")) {

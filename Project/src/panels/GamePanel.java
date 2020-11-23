@@ -501,9 +501,8 @@ public class GamePanel extends JPanel{
 							&& tempJelly.getY() + tempJelly.getWidth() * 20 / 100 >= player.getY()
 							&& tempJelly.getY() + tempJelly.getWidth() * 80 / 100 <= foot
 							) {
-
-						
 					if(tempJelly.getImage()!=null) {
+						Sound("music/eatItem.wav", false);
 						if(tempJelly.getImage()==jelly1Ic.getImage()) {
 							player.setScore(player.getScore()+30); // 총점수에 젤리 점수를 더한다
 						}else if(tempJelly.getImage()==jelly2Ic.getImage()) {
