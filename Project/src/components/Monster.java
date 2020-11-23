@@ -62,7 +62,7 @@ public class Monster {
     }
     MonsterThread[] monster = {
     		new MonsterThread(2250, 450, 100, "images/monsters/노란색슬라임괴물.gif", player),
-    		new MonsterThread(2500, 450, 100, "images/monsters/노란색슬라임괴물.gif", player),
+    		new MonsterThread(2500, 450, 100, "images/monsters/슬라임괴물.gif", player),
     		new MonsterThread(3350, 400, 100, "images/monsters/날개괴물.gif", player),
     		new MonsterThread(4000, 450, 100, "images/monsters/물걸레괴물.gif", player),
     		new MonsterThread(4190, 450, 100, "images/monsters/책괴물.gif", player),

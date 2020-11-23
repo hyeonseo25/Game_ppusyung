@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import panels.ClearPanel;
@@ -97,17 +98,7 @@ public class Main extends ListenerAdapter{
 			cl.show(frame.getContentPane(), "ranking"); // ranking패널을 카드레이아웃 최상단으로 변경
 			rankingPanel.requestFocus(); // 리스너를 ranking패널에 강제로 줌
 			
-		} else if (e.getComponent().getName().equals("GameoverButton")) { // GameoverButton이라는 이름을 가진 버튼을 눌렀다면
-			cl.show(frame.getContentPane(), "gameover"); // gameover패널을 카드레이아웃 최상단으로 변경
-			gameOverPanel.requestFocus(); // 리스너를 gameOver패널에 강제로 줌
-			gamePanel.closeMusic(); // 음악 재생 중지
-			
-		} else if (e.getComponent().getName().equals("ClearButton")) { // ClearButton이라는 이름을 가진 버튼을 눌렀다면
-			cl.show(frame.getContentPane(), "clear"); // clear패널을 카드레이아웃 최상단으로 변경
-			clearPanel.requestFocus(); // 리스너를 clear패널에 강제로 줌	
-			gamePanel.closeMusic(); // 음악 재생 중지
-			
-		}else if (e.getComponent().getName().equals("ReplayButton1")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
+		} else if (e.getComponent().getName().equals("ReplayButton1")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			gameOverPanel.closeMusic();
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic();
@@ -116,6 +107,14 @@ public class Main extends ListenerAdapter{
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic();
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
+		}else if (e.getComponent().getName().equals("ReplayButton3")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
+			if (clearPanel.getName().equals("")||clearPanel.getName().equals("이름을 입력해주세요")) {
+				JOptionPane.showMessageDialog(null, "이름을 입력해주세요"); // 캐릭터를 안골랐을경우 팝업
+			}else {
+				cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
+				startPanel.playMusic();
+				startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
+			}
 		}else if (e.getComponent().getName().equals("ExitButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			System.exit(0); 
 		}
