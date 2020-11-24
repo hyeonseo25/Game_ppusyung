@@ -1,12 +1,8 @@
 package panels;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
@@ -17,20 +13,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 
 import util.DBConnection;
 
 public class ClearPanel extends JPanel{
-	private JButton replaybt;
-	private JButton rankbt;
+
 	private JTextField name;
 	private JButton applybt;
 	private JLabel scoreLabel;
 	private String scoreText;
 	private int score; // 플레이어 점수
+	
 	private ImageIcon ClearMessageImg = new ImageIcon("images/게임클리어.gif");
 	private Image ClearMessage = ClearMessageImg.getImage();
+	
+	private ImageIcon backImg = new ImageIcon("images/클리어패널배경.png");
+	private Image back = backImg.getImage();
 	
 	public String getName() {
 		return name.getText();
@@ -39,9 +37,6 @@ public class ClearPanel extends JPanel{
 		this.name.setText(n);
 	}
 
-	private ImageIcon backImg = new ImageIcon("images/클리어패널배경.png");
-	private Image back = backImg.getImage();	
-	
 	public String getScoreText() {
 		return scoreText;
 	}
@@ -55,7 +50,6 @@ public class ClearPanel extends JPanel{
 	}
 
 	public ClearPanel(Object o){
-		
 		scoreLabel = new JLabel(Integer.toString(score));
 		scoreLabel.setLocation(500, 50);
 		add(scoreLabel);
@@ -86,27 +80,10 @@ public class ClearPanel extends JPanel{
 		
 		applybt = new JButton(new ImageIcon("images/button/clearPanelBtn.png"));
 		applybt.setName("ReplayButton3");
-
 		applybt.setBorderPainted(false);
 		applybt.setFocusPainted(false);
 		applybt.setContentAreaFilled(false);
 		applybt.setBounds(1450, 710, 200, 200);
-		
-		//TODO 디비가 먼저 들어가게 수정 / 그 뒤에 화면 전환
-		//TODO GunMoster 총알 수정 
-		
-		
-//		applybt.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				DBConnection db = new DBConnection();
-//				db.insertDB(name.getText() , Integer.toString(score));
-//				System.out.println("DB");
-//				
-//				
-//			}
-//		});
 		
 		applybt.addMouseListener(new MouseListener() {
 
@@ -127,7 +104,6 @@ public class ClearPanel extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent e) {}
 		});
-		
 		applybt.addMouseListener((MouseListener) o);
 
 
@@ -140,11 +116,11 @@ public class ClearPanel extends JPanel{
 		super.paintComponent(g);
 		
 		
-		g.drawImage(back, 0, 0, this);
+		g.drawImage(back, 0, 0, this); // 뒷배경
 		
-		g.drawImage(ClearMessage, 800, 180, this);
+		g.drawImage(ClearMessage, 800, 180, this); //게임 클리어 gif
 		g.setFont(new Font("돋음", Font.BOLD, 60)); 
-		g.drawString(Integer.toString(score), 1100, 520);
+		g.drawString(Integer.toString(score), 1100, 520); //점수
 	}
 	
 	

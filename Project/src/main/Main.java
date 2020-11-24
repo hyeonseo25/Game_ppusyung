@@ -35,12 +35,15 @@ public class Main extends ListenerAdapter{
 	public Main() {
 		init();
 	}
+	
 	public ClearPanel getClearPanel() {
 		return clearPanel;
 	}
+	
 	public GameOverPanel getGameOverPanel() {
 		return gameOverPanel;
 	}
+	
 	public CardLayout getCl() {
 		return cl;
 	}
@@ -85,6 +88,7 @@ public class Main extends ListenerAdapter{
 	
 	@Override
 	public void mousePressed(MouseEvent e) { // mouseClicked로 변경가능
+		
 		if (e.getComponent().getName().equals("StartButton")) { // StartButton이라는 이름을 가진 버튼을 눌렀다면
 			startPanel.closeMusic(); // 시작화면 음악 재생 중지
 			frame.getContentPane().remove(gamePanel); // 방금 했던 게임 패널을 프레임에서 삭제
@@ -94,20 +98,28 @@ public class Main extends ListenerAdapter{
 			frame.getContentPane().add(gamePanel, "game"); // 프레임에 게임 패널 추가
 			cl.show(frame.getContentPane(), "game"); // game패널을 카드레이아웃 최상단으로 변경
 			gamePanel.requestFocus(); // 리스너를 game패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("RankingButton")) { // RankingButton이라는 이름을 가진 버튼을 눌렀다면
+		}
+		
+		else if (e.getComponent().getName().equals("RankingButton")) { // RankingButton이라는 이름을 가진 버튼을 눌렀다면
 			startPanel.closeMusic(); // 시작화면  음악 재생 중지
 			cl.show(frame.getContentPane(), "ranking"); // ranking패널을 카드레이아웃 최상단으로 변경
 			rankingPanel.requestFocus(); // 리스너를 ranking패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("ReplayButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
+		}
+		
+		else if (e.getComponent().getName().equals("ReplayButton")) { // ReplayButton이라는 이름을 가진 버튼을 눌렀다면
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic(); // 시작화면 음악 재생
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("ReplayButton2")) { // ReplayButton2이라는 이름을 가진 버튼을 눌렀다면(게임오버 화면에서 리플레이)
+		}
+		
+		else if (e.getComponent().getName().equals("ReplayButton2")) { // ReplayButton2이라는 이름을 가진 버튼을 눌렀다면(게임오버 화면에서 리플레이)
 			gameOverPanel.closeMusic(); // 게임오버 화면 음악 재생 중지
 			cl.show(frame.getContentPane(), "start"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.playMusic(); // 시작화면 음악 재생
 			startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("ReplayButton3")) { // ReplayButton3이라는 이름을 가진 버튼을 눌렀다면(클리어 화면에서 리플레이)
+		}
+		
+		else if (e.getComponent().getName().equals("ReplayButton3")) { // ReplayButton3이라는 이름을 가진 버튼을 눌렀다면(클리어 화면에서 리플레이)
 			if (clearPanel.getName().equals("")||clearPanel.getName().equals("이름을 입력해주세요")) {
 				JOptionPane.showMessageDialog(null, "이름을 입력해주세요"); // 캐릭터를 안골랐을경우 팝업
 			}else {
@@ -115,11 +127,15 @@ public class Main extends ListenerAdapter{
 				startPanel.playMusic(); // 시작화면 음악 재생
 				startPanel.requestFocus(); // 리스너를 start패널에 강제로 줌
 			}
-		}else if(e.getComponent().getName().equals("InfoButton")) { // InfoButton이라는 이름을 가진 버튼을 눌렀다면
+		}
+		
+		else if(e.getComponent().getName().equals("InfoButton")) { // InfoButton이라는 이름을 가진 버튼을 눌렀다면
 			cl.show(frame.getContentPane(), "info"); // start패널을 카드레이아웃 최상단으로 변경
 			startPanel.closeMusic(); // 시작화면 음악 중지
 			infoPanel.requestFocus(); // 리스너를 info패널에 강제로 줌
-		}else if (e.getComponent().getName().equals("ExitButton")) { // ExitButton이라는 이름을 가진 버튼을 눌렀다면
+		}
+		
+		else if (e.getComponent().getName().equals("ExitButton")) { // ExitButton이라는 이름을 가진 버튼을 눌렀다면
 			System.exit(0); 
 		}
 	}

@@ -66,82 +66,108 @@ public class Player {
 	public boolean isFall() {
 		return fall;
 	}
+	
 	public void setFall(boolean fall) {
 		this.fall = fall;
 	}
+	
 	public int getField() {
 		return field;
 	}
+	
 	public void setField(int field) {
 		this.field = field;
 	}
+	
 	public boolean isJump() {
 		return jump;
 	}
+	
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
+	
 	public int getCountJump() {
 		return countJump;
 	}
+	
 	public void setCountJump(int countJump) {
 		this.countJump = countJump;
 	}
+	
 	public ArrayList<Shot> getShots() {
 		return shots;
 	}
+	
 	public void setShots(ArrayList<Shot> shots) {
 		this.shots = shots;
 	}
+	
 	public int getX() {
 		return x;
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public void setY(int y) {
 		this.y = y;
 	}
+	
 	public int getInvincibility() {
 		return invincibility;
 	}
+	
 	public void setInvincibility(int invincibility) {
 		this.invincibility = invincibility;
 	}
+	
 	public int getDistance() {
 		return distance;
 	}
+	
 	public void setDistance(int distance) {
 		this.distance = distance;
 	}
+	
 	public int getHp() {
 		return hp;
 	}
+	
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
+	
 	public int getScore() {
 		return score;
 	}
+	
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
 	public int getStatus() {
 		return status;
 	}
+	
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	
 	public Image getImage() {
 		return image;
 	}
+	
 	public void setImage(Image imageIcon) {
 		this.image = imageIcon;
 	}
 	
+	//player 왼쪽으로 이동 (key)
 	public void p_moveLeft() {
 		setStatus(2);
 		if(cnt == imagesLeft.length) {
@@ -157,6 +183,7 @@ public class Player {
 		}
 	}
 	
+	//player 오른쪽으로 이동 (key)
 	public void p_moveRight() {
 		setStatus(1);
 		if(cnt == images.length) {
@@ -170,6 +197,7 @@ public class Player {
 		}		
 	}
 	
+	// 화면 중간에서 오른쪽 이동(key)
 	public void p_moveRight(int num) {
 		setStatus(1);
 		if(cnt == images.length) {
@@ -180,6 +208,7 @@ public class Player {
 		distance += 10;
 	}
 	
+	// 멈출때 이미지 변겅
 	public void stop() {
 		cnt = 0;
 		if (status == 1) {
@@ -189,12 +218,14 @@ public class Player {
 		}	
 	}
 	
+	// 총알 발사
 	public void p_hit() {
 		shots.add(new Shot(mainPanel, x+50, y+15, status));
 	}
 	
+	// 데미지 받을 때 
 	public void damaged(int damage) {
-		if(invincibility == 255) {
+		if(invincibility == 255) { //투명도가 255일때
 			Sound("music/ouch.wav", false);
 			invincibility = 80;
 			this.hp -= damage;
@@ -202,6 +233,7 @@ public class Player {
 				@Override
 				public void run() {
 					try {
+						//투명도를 바꾸어준다. 
 						Thread.sleep(500);
 						invincibility=254;
 						Thread.sleep(500);
@@ -219,6 +251,7 @@ public class Player {
 			}).start();
 		}
 	}
+	
 	public void deleteShot() { // 화면 밖으로 나간 총알을 없애는 메서드
 		new Thread(new Runnable() {
 			@Override
@@ -244,6 +277,8 @@ public class Player {
 			}
 		}).start();	
 	}
+	
+	// 필드로 떨어지는 메서드 
 	public void fall() {
 		new Thread(new Runnable() {
 			@Override
@@ -291,6 +326,8 @@ public class Player {
 			}
 		}).start();
 	}
+	
+	// 점프 동작
 	public void jump() {
 		new Thread(new Runnable() {
 			@Override
@@ -321,6 +358,7 @@ public class Player {
 			}
 		}).start();
 	}
+	
 	public void Sound(String file, boolean Loop){
 		//사운드재생용메소드
 		//사운드파일을받아들여해당사운드를재생시킨다.
@@ -337,6 +375,7 @@ public class Player {
 			e.printStackTrace();
 		}
 	}
+	
 	public Player(JPanel main){
 		this.mainPanel = main;
 		setX(200);
