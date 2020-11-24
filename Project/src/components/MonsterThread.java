@@ -81,7 +81,6 @@ public class MonsterThread extends Thread{
 	public int getHp() {
 		return hp;
 	}
-
 	public boolean isFall() {
 		return fall;
 	}
@@ -100,7 +99,9 @@ public class MonsterThread extends Thread{
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
-	
+	public void reduceHp(int hp) {
+		this.hp += hp;
+	}
 	void m_move() {
 			x-=8;	
 	}
@@ -108,11 +109,7 @@ public class MonsterThread extends Thread{
 		flag=true;
 		this.x-=x;
 		flag=false;
-//		setX(Math.cos(Math.toRadians(angle)) * speed);
-//		setY(Math.sin(Math.toRadians(angle)) * speed);
 	}
-	
-	
 
     public void m_hit() {
     	try {
@@ -122,35 +119,11 @@ public class MonsterThread extends Thread{
         			player.damaged(200);
         		}
     		}
-    		
-//    		for (int i = 0; i < GunMonster.GunShotList.size(); i++) {
-//    			
-//    			Shot shot = GunMonster.GunShotList.get(i);
-//    			
-//    			if((player.getY() < shot.getY() + shot.getImage().getHeight(null) && shot.getY() < player.getY() + player.getImage().getHeight(null)) 
-//    					&& (player.getX() < shot.getX() + shot.getImage().getWidth(null) && shot.getX() < player.getX() + player.getImage().getWidth(null))) {
-//        			if(player.getInvincibility()==255) {
-//            			player.damaged(200);
-//            			System.out.println("damaged");
-//            		}
-//        			
-//        			else {
-//        				
-//            		}
-//        		}
-//    			
-//    			
-//    		}
-    		
-    		//총알이 하나일때 계속 실행되어서 
     	}catch (Exception e) {
     		
 		}
     	
     }
-    
-    
-    
     
     public void run() {
 				while(true) {
@@ -192,14 +165,13 @@ public class MonsterThread extends Thread{
 						if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
 								Player.shots.remove(i); //맞은 총알 삭제
 
-								setHp(-50); 
+								reduceHp(-50); 
 						}
 
 						//총알이 왼쪽으로 날아갈 때 
 						else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
 								Player.shots.remove(i);
-								setHp(-50); 
-								
+								reduceHp(-50);
 							}
 						if(getHp() <= 0) { 
 							if(isStatus()==true) {
