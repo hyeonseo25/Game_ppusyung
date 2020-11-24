@@ -47,6 +47,13 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
+	private ImageIcon textBackImage1 = new ImageIcon("images/backImage.png");
+	private Image textBackImg1 = textBackImage1.getImage();
+	
+	
+	private ImageIcon textBackImage2 = new ImageIcon("images/backImage2.png");
+	private Image textBackImg2 = textBackImage2.getImage();
+	
 	private Clip backgroundMusic;
 	
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
@@ -457,9 +464,16 @@ public class GamePanel extends JPanel{
 							tempTacle.getHeight(), null);
 				}
 			}
-			g.setFont(new Font("굴림체", Font.BOLD, 40));  //타이머 글씨체
+			
+			g.drawImage(textBackImg1, 875, 11, this);
+			g.drawImage(textBackImg2, 1685, 11, this);
+			
+			Font font = new Font("굴림체", Font.BOLD, 40);
+			//Font font = new Font("굴림", Font.BOLD, 40);
+			g.setFont(font);  //타이머 글씨체
+			//System.out.println(g.getFont());
 			g.drawString(getTime(), 900, 50); // 타이머 그리기
-			g.drawString(getScore(), 1500, 50); // 점수 그리기
+			g.drawString(getScore(), 1780, 50); // 점수 그리기
 			
 		}
 		public void setObject() {
@@ -468,7 +482,7 @@ public class GamePanel extends JPanel{
 			for (int i = 0; i < tacleList.size(); i++) {
 				Tacle tempTacle = tacleList.get(i); // 임시 변수에 리스트 안에 있는 개별 장애물을 불러오자
 				if ( // 무적상태가 아니고 슬라이드 중이 아니며 캐릭터의 범위 안에 장애물이 있으면 부딛힌다
-						player.getInvincibility()==255
+						player.getInvincibility()==255F
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 >= player.getX()
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 >= player.getY()
