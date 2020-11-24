@@ -181,7 +181,7 @@ public class MonsterThread extends Thread{
 				if(getHp() <= 0) { 
 					if(isStatus()==true) {
 						player.setScore(player.getScore()+200);
-						Sound("music/monsterDie.wav", false);
+						Sound("music/monsterDieSound.wav", false);
 					}
 					setStatus(false);
 					setImage(null);
