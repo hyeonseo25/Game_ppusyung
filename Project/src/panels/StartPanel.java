@@ -33,7 +33,7 @@ public class StartPanel extends JPanel{
 		Image startButton = new ImageIcon("images/button/StartButton.png").getImage();
 		Image rankButton = new ImageIcon("images/button/RankButton.png").getImage();
 		Image exitButton = new ImageIcon("images/button/ExitButton.png").getImage();
-		Image InfoButton = new ImageIcon("images/button/information.png").getImage();
+		Image InfoButton = new ImageIcon("images/button/infoButton.png").getImage();
 		
 		exitbt = new JButton(new ImageIcon("images/button/ExitButton.png"));
 		exitbt.setName("ExitButton");
@@ -62,12 +62,12 @@ public class StartPanel extends JPanel{
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
 		
-		infobt = new JButton(new ImageIcon("images/button/information.png"));
+		infobt = new JButton(new ImageIcon("images/button/infoButton.png"));
 		infobt.setName("InfoButton");
 		infobt.setBorderPainted(false);
 		infobt.setFocusPainted(false);
 		infobt.setContentAreaFilled(false);
-		infobt.setBounds(1750, 500, InfoButton.getWidth(null), InfoButton.getHeight(null));
+		infobt.setBounds((view.width/2 - InfoButton.getWidth(null)/2), 680, InfoButton.getWidth(null), InfoButton.getHeight(null));
 		infobt.addMouseListener((MouseListener) o);
 		add(infobt);
 		
