@@ -32,18 +32,23 @@ public class Shot {
 	public int getX() {
 		return x;
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public void setY(int y) {
 		this.y = y;
 	}
+	
 	public int getShot_direction() {
 		return shot_direction;
 	}
+	
 	public void setShot_direction(int status) {
 		if(status==1) {
 			shot_direction=0;
@@ -51,18 +56,24 @@ public class Shot {
 			shot_direction=180;
 		}
 	}
+	
 	public int getSpeed() {
 		return speed;
 	}
+	
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	
 	public Image getImage() {
 		return image;
 	}
+	
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	
+	// 총알이 날라가는 스레드 
 	public void s_move() {
 		new Thread(new Runnable() {
 			@Override

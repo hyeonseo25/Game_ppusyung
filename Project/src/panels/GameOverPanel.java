@@ -36,11 +36,6 @@ public class GameOverPanel extends JPanel{
 		add(replaybt);
 	}
 
-	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		g.drawImage(back, 0, 0, this);
-	}
 	public void playMusic() {
 		 try {
 			 File file = new File("music/GameOverMusic.wav");
@@ -53,7 +48,14 @@ public class GameOverPanel extends JPanel{
 	    	 e.printStackTrace();
 	     }	
 	}
+	
 	public void closeMusic() {
 		backgroundMusic.close();
 	}	
+	
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		g.drawImage(back, 0, 0, this);
+	}
 }

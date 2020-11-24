@@ -25,6 +25,8 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 		super.run();
 	}
 	
+	
+	// 총알 발사 스레드 
 	public void shot() {
 		new Thread(new Runnable() {
 			@Override
@@ -42,12 +44,13 @@ public class GunMonster extends MonsterThread{ //기존의 몬스터를 상속
 		}).start();
 	}	
 	
+	//총알이 맞는지 확인하는 스레드
 	public void gm_hit() {
 		// 총알이 하나일때 계속 실행되어서 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(isStatus()) {
+				while(isStatus()) { 
 					try {
 						for(int i = 0; i < GunShotList.size(); i++) {
 							Shot shot = GunShotList.get(i);

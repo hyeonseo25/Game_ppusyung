@@ -39,52 +39,68 @@ public class MonsterThread extends Thread{
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+	
 	public void setImage(String Image) {
 		Image monsterIcon1 = new ImageIcon(Image).getImage();
 		this.images = monsterIcon1;
 	}
+	
 	public Image getImage() {
 		return images;
 	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
+	
 	public int getX() {
 		return x;
 	}
+	
 	public void setY(double y) {
 		this.y += y;
 	}
+	
 	public int getY() {
 		return y;
 	}
+	
 	public int getField() {
 		return field;
 	}
+	
 	public void setField(int field) {
 		this.field = field;
 	}
+	
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
+	
 	public int getHp() {
 		return hp;
 	}
+	
 	public boolean isFall() {
 		return fall;
 	}
+	
 	public void setFall(boolean fall) {
 		this.fall = fall;
 	}
+	
 	public boolean isStatus() {
 		return status;
 	}
+	
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	
 	public boolean isJump() {
 		return jump;
 	}
+	
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
@@ -94,7 +110,7 @@ public class MonsterThread extends Thread{
 	}
 	
 	private void m_move() {
-			x-=8;	
+		x-=8;	
 	}
 	
 	public void m_move(int x) {
@@ -102,19 +118,6 @@ public class MonsterThread extends Thread{
 		this.x-=x;
 		flag=false;
 	}
-
-    public void m_hit() {
-    	try {
-    		if((player.getY() < getY() + getImage().getHeight(null) && getY() < player.getY() + player.getImage().getHeight(null)) 
-					&& (player.getX() < getX() + getImage().getWidth(null) && getX() < player.getX() + player.getImage().getWidth(null))) {
-    			if(player.getInvincibility()==255) {
-        			player.damaged(200);
-        		}
-    		}
-    	}catch (Exception e) {
-    		e.printStackTrace();
-		}
-    }
     
     public void run() {
     	while(true) {
@@ -139,6 +142,23 @@ public class MonsterThread extends Thread{
 		}	
     }
     
+    //player와 monster의 충돌 
+    public void m_hit() {
+    	try {
+    		// 충돌 했을 때
+    		if((player.getY() < getY() + getImage().getHeight(null) && getY() < player.getY() + player.getImage().getHeight(null)) 
+					&& (player.getX() < getX() + getImage().getWidth(null) && getX() < player.getX() + player.getImage().getWidth(null))) {
+    			if(player.getInvincibility()==255) { 
+        			player.damaged(200);
+        		}
+    		}
+    	}catch (Exception e) {
+    		e.printStackTrace();
+		}
+    }
+    
+    
+    // 총알과 player의 충돌
     public void m_remove() {
     	try {
 			for(int i = 0; i < player.getShots().size(); i++) {
@@ -178,6 +198,7 @@ public class MonsterThread extends Thread{
 		}
     }
 
+    //필드로 계속 떨어지도록 하는 스레드 
 	public void fall() {
 		new Thread(new Runnable() {
 			
@@ -210,7 +231,7 @@ public class MonsterThread extends Thread{
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-						}
+						} // end of while
 						setFall(false);
 					}
 					try {
