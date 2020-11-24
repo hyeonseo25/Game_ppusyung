@@ -595,7 +595,7 @@ public class GamePanel extends JPanel{
 	}
 	public void clear() {
 		closeMusic();
-		player.setDistance(0);
+		player.setDistance(200);
 		time.interrupt();
 		keySpace = false;
 		Sound("music/clearMusic.wav", false);
