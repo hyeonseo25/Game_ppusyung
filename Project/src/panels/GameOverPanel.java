@@ -31,7 +31,7 @@ public class GameOverPanel extends JPanel{
 	public GameOverPanel(Object o) {
 		
 		replaybt = new JButton(new ImageIcon("images/button/restartBtn.png"));
-		replaybt.setName("ReplayButton1");
+		replaybt.setName("ReplayButton2");
 		replaybt.setBorderPainted(false);
 		replaybt.setFocusPainted(false);
 		replaybt.setContentAreaFilled(false);
