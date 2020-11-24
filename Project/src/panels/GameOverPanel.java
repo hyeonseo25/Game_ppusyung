@@ -38,7 +38,7 @@ public class GameOverPanel extends JPanel{
 
 	public void playMusic() {
 		 try {
-			 File file = new File("music/GameOverMusic.wav");
+			 File file = new File("music/gameOverMusic.wav");
 			 AudioInputStream stream = AudioSystem.getAudioInputStream(file);
 			 backgroundMusic = AudioSystem.getClip();
 			 backgroundMusic.open(stream);
