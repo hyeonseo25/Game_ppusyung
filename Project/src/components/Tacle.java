@@ -12,17 +12,13 @@ public class Tacle {
 	private int width;
 	private int height;
 	
-	// 장애물 상태
-	private int state;
-	
-	public Tacle(Image image, int x, int y, int width, int height, int state) {
+	public Tacle(Image image, int x, int y, int width, int height) {
 		super();
 		this.image = image;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.state = state;
 	}
 
 	public Image getImage() {
@@ -64,15 +60,5 @@ public class Tacle {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
 	
 }
-

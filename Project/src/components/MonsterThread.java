@@ -3,7 +3,6 @@ package components;
 import java.awt.Image;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,8 +14,6 @@ import util.Util;
 public class MonsterThread extends Thread{
 	private int x = 0; 
 	private int y = 0;
-	private double angle = 180;
-	private double speed = 4;
 	private int hp;
 	private Image images;
 	private boolean status = false; // 생존여부
@@ -25,13 +22,8 @@ public class MonsterThread extends Thread{
 	protected boolean flag = false;
 	private int field = 400;
 	
-	Player player;
-	Monster monster;
+	protected Player player;
 	
-	public void setPlayer(Player player) {
-		this.player = player;
-	}	
-
 	public MonsterThread(int x, int y, int hp, String Image, Player player) {
 		setX(x);
 		setY(y);
@@ -42,9 +34,11 @@ public class MonsterThread extends Thread{
 			fall();
 		}
 		this.player = player;
-
 	}
 	
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 	public void setImage(String Image) {
 		Image monsterIcon1 = new ImageIcon(Image).getImage();
 		this.images = monsterIcon1;
@@ -94,12 +88,15 @@ public class MonsterThread extends Thread{
 	public void setJump(boolean jump) {
 		this.jump = jump;
 	}
+	
 	public void reduceHp(int hp) {
 		this.hp += hp;
 	}
-	void m_move() {
+	
+	private void m_move() {
 			x-=8;	
 	}
+	
 	public void m_move(int x) {
 		flag=true;
 		this.x-=x;
@@ -115,87 +112,75 @@ public class MonsterThread extends Thread{
         		}
     		}
     	}catch (Exception e) {
-    		
+    		e.printStackTrace();
 		}
-    	
     }
     
     public void run() {
-				while(true) {
-					if(flag==false) {
-						m_move();
-					}
-					try {
-						m_remove();
-					}catch (NullPointerException e) {
-						
-					}
-					if(isStatus()==true) {
-						m_hit();
-					}
-					if(isStatus()==false)
-						break;
-					try {
-						Thread.sleep(30);
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-				}	
-				
+    	while(true) {
+			if(flag==false) {
+				m_move();
+			}
+			try {
+				m_remove();
+			}catch (NullPointerException e) {
+				e.printStackTrace();
+			}
+			if(isStatus()==true) {
+				m_hit();
+			}
+			if(isStatus()==false)
+				break;
+			try {
+				Thread.sleep(30);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}	
     }
     
     public void m_remove() {
-				try {
-
-					for(int i = 0; i < player.getShots().size(); i++) {
-						Shot shot = player.getShots().get(i);
-
-						int head = getY() - getImage().getHeight(null);
-					
-						int foot = getY() + getImage().getHeight(null);
-	
-						int shotD = shot.getShot_direction();
-						
-						//총알이 오른쪽으로 날아갈때 
-						if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
-								player.getShots().remove(i); //맞은 총알 삭제
-
-								reduceHp(-50); 
-						}
-
-						//총알이 왼쪽으로 날아갈 때 
-						else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
-								player.getShots().remove(i);
-								reduceHp(-50);
-							}
-						if(getHp() <= 0) { 
-							if(isStatus()==true) {
-								player.setScore(player.getScore()+200);
-								Sound("music/monsterDie.wav", false);
-							}
-							setStatus(false);
-							setImage(null);
-							break;	
-						}
-						Thread.sleep(30);
-
-						}
+    	try {
+			for(int i = 0; i < player.getShots().size(); i++) {
+				Shot shot = player.getShots().get(i);
+				int head = getY() - getImage().getHeight(null);
+				int foot = getY() + getImage().getHeight(null);
+				int shotD = shot.getShot_direction();
 				
-					} catch(IndexOutOfBoundsException e) {
-						e.printStackTrace();
-					} catch(InterruptedException e) {
-						e.printStackTrace();
-					} 
-			
+				//총알이 오른쪽으로 날아갈때 
+				if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
+					player.getShots().remove(i); //맞은 총알 삭제
+					reduceHp(-50); 
+				}
+
+				//총알이 왼쪽으로 날아갈 때 
+				else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
+					player.getShots().remove(i);
+					reduceHp(-50);
+				}
+				if(getHp() <= 0) { 
+					if(isStatus()==true) {
+						player.setScore(player.getScore()+200);
+						Sound("music/monsterDie.wav", false);
+					}
+					setStatus(false);
+					setImage(null);
+					break;	
+				}
+				Thread.sleep(30);
+			}
+		} catch(IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		} catch(InterruptedException e) {
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
     }
 
-    	
-
-	
 	public void fall() {
-		
 		new Thread(new Runnable() {
-
+			
 			@Override
 			public void run() {
 				while (true) {
@@ -205,7 +190,7 @@ public class MonsterThread extends Thread{
 					if (foot < field // 공중에 있으며
 							&& !isJump() // 점프 중이 아니며
 							&& !isFall()) { // 떨어지는 중이 아닐 때
-
+						
 						setFall(true); 
 
 						long t1 = Util.getTime(); // 현재시간을 가져온다
@@ -213,30 +198,20 @@ public class MonsterThread extends Thread{
 						int set = 1; // 처음 낙하량 (0~10) 까지 테스트해보자
 
 						while (foot < field) { // 발이 발판에 닿기 전까지 반복
-
 							t2 = Util.getTime() - t1; // 지금 시간에서 t1을 뺀다
-
 							int fallY = set + (int) ((t2) / 40); // 낙하량을 늘린다.
-
 							foot = getY() + getImage().getHeight(null); // 캐릭터 발 위치 재스캔
-
-							
 							if (foot + fallY >= field) { // 발바닥+낙하량 위치가 발판보다 낮다면 낙하량을 조정한다.
 								fallY = field - foot;
 							}
-
 							setY(fallY); // Y좌표에 낙하량을 더한다
-
-							
 							try {
 								Thread.sleep(40);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
-
 						}
 						setFall(false);
-					
 					}
 					try {
 						Thread.sleep(10);
@@ -247,9 +222,9 @@ public class MonsterThread extends Thread{
 			}
 		}).start();
 	}
+	
 	public void Sound(String file, boolean Loop){
 		//사운드재생용메소드
-		//메인 클래스에 추가로 메소드를 하나 더 만들었습니다.
 		//사운드파일을받아들여해당사운드를재생시킨다.
 		Clip clip;
 		try {

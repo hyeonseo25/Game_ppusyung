@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Monster {
 	private Player player;
-	private int monstercnt=0;
+	private int monstercnt = 0; // 지금까지 추가로 생성된 몬스터의 수
 	private Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	private ArrayList<MonsterThread> monsterList = new ArrayList<>(); // Monster 객체를 담는 ArrayList
 	
@@ -30,19 +30,19 @@ public class Monster {
     		new GunMonster(11430, 400, 400, "images/monsters/날개괴물.gif", player)
     		};
 	
-	public int getMonsterCnt() {
-		return monstercnt;
-	}
-	
 	public Monster(Player player) {
 		this.player = player;
+	}
+	
+	public int getMonsterCnt() {
+		return monstercnt;
 	}
 
 	public ArrayList<MonsterThread> getMonsterList() {
 		return monsterList;
 	}
 	
-    public void createMonsters() { //메소드 호출 시 Monster 객체가 배열에 추가
+    public void createMonsters() { // 메소드 호출 시 Monster 객체가 배열에 추가
     	monsterList.clear();
 		monsterList.add(new MonsterThread(1200, 450, 100, "images/monsters/지렁이괴물.gif", player));
 		monsterList.add(new MonsterThread(1600, 450, 130, "images/monsters/물걸레괴물.gif", player));

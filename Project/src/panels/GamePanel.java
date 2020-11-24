@@ -238,7 +238,7 @@ public class GamePanel extends JPanel{
 			for (int j = 0; j < maxY; j += 2) {
 				if (colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
 					// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
-					tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
+					tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80));
 				}
 					//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
 //					// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
@@ -473,12 +473,7 @@ public class GamePanel extends JPanel{
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 >= player.getY()
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 <= foot) {
-						try {
-							player.damaged(200);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} // 피격 + 무적 쓰레드 메서드
+						player.damaged(200);
 	
 					} else if ( // 슬라이딩 아닐시 공중장애물
 						player.getInvincibility()==255
@@ -486,12 +481,7 @@ public class GamePanel extends JPanel{
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
 							&& tempTacle.getY() <= player.getY()
 							&& tempTacle.getY() + tempTacle.getHeight() * 95 / 100 > player.getY()) {
-						try {
-							player.damaged(200);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} // 피격 + 무적 쓰레드 메서드
+						player.damaged(200);
 	
 					}
 			}

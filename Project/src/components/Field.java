@@ -50,6 +50,4 @@ public class Field {
 	public void setImage(Image image) {
 		this.image = image;
 	}
-	
 }
-
