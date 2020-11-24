@@ -170,12 +170,14 @@ public class MonsterThread extends Thread{
 				//총알이 오른쪽으로 날아갈때 
 				if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
 					player.getShots().remove(i); //맞은 총알 삭제
+					Sound("music/hitSound.wav", false);
 					reduceHp(-50); 
 				}
 
 				//총알이 왼쪽으로 날아갈 때 
 				else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
 					player.getShots().remove(i);
+					Sound("music/hitSound.wav", false);
 					reduceHp(-50);
 				}
 				if(getHp() <= 0) { 

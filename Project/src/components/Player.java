@@ -226,6 +226,7 @@ public class Player {
 	// 데미지 받을 때 
 	public void damaged(int damage) {
 		if(invincibility == 255) { //투명도가 255일때
+			Sound("music/hitSound.wav", false);
 			Sound("music/ouchSound.wav", false);
 			invincibility = 80;
 			this.hp -= damage;
