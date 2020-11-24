@@ -54,6 +54,7 @@ public class Main extends ListenerAdapter{
 		frame.setUndecorated(true); // 상단 줄 없애기
 		frame.setVisible(true); // 창 보이게하기
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); // 전체화면
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		cl = new CardLayout();
 		frame.getContentPane().setLayout(cl); // 프레임을 카드레이아웃으로 변경

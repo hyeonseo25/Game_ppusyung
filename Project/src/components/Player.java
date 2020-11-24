@@ -263,7 +263,7 @@ public class Player {
 								shots.remove(i); //맞은 총알 삭제
 							}
 						}catch (IndexOutOfBoundsException e) {
-							e.printStackTrace();
+							
 						}catch (NullPointerException e) {
 							e.printStackTrace();
 						}

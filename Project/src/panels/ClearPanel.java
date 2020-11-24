@@ -3,6 +3,7 @@ package panels;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -54,6 +55,13 @@ public class ClearPanel extends JPanel{
 		name = new JTextField("이름을 입력해주세요");
 		name.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		name.setHorizontalAlignment(JTextField.CENTER);
+		// hint 리스너
+		name.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+		        	name.setText("");
+			}
+		});
 		name.setName("name");
 		name.setFont(font);
 		name.setLocation(800, 790);
