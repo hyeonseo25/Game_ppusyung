@@ -74,7 +74,7 @@ public class StartPanel extends JPanel{
 
 	public void playMusic() {
 		 try {
-			 File file = new File("music/StartMusic.wav");
+			 File file = new File("music/startPanelMusic.wav");
 			 AudioInputStream stream = AudioSystem.getAudioInputStream(file);
 			 backgroundMusic = AudioSystem.getClip();
 			 backgroundMusic.open(stream);
