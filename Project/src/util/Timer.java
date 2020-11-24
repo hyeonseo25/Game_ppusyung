@@ -3,23 +3,19 @@ package util;
 public class Timer extends Thread{
 	private int seconds;
 	
-	
-	
 	@Override
 	public void run() {
 		try {
 			while(true) {
 				passTime();
-					sleep(1000);
+				sleep(1000);
 			}
 		}catch (InterruptedException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		
 	}
 	
 	public Timer() {
-		
 		setSeconds(120);
 	}
 	
@@ -28,12 +24,10 @@ public class Timer extends Thread{
 	}
 
 	public String getSeconds() {
-		
 		return Integer.toString(seconds);
 	}
 
 	public void setSeconds(int seconds) {
 		this.seconds = seconds;
 	}
-	
 }

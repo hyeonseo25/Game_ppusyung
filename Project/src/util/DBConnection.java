@@ -3,7 +3,6 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
@@ -18,14 +17,10 @@ public class DBConnection {
 	public ResultSet rs = null;
 	
 	public DBConnection() {
-		
-		
 		try {
 			Class.forName(JDBC_DRIVER);
 			conn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
 			stmt = conn.createStatement();
-			
-
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -35,13 +30,10 @@ public class DBConnection {
 	
 	public void insertDB(String name, String score) {
 		String SQL = "insert into user (name, score) values ('"+ name + "', '" + score + "');"; 
-			
 		try {
 			stmt.executeUpdate(SQL);
-		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 }
