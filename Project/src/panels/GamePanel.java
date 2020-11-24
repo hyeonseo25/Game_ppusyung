@@ -534,7 +534,7 @@ public class GamePanel extends JPanel{
 			setCpField(1); // 플레이어 필드 설정
 			setCpField(2); // 몬스터 필드 설정
 			
-		}
+	}
 		
 		//패널 전용 스레드
 	public void movebg() {
