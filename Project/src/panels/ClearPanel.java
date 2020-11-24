@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,7 +18,6 @@ import javax.swing.JTextField;
 import util.DBConnection;
 
 public class ClearPanel extends JPanel{
-
 	private JTextField name;
 	private JButton applybt;
 	private JLabel scoreLabel;
@@ -36,19 +36,15 @@ public class ClearPanel extends JPanel{
 	public void setName(String n) {
 		this.name.setText(n);
 	}
-
 	public String getScoreText() {
 		return scoreText;
 	}
-	
 	public void setScoreText(String scoreText) {
 		this.scoreText = scoreText;
 	}
-	
 	public void setScore(int score) {
 		this.score = score;
 	}
-
 	public ClearPanel(Object o){
 		scoreLabel = new JLabel(Integer.toString(score));
 		scoreLabel.setLocation(500, 50);
@@ -58,35 +54,20 @@ public class ClearPanel extends JPanel{
 		name = new JTextField("이름을 입력해주세요");
 		name.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		name.setHorizontalAlignment(JTextField.CENTER);
-		
-		// hint 리스너
-		name.addFocusListener(new FocusListener() {
-			
-			@Override
-			public void focusLost(FocusEvent e) {
-			     	
-			}
-			@Override
-			public void focusGained(FocusEvent e) {
-		        	name.setText("");
-			}
-		});
 		name.setName("name");
 		name.setFont(font);
 		name.setLocation(800, 790);
 		name.setSize(600, 50);
 		add(name);
 		
-		
-		applybt = new JButton(new ImageIcon("images/button/clearPanelBtn.png"));
+		applybt = new JButton(new ImageIcon("images/button/ClearPanelButton.png"));
 		applybt.setName("ReplayButton3");
 		applybt.setBorderPainted(false);
 		applybt.setFocusPainted(false);
 		applybt.setContentAreaFilled(false);
 		applybt.setBounds(1450, 710, 200, 200);
 		
-		applybt.addMouseListener(new MouseListener() {
-
+		applybt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
@@ -95,18 +76,8 @@ public class ClearPanel extends JPanel{
 					db.insertDB(name.getText() , Integer.toString(score));	
 				}
 			}
-			@Override
-			public void mouseClicked(MouseEvent e) {}
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-			@Override
-			public void mouseExited(MouseEvent e) {}
-			@Override
-			public void mouseReleased(MouseEvent e) {}
 		});
 		applybt.addMouseListener((MouseListener) o);
-
-
 		add(applybt);
 	}
 
@@ -114,15 +85,9 @@ public class ClearPanel extends JPanel{
 	public void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub	
 		super.paintComponent(g);
-		
-		
 		g.drawImage(back, 0, 0, this); // 뒷배경
-		
 		g.drawImage(ClearMessage, 800, 180, this); //게임 클리어 gif
 		g.setFont(new Font("돋음", Font.BOLD, 60)); 
 		g.drawString(Integer.toString(score), 1100, 520); //점수
 	}
-	
-	
-
 }
