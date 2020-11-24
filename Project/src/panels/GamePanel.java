@@ -175,11 +175,13 @@ public class GamePanel extends JPanel{
 		repaintThread();
 		playMusic();
 	}
+	
 	private void playGame() {
 		setFocusable(true);
 		initListener();
 		initMap(2);
 	}
+	
 	// 맵의 구조를 그림판 이미지를 받아서 세팅
 	private void initMap(int num) {
 		itemList = new ArrayList<>(); // 젤리 리스트
@@ -226,8 +228,9 @@ public class GamePanel extends JPanel{
 				}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
 					System.out.println("1 "+colorArr[i][j]);
 				}
-			}
-		}
+			} // end of for j
+		} //end of for i
+		
 		for (int i = 0; i < maxX; i += 2) { // 발판은 4칸을 차지하는 공간이기 때문에 2,2사이즈로 반복문을 돌린다.
 			for (int j = 0; j < maxY; j += 2) {
 				if (colorArr[i][j] == 0) { // 색값이 0 일경우 (검은색)
@@ -239,7 +242,7 @@ public class GamePanel extends JPanel{
 					fieldList.add(new Field(field2Ic.getImage(), i*40 , j * 40, 80, 80));
 				}
 			}
-		}
+		} // end of for i
 
 		for (int i = 0; i < maxX; i += 2) { // 장애물은 4칸 이상을 차지한다. 추후 수정
 			for (int j = 0; j < maxY; j += 2) {
@@ -247,16 +250,8 @@ public class GamePanel extends JPanel{
 					// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
 					tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80));
 				}
-					//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
-//					// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
-//					tacleList.add(new Tacle(tacle20Ic.getImage(), i * 40 , j * 40, 80, 160, 0));
-//
-//				} else if (colorArr[i][j] == 16711935) { // 색값이 16711830일 경우 (핫핑크) 3칸
-//					// 좌표에 40을 곱하고, 넓이와 높이는 240으로 한다.
-//					tacleList.add(new Tacle(tacle30Ic.getImage(), i * 40 , j * 40, 80, 240, 0));
-//				}
 			}
-		}
+		} // end of for i
 		
 	}
 	private void playMusic() {
@@ -291,6 +286,7 @@ public class GamePanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
+	
 	// 리스너 추가 메서드
 	private void initListener() {
 		addKeyListener(new KeyAdapter() { // 키 리스너 추가
@@ -320,6 +316,7 @@ public class GamePanel extends JPanel{
 			}
 		});
 	}
+	
 	public void keyCheck() {
 		if(keyLeft==true) {				
 			player.p_moveLeft();
@@ -338,7 +335,8 @@ public class GamePanel extends JPanel{
 			}else {
 				player.p_moveRight();
 			}
-		}
+		} // end of else if
+		
 		if(keyEnter==true) {
 			if(cnt==5) {
 				Sound("music/Gunshot.wav", false);//총쏘는 소리
@@ -346,10 +344,12 @@ public class GamePanel extends JPanel{
 				cnt=0;
 			}
 		}
+		
 		if(keySpace==true) {
 			
 		}
 	}
+	
 	//몬스터가 움직임
 	public void repaintThread() {
 		new Thread(new Runnable() {
@@ -386,24 +386,15 @@ public class GamePanel extends JPanel{
 			
 		}).start();
 	}
+	
 	//패널에 그리기
 		public void paintComponent(Graphics g) {
 			// TODO Auto-generated method stub
 			super.paintComponent(g);
 			g.drawImage(back, backX, 0, this);
 			ArrayList<Shot> list = player.getShots();
-//			for (int i = 0; i < monster.getMonsterList().size(); i++) {
-//				if(monster.getMonsterList().get(i) instanceof GunMonster){
-//					GunMonster_shotlist = ((GunMonster) monster.getMonsterList().get(i)).getShotList();
-//			}
-//		}
-//			for (int i = 0; i < monster.getMonsterList().size(); i++) {
-//				monster.getMonsterList().get(i).getClass().equals("class components.GunMonster"){
-//					
-//				}
-//			}
-			//ArrayList<Shot> GunMonster_shotlist = monster.getMonsterList().get;
-			//monsterList에 있는 monster 객체들을 그림
+
+			// 몬스터 그리기 
 			for (int i = 0; i < monster.getMonsterList().size(); i++) {
 				if(monster.getMonsterList().get(i) instanceof GunMonster){
 					ArrayList<Shot> GunMonster_shotlist = ((GunMonster) monster.getMonsterList().get(i)).getShotList();
@@ -413,6 +404,8 @@ public class GamePanel extends JPanel{
 				}
 				g.drawImage(monster.getMonsterList().get(i).getImage(), monster.getMonsterList().get(i).getX(), monster.getMonsterList().get(i).getY(), this);
 			}
+			
+			// 총알 그리기
 			for(int i=0; i<list.size();i++) {
 				g.drawImage(list.get(i).getImage(), list.get(i).getX(), list.get(i).getY(), this);
 			}
@@ -422,14 +415,19 @@ public class GamePanel extends JPanel{
 			g.drawImage(player.getImage(), player.getX(), player.getY(), this);
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
 			
+			// 체력 그리기 
 			for(int i=0; i<player.getHp()/200; i++) {
 				g.drawImage(hp, 10+i*70, 10, this);
 			}
+			
+			
 			if (player.getInvincibility()==80) {
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 125 / 255));
 				g.drawImage(redBg.getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float) 255 / 255));
 			}
+			
+			// 필드 그리기 
 			for (int i = 0; i < fieldList.size(); i++) {
 
 				Field tempFoot = fieldList.get(i);
@@ -442,6 +440,8 @@ public class GamePanel extends JPanel{
 				}
 
 			}
+			
+			//아이템 그리기 
 			for (int i = 0; i < itemList.size(); i++) {
 
 				Item tempitem = itemList.get(i);
@@ -453,7 +453,8 @@ public class GamePanel extends JPanel{
 
 				}
 			}
-			// 장애물을 그린다
+			
+			// 장애물 그리기 
 			for (int i = 0; i < tacleList.size(); i++) {
 
 				Tacle tempTacle = tacleList.get(i);
@@ -465,23 +466,24 @@ public class GamePanel extends JPanel{
 				}
 			}
 			
-			g.drawImage(textBackImg1, 875, 11, this);
+			// 글씨 잘보이게 하기 위한 흰 뒷 배경
+			g.drawImage(textBackImg1, (view.width/2 - textBackImg1.getWidth(null)/2), 11, this);
 			g.drawImage(textBackImg2, 1685, 11, this);
 			
-			Font font = new Font("굴림체", Font.BOLD, 40);
-			//Font font = new Font("굴림", Font.BOLD, 40);
+			Font font = new Font("돋움", Font.BOLD, 40);
 			g.setFont(font);  //타이머 글씨체
-			//System.out.println(g.getFont());
-			g.drawString(getTime(), 900, 50); // 타이머 그리기
-			g.drawString(getScore(), 1780, 50); // 점수 그리기
+			g.drawString(getTime(), (view.width/2 - textBackImg1.getWidth(null)/2) + 22, 50); // 타이머 그리기
+			g.drawString(getScore(), 1750, 50); // 점수 그리기
 			
 		}
+		
+		// 게임 오브젝트 배치 
 		public void setObject() {
 			int face = player.getX() + player.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
 			int foot = player.getY() + player.getImage().getHeight(null); // 캐릭터 발 위치 재스캔
 			for (int i = 0; i < tacleList.size(); i++) {
 				Tacle tempTacle = tacleList.get(i); // 임시 변수에 리스트 안에 있는 개별 장애물을 불러오자
-				if ( // 무적상태가 아니고 슬라이드 중이 아니며 캐릭터의 범위 안에 장애물이 있으면 부딛힌다
+				if ( // 무적상태가 아니고 캐릭터의 범위 안에 장애물이 있으면 부딛힌다
 						player.getInvincibility()==255F
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 >= player.getX()
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
@@ -489,7 +491,7 @@ public class GamePanel extends JPanel{
 							&& tempTacle.getY() + tempTacle.getHeight() / 2 <= foot) {
 						player.damaged(200);
 	
-					} else if ( // 슬라이딩 아닐시 공중장애물
+					} else if ( // 공중장애물
 						player.getInvincibility()==255
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 >= player.getX()
 							&& tempTacle.getX() + tempTacle.getWidth() / 2 <= face
@@ -525,12 +527,15 @@ public class GamePanel extends JPanel{
 					}else {
 						
 					}
-				}
-			}
+					
+				} // end of first if 
+			} //end of for  
+			
 			setCpField(1); // 플레이어 필드 설정
 			setCpField(2); // 몬스터 필드 설정
 			
-		}
+	}
+		
 		//패널 전용 스레드
 	public void movebg() {
 		backX -=10; 
@@ -578,6 +583,7 @@ public class GamePanel extends JPanel{
 			}
 		}
 	}
+	
 	public void gameOver() {
 		closeMusic();
 		time.interrupt();
@@ -597,6 +603,7 @@ public class GamePanel extends JPanel{
 		main.getGameOverPanel().playMusic();
 		frame.requestFocus();
 	}
+	
 	public void clear() {
 		closeMusic();
 		player.setDistance(200);
@@ -615,12 +622,16 @@ public class GamePanel extends JPanel{
 		frame.requestFocus();
 		setEndTime(getTime()); //게임 클리어 시간
 	}
+	
+	// 컴포넌트 필드 설정 (몬스터)
 	public void setCpField() {
 		player.setField(this.field);
 		for (int i = 0; i < monster.getMonsterList().size(); i++) {
 			monster.getMonsterList().get(i).setField(this.field);
 		}
 	}
+	
+	// 컴포넌트 필드 설정 (플레이어)
 	public void setCpField(int cp) {
 		if(cp==1) {
 			int face = player.getX() + player.getImage().getWidth(null); // 캐릭터 정면 위치 재스캔
@@ -651,6 +662,7 @@ public class GamePanel extends JPanel{
 
 			field = tempNowField; // 결과를 nowField에 업데이트 한다.
 			player.setField(this.field);
+			
 		}else if(cp==2) {
 			for (int j = 0; j < monster.getMonsterList().size(); j++) {
 				MonsterThread m = monster.getMonsterList().get(j);
@@ -683,7 +695,8 @@ public class GamePanel extends JPanel{
 			}
 		}
 		
-	}
+	}// end of setCpField(int cp)
+		
 	public void monsterSpawn() {
 		monster.addMonster();
 		nowMonster++;
