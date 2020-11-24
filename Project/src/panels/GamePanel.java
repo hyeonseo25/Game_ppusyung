@@ -34,7 +34,7 @@ import components.Player;
 import components.Shot;
 import components.Field;
 import components.Tacle;
-import components.Jelly;
+import components.Item;
 import main.Main;
 import util.Util;
 
@@ -65,10 +65,10 @@ public class GamePanel extends JPanel{
 	private ImageIcon redBg = new ImageIcon("images/map/redBg.png"); // 피격시 붉은 화면
 	
 	// 젤리 이미지 아이콘들
-	private ImageIcon jelly1Ic = new ImageIcon("images/map/머스캣드링크.png");
-	private ImageIcon jelly2Ic = new ImageIcon("images/map/찐만두.png");
-	private ImageIcon jelly3Ic = new ImageIcon("images/map/포켓치킨.png");
-	private ImageIcon jellyHPIc = new ImageIcon("images/HP.png");
+	private ImageIcon item1Ic = new ImageIcon("images/map/머스캣드링크.png");
+	private ImageIcon item2Ic = new ImageIcon("images/map/찐만두.png");
+	private ImageIcon item3Ic = new ImageIcon("images/map/포켓치킨.png");
+	private ImageIcon itemHPIc = new ImageIcon("images/HP.png");
 		
 	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4520,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
@@ -78,11 +78,11 @@ public class GamePanel extends JPanel{
 	private int field = 800;
 	
 	private int backX=0;
-	private int backX2 = back.getWidth(null);
+
 	private String endTime; //게임 클리어 시간
 	
 	// 리스트 생성
-	private List<Jelly> jellyList; // 젤리 리스트
+	private List<Item> itemList; // 젤리 리스트
 	private List<Field> fieldList; // 발판 리스트
 	private List<Tacle> tacleList; // 장애물 리스트
 	
@@ -143,13 +143,7 @@ public class GamePanel extends JPanel{
 		return backX;
 	}
 	
-	public int getBackX2() {
-		return backX2;
-	}
 
-	public void setBackX2(int backx2) {
-		backX2 = backx2;
-	}
 	
 	public GamePanel(Object o, JFrame frame, CardLayout cl) {
 		this.frame = frame;
@@ -181,7 +175,7 @@ public class GamePanel extends JPanel{
 	}
 	// 맵의 구조를 그림판 이미지를 받아서 세팅
 	private void initMap(int num) {
-		jellyList = new ArrayList<>(); // 젤리 리스트
+		itemList = new ArrayList<>(); // 젤리 리스트
 
 		fieldList = new ArrayList<>(); // 발판 리스트
 
@@ -209,19 +203,19 @@ public class GamePanel extends JPanel{
 			for (int j = 0; j < maxY; j += 1) {
 				if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
+					itemList.add(new Item(item1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
 
 				} else if (colorArr[i][j] == 11731002) { // 색값이 13158400일 경우 노란젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
+					itemList.add(new Item(item2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
 
 				} else if (colorArr[i][j] == 10882462) { // 색값이 9868800일 경우 노란젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
+					itemList.add(new Item(item3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
 
 				}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
+					itemList.add(new Item(itemHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
 				}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
 					System.out.println("1 "+colorArr[i][j]);
 				}
@@ -441,14 +435,14 @@ public class GamePanel extends JPanel{
 				}
 
 			}
-			for (int i = 0; i < jellyList.size(); i++) {
+			for (int i = 0; i < itemList.size(); i++) {
 
-				Jelly tempJelly = jellyList.get(i);
+				Item tempitem = itemList.get(i);
 
-				if (tempJelly.getX() > -90 && tempJelly.getX() < view.getWidth()) {
+				if (tempitem.getX() > -90 && tempitem.getX() < view.getWidth()) {
 
-					g.drawImage(tempJelly.getImage(), tempJelly.getX(), tempJelly.getY(), tempJelly.getWidth(),
-							tempJelly.getHeight(), null);
+					g.drawImage(tempitem.getImage(), tempitem.getX(), tempitem.getY(), tempitem.getWidth(),
+							tempitem.getHeight(), null);
 
 				}
 			}
@@ -501,29 +495,29 @@ public class GamePanel extends JPanel{
 	
 					}
 			}
-			for (int i = 0; i < jellyList.size(); i++) {
+			for (int i = 0; i < itemList.size(); i++) {
 
-				Jelly tempJelly = jellyList.get(i); // 임시 변수에 리스트 안에 있는 개별 젤리를 불러오자
+				Item tempitem = itemList.get(i); // 임시 변수에 리스트 안에 있는 개별 젤리를 불러오자
 				if ( // 캐릭터의 범위 안에 젤리가 있으면 아이템을 먹는다.
-					tempJelly.getX() + tempJelly.getWidth() * 20 / 100 >= player.getX()
-							&& tempJelly.getX() + tempJelly.getWidth() * 80 / 100 <= face
-							&& tempJelly.getY() + tempJelly.getWidth() * 20 / 100 >= player.getY()
-							&& tempJelly.getY() + tempJelly.getWidth() * 80 / 100 <= foot
+					tempitem.getX() + tempitem.getWidth() * 20 / 100 >= player.getX()
+							&& tempitem.getX() + tempitem.getWidth() * 80 / 100 <= face
+							&& tempitem.getY() + tempitem.getWidth() * 20 / 100 >= player.getY()
+							&& tempitem.getY() + tempitem.getWidth() * 80 / 100 <= foot
 							) {
-					if(tempJelly.getImage()!=null) {
+					if(tempitem.getImage()!=null) {
 						Sound("music/eatItem.wav", false);
-						if(tempJelly.getImage()==jelly1Ic.getImage()) {
+						if(tempitem.getImage()==item1Ic.getImage()) {
 							player.setScore(player.getScore()+30); // 총점수에 젤리 점수를 더한다
-						}else if(tempJelly.getImage()==jelly2Ic.getImage()) {
+						}else if(tempitem.getImage()==item2Ic.getImage()) {
 							player.setScore(player.getScore()+100); // 총점수에 젤리 점수를 더한다
-						}else if (tempJelly.getImage() == jellyHPIc.getImage()) {
+						}else if (tempitem.getImage() == itemHPIc.getImage()) {
 							if ((player.getHp() + 200) > 1000) {
 								player.setScore(player.getScore()+100);
 							} else {
 								player.setHp(player.getHp() + 200);
 							}
 						}
-						tempJelly.setImage(null); // 젤리의 이미지를 이펙트로 바꾼다
+						tempitem.setImage(null); // 젤리의 이미지를 이펙트로 바꾼다
 					}else {
 						
 					}
@@ -541,17 +535,17 @@ public class GamePanel extends JPanel{
 			monster.getMonsterList().get(i).m_move(15);	
 		}
 		// 젤리위치를 -4 씩 해준다.
-		for (int i = 0; i < jellyList.size(); i++) {
+		for (int i = 0; i < itemList.size(); i++) {
 
-			Jelly tempJelly = jellyList.get(i); // 임시 변수에 리스트 안에 있는 개별 젤리를 불러오자
+			Item tempitem = itemList.get(i); // 임시 변수에 리스트 안에 있는 개별 젤리를 불러오자
 
-			if (tempJelly.getX() < -90) { // 젤리의 x 좌표가 -90 미만이면 해당 젤리를 제거한다.(최적화)
+			if (tempitem.getX() < -90) { // 젤리의 x 좌표가 -90 미만이면 해당 젤리를 제거한다.(최적화)
 
-				fieldList.remove(tempJelly);
+				fieldList.remove(tempitem);
 
 			} else {
 
-				tempJelly.setX(tempJelly.getX() - 10); // 위 조건에 해당이 안되면 x좌표를 줄이자
+				tempitem.setX(tempitem.getX() - 10); // 위 조건에 해당이 안되면 x좌표를 줄이자
 				
 			}
 		}
