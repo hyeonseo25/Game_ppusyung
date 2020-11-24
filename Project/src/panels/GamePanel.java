@@ -39,7 +39,6 @@ public class GamePanel extends JPanel{
 	private boolean keyLeft = false;
 	private boolean keyRight = false;
 	private boolean keyEnter = false;
-	private boolean keySpace = false;
 	private int cnt=5; // 총알에 딜레이 주기 위한 cnt
 	
 	//시간 뒷 배경
@@ -110,7 +109,7 @@ public class GamePanel extends JPanel{
 	
 	public String getTime() {
 		if (Integer.valueOf(time.getSeconds()) < 0) {
-			//gameOver();
+			gameOver();
 		}
 		return time.getSeconds() + "초";
 	}
