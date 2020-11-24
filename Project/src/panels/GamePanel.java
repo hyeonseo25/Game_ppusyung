@@ -177,99 +177,95 @@ public class GamePanel extends JPanel{
 	private void playGame() {
 		setFocusable(true);
 		initListener();
-		initObject();
 		initMap(2);
 	}
-	private void initObject() {
+	// 맵의 구조를 그림판 이미지를 받아서 세팅
+	private void initMap(int num) {
 		jellyList = new ArrayList<>(); // 젤리 리스트
 
 		fieldList = new ArrayList<>(); // 발판 리스트
 
 		tacleList = new ArrayList<>(); // 장애물 리스트
-	}
-	// 맵의 구조를 그림판 이미지를 받아서 세팅
-		private void initMap(int num) {
-			String tempMap = null;
-			
-			if (num == 1) {
-				tempMap = "images/map/map1.png";
-			} else if (num == 2) {
-				tempMap = "images/map/맵배치2.png";
-			}
+		String tempMap = null;
+		
+		if (num == 1) {
+			tempMap = "images/map/map1.png";
+		} else if (num == 2) {
+			tempMap = "images/map/맵배치2.png";
+		}
 
-			// 맵 정보 불러오기
-			try {
-				sizeArr = Util.getSize(tempMap); // 맵 사이즈를 배열에 저장
-				colorArr = Util.getPic(tempMap); // 맵 픽셀값을 배열에 저장
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-			
-			int maxX = sizeArr[0]; // 맵의 넓이
-			int maxY = sizeArr[1]; // 맵의 높이
-
-			for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지하기 때문에 1,1사이즈로 반복문을 돌린다.
-				for (int j = 0; j < maxY; j += 1) {
-					if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
-						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
-
-					} else if (colorArr[i][j] == 11731002) { // 색값이 13158400일 경우 노란젤리 생성
-						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
-
-					} else if (colorArr[i][j] == 10882462) { // 색값이 9868800일 경우 노란젤리 생성
-						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
-
-					}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
-						// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-						jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
-					}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
-						System.out.println("1 "+colorArr[i][j]);
-					}
-				}
-			}
-			for (int i = 0; i < maxX; i += 2) { // 발판은 4칸을 차지하는 공간이기 때문에 2,2사이즈로 반복문을 돌린다.
-				for (int j = 0; j < maxY; j += 2) {
-					if (colorArr[i][j] == 0) { // 색값이 0 일경우 (검은색)
-						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
-						fieldList.add(new Field(field1Ic.getImage(), i * 40 , j * 40, 80, 80));
-
-					} else if (colorArr[i][j] == /*6579300*/12829635) { // 색값이 12829635 일경우 (회색)
-						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
-						fieldList.add(new Field(field2Ic.getImage(), i*40 , j * 40, 80, 80));
-					}
-				}
-			}
-
-			for (int i = 0; i < maxX; i += 2) { // 장애물은 4칸 이상을 차지한다. 추후 수정
-				for (int j = 0; j < maxY; j += 2) {
-					if (colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
-						// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
-						tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
-					}
-						//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
-//						// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
-//						tacleList.add(new Tacle(tacle20Ic.getImage(), i * 40 , j * 40, 80, 160, 0));
-//
-//					} else if (colorArr[i][j] == 16711935) { // 색값이 16711830일 경우 (핫핑크) 3칸
-//						// 좌표에 40을 곱하고, 넓이와 높이는 240으로 한다.
-//						tacleList.add(new Tacle(tacle30Ic.getImage(), i * 40 , j * 40, 80, 240, 0));
-//					}
-				}
-			}
-			
+		// 맵 정보 불러오기
+		try {
+			sizeArr = Util.getSize(tempMap); // 맵 사이즈를 배열에 저장
+			colorArr = Util.getPic(tempMap); // 맵 픽셀값을 배열에 저장
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 		
+		int maxX = sizeArr[0]; // 맵의 넓이
+		int maxY = sizeArr[1]; // 맵의 높이
+
+		for (int i = 0; i < maxX; i += 1) { // 젤리는 1칸을 차지하기 때문에 1,1사이즈로 반복문을 돌린다.
+			for (int j = 0; j < maxY; j += 1) {
+				if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
+					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+					jellyList.add(new Jelly(jelly1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
+
+				} else if (colorArr[i][j] == 11731002) { // 색값이 13158400일 경우 노란젤리 생성
+					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+					jellyList.add(new Jelly(jelly2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
+
+				} else if (colorArr[i][j] == 10882462) { // 색값이 9868800일 경우 노란젤리 생성
+					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+					jellyList.add(new Jelly(jelly3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
+
+				}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
+					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
+					jellyList.add(new Jelly(jellyHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
+				}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
+					System.out.println("1 "+colorArr[i][j]);
+				}
+			}
+		}
+		for (int i = 0; i < maxX; i += 2) { // 발판은 4칸을 차지하는 공간이기 때문에 2,2사이즈로 반복문을 돌린다.
+			for (int j = 0; j < maxY; j += 2) {
+				if (colorArr[i][j] == 0) { // 색값이 0 일경우 (검은색)
+					// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+					fieldList.add(new Field(field1Ic.getImage(), i * 40 , j * 40, 80, 100));
+
+				} else if (colorArr[i][j] == /*6579300*/12829635) { // 색값이 12829635 일경우 (회색)
+					// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+					fieldList.add(new Field(field2Ic.getImage(), i*40 , j * 40, 80, 80));
+				}
+			}
+		}
+
+		for (int i = 0; i < maxX; i += 2) { // 장애물은 4칸 이상을 차지한다. 추후 수정
+			for (int j = 0; j < maxY; j += 2) {
+				if (colorArr[i][j]==15539236) { // 색값이 16776958일 경우 (빨간색) 1칸
+					// 좌표에 40을 곱하고, 넓이와 높이는 80으로 한다.
+					tacleList.add(new Tacle(tacle10Ic.getImage(), i * 40 , j * 40, 80, 80, 0));
+				}
+					//else if (colorArr[i][j] == 16711830) { // 색값이 16711830일 경우 (분홍) 2칸
+//					// 좌표에 40을 곱하고, 넓이와 높이는 160으로 한다.
+//					tacleList.add(new Tacle(tacle20Ic.getImage(), i * 40 , j * 40, 80, 160, 0));
+//
+//				} else if (colorArr[i][j] == 16711935) { // 색값이 16711830일 경우 (핫핑크) 3칸
+//					// 좌표에 40을 곱하고, 넓이와 높이는 240으로 한다.
+//					tacleList.add(new Tacle(tacle30Ic.getImage(), i * 40 , j * 40, 80, 240, 0));
+//				}
+			}
+		}
+		
+	}
 	private void playMusic() {
 		 try {
-			 File file = new File("music/eatItem.wav");
+			 File file = new File("music/backgroundMusic.wav");
 			 AudioInputStream stream = AudioSystem.getAudioInputStream(file);
 			 backgroundMusic = AudioSystem.getClip();
 			 backgroundMusic.open(stream);
 			 backgroundMusic.start();
-			 backgroundMusic.loop(0);
+			 backgroundMusic.loop(-1);
 	     } catch(Exception e) {
 	    	 e.printStackTrace();
 	     }	

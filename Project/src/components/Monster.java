@@ -65,7 +65,7 @@ public class Monster {
     		new MonsterThread(2500, 450, 100, "images/monsters/½½¶óÀÓ±«¹°.gif", player),
     		new MonsterThread(3350, 400, 100, "images/monsters/³¯°³±«¹°.gif", player),
     		new MonsterThread(4000, 450, 100, "images/monsters/¹°°É·¹±«¹°.gif", player),
-    		new MonsterThread(4190, 450, 100, "images/monsters/Ã¥±«¹°.gif", player),
+    		new GunMonster(4190, 450, 100, "images/monsters/Ã¥±«¹°.gif", player),
     		new MonsterThread(4520, 450, 100, "images/monsters/¹°°É·¹±«¹°.gif", player),
     		new MonsterThread(5570, 450, 100, "images/monsters/Áö··ÀÌ±«¹°.gif", player),
     		new MonsterThread(5990, 400, 100, "images/monsters/³¯°³±«¹°.gif", player),
