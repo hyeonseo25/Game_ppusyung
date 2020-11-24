@@ -30,8 +30,7 @@ public class MonsterThread extends Thread{
 	
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-	
+	}	
 
 	public MonsterThread(int x, int y, int hp, String Image, Player player) {
 		setX(x);
@@ -68,13 +67,9 @@ public class MonsterThread extends Thread{
 	public int getField() {
 		return field;
 	}
-
-
 	public void setField(int field) {
 		this.field = field;
 	}
-
-
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
@@ -152,8 +147,8 @@ public class MonsterThread extends Thread{
     public void m_remove() {
 				try {
 
-					for(int i = 0; i < Player.shots.size(); i++) {
-						Shot shot = Player.shots.get(i);
+					for(int i = 0; i < player.getShots().size(); i++) {
+						Shot shot = player.getShots().get(i);
 
 						int head = getY() - getImage().getHeight(null);
 					
@@ -163,14 +158,14 @@ public class MonsterThread extends Thread{
 						
 						//총알이 오른쪽으로 날아갈때 
 						if(foot >= shot.getY() && head <= shot.getY() && shotD == 0 && getX() <= shot.getX() && getX() >= player.getX()) {
-								Player.shots.remove(i); //맞은 총알 삭제
+								player.getShots().remove(i); //맞은 총알 삭제
 
 								reduceHp(-50); 
 						}
 
 						//총알이 왼쪽으로 날아갈 때 
 						else if(foot >= shot.getY() && head <= shot.getY() && shotD ==180 && getX() + 100>= shot.getX() && getX() <= player.getX()) {
-								Player.shots.remove(i);
+								player.getShots().remove(i);
 								reduceHp(-50);
 							}
 						if(getHp() <= 0) { 

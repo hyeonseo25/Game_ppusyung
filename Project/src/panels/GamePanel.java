@@ -168,7 +168,7 @@ public class GamePanel extends JPanel{
 
 		player.fall(); // field 위에 플레이어가 있으면 떨어지게
 		player.deleteShot(); // 화면 밖으로 나간 총알을 없애는 메서드
-		monster = new Monster(this, player);
+		monster = new Monster(player);
 		//monster.createMonsters(monster.getMonsterList());//프레임 생성시 Monster 객체들을 배열에 추가
 		monster.createMonsters();//프레임 생성시 Monster 객체들을 배열에 추가
 		setCpField();
@@ -210,19 +210,19 @@ public class GamePanel extends JPanel{
 			for (int j = 0; j < maxY; j += 1) {
 				if (colorArr[i][j] == 16756425) { // 색값이 16776960일 경우 기본젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					itemList.add(new Item(item1Ic.getImage(), i * 40, j * 40, 70, 70, 255, 1234));
+					itemList.add(new Item(item1Ic.getImage(), i * 40, j * 40, 70, 70));
 
 				} else if (colorArr[i][j] == 11731002) { // 색값이 13158400일 경우 노란젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					itemList.add(new Item(item2Ic.getImage(), i * 40, j * 40, 70, 70, 255, 2345));
+					itemList.add(new Item(item2Ic.getImage(), i * 40, j * 40, 70, 70));
 
 				} else if (colorArr[i][j] == 10882462) { // 색값이 9868800일 경우 노란젤리 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					itemList.add(new Item(item3Ic.getImage(), i * 40, j * 40, 70, 70, 255, 3456));
+					itemList.add(new Item(item3Ic.getImage(), i * 40, j * 40, 70, 70));
 
 				}else if (colorArr[i][j] == 2273612) { // 색값이 16737280일 경우 피 물약 생성
 					// 좌표에 40을 곱하고, 넓이와 높이는 30으로 한다.
-					itemList.add(new Item(itemHPIc.getImage(), i * 40, j * 40, 70, 70, 255, 4567));
+					itemList.add(new Item(itemHPIc.getImage(), i * 40, j * 40, 70, 70));
 				}else if(colorArr[i][j]!=16777215&&colorArr[i][j]!=12829635&&colorArr[i][j]!=0&&colorArr[i][j]!=15539236){
 					System.out.println("1 "+colorArr[i][j]);
 				}
@@ -609,7 +609,7 @@ public class GamePanel extends JPanel{
 	}
 	public void clear() {
 		closeMusic();
-		player.setDistance(0);
+		player.setDistance(200);
 		time.interrupt();
 		keySpace = false;
 		Sound("music/clearMusic.wav", false);

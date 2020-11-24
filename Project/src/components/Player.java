@@ -29,7 +29,7 @@ public class Player {
 	private int invincibility = 255;
 	private int score=0;
 	private Image image;
-	public static ArrayList<Shot> shots = new ArrayList<Shot>();
+	public ArrayList<Shot> shots = new ArrayList<Shot>();
 	private int cnt = 0;
 	private boolean fall = false;
 	private boolean jump = false;
@@ -240,15 +240,15 @@ public class Player {
 			public void run() {
 				
 				while(true) {
-					for(int i = 0; i < Player.shots.size(); i++) {
+					for(int i = 0; i < shots.size(); i++) {
 						try {
-							if(shots.get(i).getX()>view.getWidth()-100 || shots.get(i).getX()<0||shots.get(i).getX()>getX()+800) {
-								Player.shots.remove(i); //맞은 총알 삭제
+							if(shots.get(i).getX()>view.getWidth()-100 || shots.get(i).getX()<0||shots.get(i).getX()>getX()+800||shots.get(i).getX()<getX()-800) {
+								shots.remove(i); //맞은 총알 삭제
 							}
 						}catch (IndexOutOfBoundsException e) {
 							
 						}catch (NullPointerException e) {
-							
+								
 						}
 					}
 					try {
@@ -386,6 +386,7 @@ public class Player {
 		this.mainPanel = main;
 		setX(200);
 		setY(600);
+		setDistance(200);
 		setScore(0);
 		setInvincibility(255);
 		setStatus(1);
