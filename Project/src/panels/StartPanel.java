@@ -70,11 +70,8 @@ public class StartPanel extends JPanel{
 		
 		playMusic();
 	}
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(back, 0, 0, this);
-	}
+	
+
 	public void playMusic() {
 		 try {
 			 File file = new File("music/StartMusic.wav");
@@ -87,7 +84,14 @@ public class StartPanel extends JPanel{
 	    	 e.printStackTrace();
 	     }	
 	}
+	
 	public void closeMusic() {
 		backgroundMusic.close();
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(back, 0, 0, this);
 	}
 }

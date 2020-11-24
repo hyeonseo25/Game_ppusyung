@@ -43,18 +43,21 @@ public class GamePanel extends JPanel{
 	boolean check=false;
 	int cnt=5;
 	
+	//시간 뒷 배경
 	private ImageIcon textBackImage1 = new ImageIcon("images/backImage.png");
 	private Image textBackImg1 = textBackImage1.getImage();
 	
-	
+	// 점수 뒷 배경
 	private ImageIcon textBackImage2 = new ImageIcon("images/backImage2.png");
 	private Image textBackImg2 = textBackImage2.getImage();
 	
 	private Clip backgroundMusic;
 	
+	//패널 배경
 	private ImageIcon backImg = new ImageIcon("images/게임패널배경.png");
 	private Image back = backImg.getImage();
 	
+	//체력 이미지
 	private ImageIcon hpImg = new ImageIcon("images/HP.png");
 	private Image hp = hpImg.getImage();
 	
@@ -65,7 +68,8 @@ public class GamePanel extends JPanel{
 	// 장애물 이미지 아이콘들
 	private ImageIcon tacle10Ic = new ImageIcon("images/map/무당벌레장애물.gif"); // 1칸 장애물
 	
-	private ImageIcon redBg = new ImageIcon("images/map/redBg.png"); // 피격시 붉은 화면
+	// 피격시 붉은 화면
+	private ImageIcon redBg = new ImageIcon("images/map/redBg.png"); 
 	
 	// 젤리 이미지 아이콘들
 	private ImageIcon item1Ic = new ImageIcon("images/map/머스캣드링크.png");
@@ -76,6 +80,7 @@ public class GamePanel extends JPanel{
 	private int[] monsterSpawnpoint = {2250,2500,3350,4000,4190,4520,5570,5990,6080,6560,8240,8880,9460,10520,10760,11130,11430}; //몬스터 스폰 위치
 	private int nowMonster=0; // 지금까지 스폰된 몬스터의 수
 	
+	// 화면 사이즈 받아오기 
 	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	private int field = 800;
@@ -154,9 +159,8 @@ public class GamePanel extends JPanel{
 		this.main = (Main)o;
 		playGame();
 	}
-	public GamePanel() {
-		
-	}
+
+	
 	public void gameStart() {
 		time = new util.Timer();
 		time.start();
