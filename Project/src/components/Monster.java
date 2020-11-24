@@ -62,7 +62,7 @@ public class Monster {
     		new MonsterThread(6560, 450, 100, "images/monsters/슬라임괴물.gif", player),
     		new MonsterThread(8210, 400, 400, "images/monsters/날개괴물.gif", player),
     		new MonsterThread(8240, 450, 300, "images/monsters/노란색슬라임괴물.gif", player),
-    		new GunMonster(9460, 300, 1000, "images/monsters/슬라임괴물보스.gif", player),
+    		new MonsterThread(9460, 300, 1000, "images/monsters/슬라임괴물보스.gif", player),
     		new MonsterThread(10520, 450, 100, "images/monsters/책괴물.gif", player),
     		new MonsterThread(10760, 450, 100, "images/monsters/지렁이괴물.gif", player),
     		new MonsterThread(11130, 450, 100, "images/monsters/물걸레괴물.gif", player),

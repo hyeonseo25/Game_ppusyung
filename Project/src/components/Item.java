@@ -2,7 +2,7 @@ package components;
 
 import java.awt.Image;
 
-public class Jelly {
+public class Item {
 	private Image image; // 젤리 이미지
 	
 	// 젤리들의 좌표와 크기
@@ -17,7 +17,7 @@ public class Jelly {
 	// 젤리의 점수
 	private int score;
 
-	public Jelly(Image image, int x, int y, int width, int height, int alpha, int score) {
+	public Item(Image image, int x, int y, int width, int height, int alpha, int score) {
 		super();
 		this.image = image;
 		this.x = x;
@@ -67,6 +67,7 @@ public class Jelly {
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	
 
 	public int getAlpha() {
 		return alpha;
