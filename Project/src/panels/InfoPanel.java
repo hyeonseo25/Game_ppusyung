@@ -1,7 +1,6 @@
 package panels;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseListener;
@@ -10,17 +9,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import util.DBConnection;
-
 public class InfoPanel extends JPanel{
 	private JButton replaybt;
 	
 	private ImageIcon backImg = new ImageIcon("images/설명패널배경.png");
 	private Image back = backImg.getImage();
 
-
 	public InfoPanel(Object o) {
-		Image exitButton = new ImageIcon("images/button/arrowButton.png").getImage();
+		Image exitButton = new ImageIcon("images/button/ArrowButton.png").getImage();
 		
 		replaybt = new JButton(new ImageIcon(exitButton));
 		replaybt.setName("ReplayButton");
@@ -39,6 +35,5 @@ public class InfoPanel extends JPanel{
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
 		g.drawImage(back, 0, 0, this);
-	
 	}
 }

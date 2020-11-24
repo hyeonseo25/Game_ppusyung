@@ -12,25 +12,21 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameOverPanel extends JPanel{
 	private JButton replaybt;
-	private JButton rankbt;
 	
 	private ImageIcon backImg = new ImageIcon("images/게임오버패널배경.png");
 	private Image back = backImg.getImage();
 	
-	Image replaybtn = new ImageIcon("images/button/restartBtn.png").getImage();
-	
 	private Clip backgroundMusic;
-	
-	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+	private Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public GameOverPanel(Object o) {
+		Image replaybtn = new ImageIcon("images/button/RestartButton.png").getImage();
 		
-		replaybt = new JButton(new ImageIcon("images/button/restartBtn.png"));
+		replaybt = new JButton(new ImageIcon("images/button/RestartButton.png"));
 		replaybt.setName("ReplayButton2");
 		replaybt.setBorderPainted(false);
 		replaybt.setFocusPainted(false);
@@ -38,8 +34,6 @@ public class GameOverPanel extends JPanel{
 		replaybt.setBounds((view.width/2 - replaybtn.getWidth(null)/2), 700, replaybtn.getWidth(null), replaybtn.getHeight(null));	
 		replaybt.addMouseListener((MouseListener) o);
 		add(replaybt);
-		
-		
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -61,6 +55,5 @@ public class GameOverPanel extends JPanel{
 	}
 	public void closeMusic() {
 		backgroundMusic.close();
-	}
-	
+	}	
 }

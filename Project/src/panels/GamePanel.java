@@ -10,7 +10,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,9 +21,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import components.GunMonster;
@@ -39,7 +36,6 @@ import main.Main;
 import util.Util;
 
 public class GamePanel extends JPanel{
-	
 	boolean keyLeft = false;
 	boolean keyRight = false;
 	boolean keyEnter = false;

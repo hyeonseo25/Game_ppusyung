@@ -5,15 +5,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.File;
 
@@ -28,12 +24,13 @@ public class StartPanel extends JPanel{
 	
 	private Clip backgroundMusic;
 	
-	Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+	private Dimension view = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	public StartPanel(Object o) {
 		Image startButton = new ImageIcon("images/button/StartButton.png").getImage();
 		Image rankButton = new ImageIcon("images/button/RankButton.png").getImage();
 		Image exitButton = new ImageIcon("images/button/ExitButton.png").getImage();
-		Image InfoButton = new ImageIcon("images/button/infoButton.png").getImage();
+		Image InfoButton = new ImageIcon("images/button/InfoButton.png").getImage();
 		
 		exitbt = new JButton(new ImageIcon("images/button/ExitButton.png"));
 		exitbt.setName("ExitButton");
@@ -62,7 +59,7 @@ public class StartPanel extends JPanel{
 		rankbt.addMouseListener((MouseListener) o);
 		add(rankbt);
 		
-		infobt = new JButton(new ImageIcon("images/button/infoButton.png"));
+		infobt = new JButton(new ImageIcon("images/button/InfoButton.png"));
 		infobt.setName("InfoButton");
 		infobt.setBorderPainted(false);
 		infobt.setFocusPainted(false);
@@ -70,7 +67,6 @@ public class StartPanel extends JPanel{
 		infobt.setBounds((view.width/2 - InfoButton.getWidth(null)/2), 680, InfoButton.getWidth(null), InfoButton.getHeight(null));
 		infobt.addMouseListener((MouseListener) o);
 		add(infobt);
-		
 		
 		playMusic();
 	}
