@@ -479,6 +479,9 @@ public class GamePanel extends JPanel{
 						}else if(tempitem.getImage()==item2Ic.getImage()) {
 							Sound("music/eatItemSound.wav", false);
 							player.setScore(player.getScore()+100); // 총점수에 젤리 점수를 더한다
+						}else if(tempitem.getImage()==item3Ic.getImage()) {
+							Sound("music/eatItemSound.wav", false);
+							player.setScore(player.getScore()+150); // 총점수에 젤리 점수를 더한다
 						}else if (tempitem.getImage() == itemHPIc.getImage()) {
 							Sound("music/eatHpSound.wav", false);
 							if ((player.getHp() + 200) > 1000) {
